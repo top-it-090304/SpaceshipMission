@@ -1,5 +1,5 @@
 ## Spaceship Mission
-<img width="451" height="422" alt="Frame 4 (1)" src="https://github.com/user-attachments/assets/c1fb237a-706d-4d58-b895-0de48cedd4c0" />
+
 <p align="center">
   <img width="451" height="422" alt="Game icon" src="https://github.com/user-attachments/assets/c1fb237a-706d-4d58-b895-0de48cedd4c0" />
 </p>
