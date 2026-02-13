@@ -1,0 +1,71 @@
+[gd_scene load_steps=9 format=3 uid="uid://bwrjxblp4j75m"]
+
+[ext_resource type="Texture2D" uid="uid://djhtl6nf4wuk6" path="res://spaceship.jpg" id="1_wtcfe"]
+[ext_resource type="Texture2D" uid="uid://bgiyqhhxybknj" path="res://astronaut.png" id="2_0e48y"]
+[ext_resource type="Script" uid="uid://x60tr7c05l0r" path="res://player.gd" id="2_epypp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wtcfe"]
+size = Vector2(138, 166.375)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kdubu"]
+size = Vector2(74.5, 45)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_epypp"]
+size = Vector2(1148, 11.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0hol4"]
+size = Vector2(11, 654)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q6r6c"]
+size = Vector2(12, 650)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(1150, 640)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_wtcfe")
+expand_mode = 1
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("2_epypp")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(460, 520)
+scale = Vector2(0.446, 0.47)
+texture = ExtResource("2_0e48y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(460, 547)
+shape = SubResource("RectangleShape2D_wtcfe")
+
+[node name="Area2D" type="Area2D" parent="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Area2D"]
+position = Vector2(557, 427)
+shape = SubResource("RectangleShape2D_kdubu")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2(574, 638.75)
+shape = SubResource("RectangleShape2D_epypp")
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+position = Vector2(8, 318)
+shape = SubResource("RectangleShape2D_0hol4")
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+position = Vector2(1145, 320)
+shape = SubResource("RectangleShape2D_q6r6c")
