@@ -1,0 +1,129 @@
+[gd_scene load_steps=9 format=3 uid="uid://dgy78siw1rcl"]
+
+[ext_resource type="Script" uid="uid://bh24s60ojy0p5" path="res://node_2d.gd" id="1_d21ai"]
+[ext_resource type="Texture2D" uid="uid://ceaq4odu0i6ld" path="res://images for background/first room.png" id="1_wtcfe"]
+[ext_resource type="Texture2D" uid="uid://c4sigcula16wo" path="res://items/left-arrow1.png" id="3_rj586"]
+[ext_resource type="Texture2D" uid="uid://b6ccmfxjwqm1c" path="res://items/right-arrow1.png" id="4_4d7sh"]
+[ext_resource type="Texture2D" uid="uid://ovnu208su0gv" path="res://images for background/second room.png" id="5_ir8iy"]
+[ext_resource type="Texture2D" uid="uid://drs8e302yexrc" path="res://images for background/third room.png" id="6_hqns4"]
+[ext_resource type="Texture2D" uid="uid://3n7583oa112d" path="res://images for background/fourth room.png" id="7_x0ka3"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_d21ai"]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_d21ai")
+
+[node name="FirstRoom" type="Node2D" parent="."]
+
+[node name="FirstBackground" type="Sprite2D" parent="FirstRoom"]
+position = Vector2(641, 360)
+texture = ExtResource("1_wtcfe")
+
+[node name="LeftArrow" type="Button" parent="FirstRoom"]
+offset_left = 16.0
+offset_top = 336.0
+offset_right = 64.0
+offset_bottom = 384.0
+icon = ExtResource("3_rj586")
+
+[node name="RightArrow" type="Button" parent="FirstRoom"]
+offset_left = 1216.0
+offset_top = 336.0
+offset_right = 1264.0
+offset_bottom = 384.0
+icon = ExtResource("4_4d7sh")
+
+[node name="SecondRoom" type="Node2D" parent="."]
+visible = false
+
+[node name="SecondBackground" type="Sprite2D" parent="SecondRoom"]
+position = Vector2(641, 361)
+texture = ExtResource("5_ir8iy")
+
+[node name="LeftArrow" type="Button" parent="SecondRoom"]
+offset_left = 16.0
+offset_top = 336.0
+offset_right = 64.0
+offset_bottom = 384.0
+icon = ExtResource("3_rj586")
+
+[node name="RightArrow" type="Button" parent="SecondRoom"]
+offset_left = 1216.0
+offset_top = 336.0
+offset_right = 1264.0
+offset_bottom = 384.0
+icon = ExtResource("4_4d7sh")
+
+[node name="ThirdRoom" type="Node2D" parent="."]
+visible = false
+
+[node name="ThirdBackground" type="Sprite2D" parent="ThirdRoom"]
+position = Vector2(642, 362)
+texture = ExtResource("6_hqns4")
+
+[node name="LeftArrow" type="Button" parent="ThirdRoom"]
+offset_left = 16.0
+offset_top = 336.0
+offset_right = 64.0
+offset_bottom = 384.0
+icon = ExtResource("3_rj586")
+
+[node name="RightArrow" type="Button" parent="ThirdRoom"]
+offset_left = 1216.0
+offset_top = 336.0
+offset_right = 1264.0
+offset_bottom = 384.0
+icon = ExtResource("4_4d7sh")
+
+[node name="FourthRoom" type="Node2D" parent="."]
+visible = false
+
+[node name="FourthBackground" type="Sprite2D" parent="FourthRoom"]
+position = Vector2(641, 361)
+texture = ExtResource("7_x0ka3")
+
+[node name="LeftArrow" type="Button" parent="FourthRoom"]
+offset_left = 16.0
+offset_top = 336.0
+offset_right = 64.0
+offset_bottom = 384.0
+icon = ExtResource("3_rj586")
+
+[node name="RightArrow" type="Button" parent="FourthRoom"]
+offset_left = 1216.0
+offset_top = 336.0
+offset_right = 1264.0
+offset_bottom = 384.0
+icon = ExtResource("4_4d7sh")
+
+[node name="Inventory" type="CanvasLayer" parent="."]
+
+[node name="InventoryRoot" type="Control" parent="Inventory"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 14.0
+offset_top = 5.0
+offset_right = 1294.0
+offset_bottom = 126.0
+
+[node name="InventoryBackground" type="TextureRect" parent="Inventory/InventoryRoot"]
+material = SubResource("CanvasItemMaterial_d21ai")
+layout_mode = 0
+offset_left = 216.0
+offset_top = 18.0
+offset_right = 984.0
+offset_bottom = 111.0
+
+[connection signal="pressed" from="FirstRoom/LeftArrow" to="." method="_on_first_room_left_arrow_pressed"]
+[connection signal="pressed" from="FirstRoom/RightArrow" to="." method="_on_first_room_right_arrow_pressed"]
+[connection signal="pressed" from="SecondRoom/LeftArrow" to="." method="_on_second_room_left_arrow_pressed"]
+[connection signal="pressed" from="SecondRoom/RightArrow" to="." method="_on_second_room_right_arrow_pressed"]
+[connection signal="pressed" from="ThirdRoom/LeftArrow" to="." method="_on_third_room_left_arrow_pressed"]
+[connection signal="pressed" from="ThirdRoom/RightArrow" to="." method="_on_third_room_right_arrow_pressed"]
+[connection signal="pressed" from="FourthRoom/LeftArrow" to="." method="_on_fourth_room_left_arrow_pressed"]
+[connection signal="pressed" from="FourthRoom/RightArrow" to="." method="_on_fourth_room_right_arrow_pressed"]
