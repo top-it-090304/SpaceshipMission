@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://dgy78siw1rcl"]
 
-[ext_resource type="Script" uid="uid://bh24s60ojy0p5" path="res://node_2d.gd" id="1_d21ai"]
-[ext_resource type="Texture2D" uid="uid://ceaq4odu0i6ld" path="res://images for background/first room.png" id="1_wtcfe"]
-[ext_resource type="Texture2D" uid="uid://c4sigcula16wo" path="res://items/left-arrow1.png" id="3_rj586"]
-[ext_resource type="Texture2D" uid="uid://b6ccmfxjwqm1c" path="res://items/right-arrow1.png" id="4_4d7sh"]
-[ext_resource type="Texture2D" uid="uid://ovnu208su0gv" path="res://images for background/second room.png" id="5_ir8iy"]
-[ext_resource type="Texture2D" uid="uid://drs8e302yexrc" path="res://images for background/third room.png" id="6_hqns4"]
-[ext_resource type="Texture2D" uid="uid://3n7583oa112d" path="res://images for background/fourth room.png" id="7_x0ka3"]
+[ext_resource type="Script" uid="uid://bh24s60ojy0p5" path="res://node_2d.gd" id="1_3mrqo"]
+[ext_resource type="Texture2D" uid="uid://ceaq4odu0i6ld" path="res://images for background/first room.png" id="2_joorw"]
+[ext_resource type="Texture2D" uid="uid://c4sigcula16wo" path="res://items/left-arrow1.png" id="3_2vekm"]
+[ext_resource type="Texture2D" uid="uid://b6ccmfxjwqm1c" path="res://items/right-arrow1.png" id="4_yx171"]
+[ext_resource type="Texture2D" uid="uid://ovnu208su0gv" path="res://images for background/second room.png" id="5_yhmtn"]
+[ext_resource type="Texture2D" uid="uid://drs8e302yexrc" path="res://images for background/third room.png" id="6_gwjdr"]
+[ext_resource type="Texture2D" uid="uid://3n7583oa112d" path="res://images for background/fourth room.png" id="7_lvtmh"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_d21ai"]
 blend_mode = 1
@@ -15,91 +15,92 @@ particles_anim_h_frames = 1
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[node name="Node2D" type="Node2D"]
-script = ExtResource("1_d21ai")
+[node name="Game" type="Node2D"]
+script = ExtResource("1_3mrqo")
 
 [node name="FirstRoom" type="Node2D" parent="."]
+visible = false
 
 [node name="FirstBackground" type="Sprite2D" parent="FirstRoom"]
 position = Vector2(641, 360)
-texture = ExtResource("1_wtcfe")
+texture = ExtResource("2_joorw")
 
 [node name="LeftArrow" type="Button" parent="FirstRoom"]
 offset_left = 16.0
 offset_top = 336.0
 offset_right = 64.0
 offset_bottom = 384.0
-icon = ExtResource("3_rj586")
+icon = ExtResource("3_2vekm")
 
 [node name="RightArrow" type="Button" parent="FirstRoom"]
 offset_left = 1216.0
 offset_top = 336.0
 offset_right = 1264.0
 offset_bottom = 384.0
-icon = ExtResource("4_4d7sh")
+icon = ExtResource("4_yx171")
 
 [node name="SecondRoom" type="Node2D" parent="."]
 visible = false
 
 [node name="SecondBackground" type="Sprite2D" parent="SecondRoom"]
 position = Vector2(641, 361)
-texture = ExtResource("5_ir8iy")
+texture = ExtResource("5_yhmtn")
 
 [node name="LeftArrow" type="Button" parent="SecondRoom"]
 offset_left = 16.0
 offset_top = 336.0
 offset_right = 64.0
 offset_bottom = 384.0
-icon = ExtResource("3_rj586")
+icon = ExtResource("3_2vekm")
 
 [node name="RightArrow" type="Button" parent="SecondRoom"]
 offset_left = 1216.0
 offset_top = 336.0
 offset_right = 1264.0
 offset_bottom = 384.0
-icon = ExtResource("4_4d7sh")
+icon = ExtResource("4_yx171")
 
 [node name="ThirdRoom" type="Node2D" parent="."]
 visible = false
 
 [node name="ThirdBackground" type="Sprite2D" parent="ThirdRoom"]
 position = Vector2(642, 362)
-texture = ExtResource("6_hqns4")
+texture = ExtResource("6_gwjdr")
 
 [node name="LeftArrow" type="Button" parent="ThirdRoom"]
 offset_left = 16.0
 offset_top = 336.0
 offset_right = 64.0
 offset_bottom = 384.0
-icon = ExtResource("3_rj586")
+icon = ExtResource("3_2vekm")
 
 [node name="RightArrow" type="Button" parent="ThirdRoom"]
 offset_left = 1216.0
 offset_top = 336.0
 offset_right = 1264.0
 offset_bottom = 384.0
-icon = ExtResource("4_4d7sh")
+icon = ExtResource("4_yx171")
 
 [node name="FourthRoom" type="Node2D" parent="."]
 visible = false
 
 [node name="FourthBackground" type="Sprite2D" parent="FourthRoom"]
 position = Vector2(641, 361)
-texture = ExtResource("7_x0ka3")
+texture = ExtResource("7_lvtmh")
 
 [node name="LeftArrow" type="Button" parent="FourthRoom"]
 offset_left = 16.0
 offset_top = 336.0
 offset_right = 64.0
 offset_bottom = 384.0
-icon = ExtResource("3_rj586")
+icon = ExtResource("3_2vekm")
 
 [node name="RightArrow" type="Button" parent="FourthRoom"]
 offset_left = 1216.0
 offset_top = 336.0
 offset_right = 1264.0
 offset_bottom = 384.0
-icon = ExtResource("4_4d7sh")
+icon = ExtResource("4_yx171")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 visible = false
