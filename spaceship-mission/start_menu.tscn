@@ -20,6 +20,11 @@ tracks/0/keys = {
 "values": [Vector2(620, 321)]
 }
 
+[sub_resource type="Animation" id="Animation_v2mkm"]
+resource_name = "title_fade"
+loop_mode = 1
+step = 1.0
+
 [sub_resource type="Animation" id="Animation_ppfnh"]
 resource_name = "wiggle"
 loop_mode = 1
@@ -35,11 +40,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(620, 321), Vector2(624, 324), Vector2(619, 325), Vector2(616, 330)]
 }
-
-[sub_resource type="Animation" id="Animation_v2mkm"]
-resource_name = "title_fade"
-loop_mode = 1
-step = 1.0
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pgi0o"]
 _data = {

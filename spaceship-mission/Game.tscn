@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dgy78siw1rcl"]
+[gd_scene load_steps=22 format=3 uid="uid://dgy78siw1rcl"]
 
 [ext_resource type="Script" uid="uid://bh24s60ojy0p5" path="res://node_2d.gd" id="1_3mrqo"]
 [ext_resource type="Texture2D" uid="uid://ceaq4odu0i6ld" path="res://images for background/first room.png" id="2_joorw"]
@@ -8,6 +8,46 @@
 [ext_resource type="Texture2D" uid="uid://drs8e302yexrc" path="res://images for background/third room.png" id="6_gwjdr"]
 [ext_resource type="Texture2D" uid="uid://3n7583oa112d" path="res://images for background/fourth room.png" id="7_lvtmh"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3mrqo"]
+size = Vector2(288, 136)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_joorw"]
+size = Vector2(1279.25, 614.25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2vekm"]
+size = Vector2(226, 98.5)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_yx171"]
+a = Vector2(-179, 98)
+b = Vector2(21, -2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yx171"]
+size = Vector2(1288, 519.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yhmtn"]
+size = Vector2(107, 47)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gwjdr"]
+size = Vector2(246.5, 103)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lvtmh"]
+size = Vector2(302, 102)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yyih5"]
+size = Vector2(281, 429)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qjyg3"]
+size = Vector2(151.5, 153)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_elkpi"]
+size = Vector2(1279, 472)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0yprl"]
+size = Vector2(117, 182)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wuoie"]
+size = Vector2(1278, 536.5)
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_d21ai"]
 blend_mode = 1
 particles_animation = true
@@ -16,13 +56,13 @@ particles_anim_v_frames = 1
 particles_anim_loop = false
 
 [node name="Game" type="Node2D"]
+position = Vector2(11, 39)
 script = ExtResource("1_3mrqo")
 
 [node name="FirstRoom" type="Node2D" parent="."]
-visible = false
 
 [node name="FirstBackground" type="Sprite2D" parent="FirstRoom"]
-position = Vector2(641, 360)
+position = Vector2(630, 323)
 texture = ExtResource("2_joorw")
 
 [node name="LeftArrow" type="Button" parent="FirstRoom"]
@@ -39,11 +79,40 @@ offset_right = 1264.0
 offset_bottom = 384.0
 icon = ExtResource("4_yx171")
 
+[node name="Walls" type="Node2D" parent="FirstRoom"]
+
+[node name="Wall1" type="StaticBody2D" parent="FirstRoom/Walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FirstRoom/Walls/Wall1"]
+position = Vector2(607, 551)
+shape = SubResource("RectangleShape2D_3mrqo")
+
+[node name="Wall2" type="StaticBody2D" parent="FirstRoom/Walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FirstRoom/Walls/Wall2"]
+position = Vector2(632, 267.125)
+shape = SubResource("RectangleShape2D_joorw")
+
+[node name="Wall3" type="StaticBody2D" parent="FirstRoom/Walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FirstRoom/Walls/Wall3"]
+position = Vector2(1154, 573)
+shape = SubResource("RectangleShape2D_2vekm")
+
+[node name="Wall4" type="StaticBody2D" parent="FirstRoom/Walls"]
+position = Vector2(185, 554)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FirstRoom/Walls/Wall4"]
+position = Vector2(-2, 3)
+shape = SubResource("SegmentShape2D_yx171")
+
 [node name="SecondRoom" type="Node2D" parent="."]
 visible = false
+position = Vector2(1, 2)
 
 [node name="SecondBackground" type="Sprite2D" parent="SecondRoom"]
-position = Vector2(641, 361)
+position = Vector2(637, 319)
+scale = Vector2(1.00156, 0.991667)
 texture = ExtResource("5_yhmtn")
 
 [node name="LeftArrow" type="Button" parent="SecondRoom"]
@@ -60,11 +129,38 @@ offset_right = 1264.0
 offset_bottom = 384.0
 icon = ExtResource("4_yx171")
 
+[node name="Walls" type="Node2D" parent="SecondRoom"]
+
+[node name="Wall1" type="StaticBody2D" parent="SecondRoom/Walls"]
+position = Vector2(132, 34)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SecondRoom/Walls/Wall1"]
+position = Vector2(503, 189)
+shape = SubResource("RectangleShape2D_yx171")
+
+[node name="Wall2" type="StaticBody2D" parent="SecondRoom/Walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SecondRoom/Walls/Wall2"]
+position = Vector2(624, 560)
+shape = SubResource("RectangleShape2D_yhmtn")
+
+[node name="Wall3" type="StaticBody2D" parent="SecondRoom/Walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SecondRoom/Walls/Wall3"]
+position = Vector2(113.75, 528.5)
+shape = SubResource("RectangleShape2D_gwjdr")
+
+[node name="Wall4" type="StaticBody2D" parent="SecondRoom/Walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SecondRoom/Walls/Wall4"]
+position = Vector2(1124, 535)
+shape = SubResource("RectangleShape2D_lvtmh")
+
 [node name="ThirdRoom" type="Node2D" parent="."]
 visible = false
 
 [node name="ThirdBackground" type="Sprite2D" parent="ThirdRoom"]
-position = Vector2(642, 362)
+position = Vector2(632, 324)
 texture = ExtResource("6_gwjdr")
 
 [node name="LeftArrow" type="Button" parent="ThirdRoom"]
@@ -81,11 +177,37 @@ offset_right = 1264.0
 offset_bottom = 384.0
 icon = ExtResource("4_yx171")
 
+[node name="Walls" type="Node2D" parent="ThirdRoom"]
+
+[node name="Wall1" type="StaticBody2D" parent="ThirdRoom/Walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ThirdRoom/Walls/Wall1"]
+position = Vector2(639.5, 320.5)
+shape = SubResource("RectangleShape2D_yyih5")
+
+[node name="Wall2" type="StaticBody2D" parent="ThirdRoom/Walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ThirdRoom/Walls/Wall2"]
+position = Vector2(185, 509.5)
+shape = SubResource("RectangleShape2D_qjyg3")
+
+[node name="Wall3" type="StaticBody2D" parent="ThirdRoom/Walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ThirdRoom/Walls/Wall3"]
+position = Vector2(1022, 480)
+shape = SubResource("RectangleShape2D_qjyg3")
+
+[node name="Wall4" type="StaticBody2D" parent="ThirdRoom/Walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ThirdRoom/Walls/Wall4"]
+position = Vector2(629.5, 200)
+shape = SubResource("RectangleShape2D_elkpi")
+
 [node name="FourthRoom" type="Node2D" parent="."]
 visible = false
 
 [node name="FourthBackground" type="Sprite2D" parent="FourthRoom"]
-position = Vector2(641, 361)
+position = Vector2(629, 323)
 texture = ExtResource("7_lvtmh")
 
 [node name="LeftArrow" type="Button" parent="FourthRoom"]
@@ -101,6 +223,23 @@ offset_top = 336.0
 offset_right = 1264.0
 offset_bottom = 384.0
 icon = ExtResource("4_yx171")
+
+[node name="Walls" type="Node2D" parent="FourthRoom"]
+position = Vector2(-5, 1)
+
+[node name="Wall1" type="StaticBody2D" parent="FourthRoom/Walls"]
+position = Vector2(-81, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FourthRoom/Walls/Wall1"]
+position = Vector2(385, 453)
+shape = SubResource("RectangleShape2D_0yprl")
+
+[node name="Wall2" type="StaticBody2D" parent="FourthRoom/Walls"]
+position = Vector2(-80, 141)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FourthRoom/Walls/Wall2"]
+position = Vector2(713, 88.75)
+shape = SubResource("RectangleShape2D_wuoie")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 visible = false
