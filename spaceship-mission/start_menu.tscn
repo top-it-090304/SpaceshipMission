@@ -1,0 +1,105 @@
+[gd_scene load_steps=9 format=3 uid="uid://bhwlgpb50ehol"]
+
+[ext_resource type="Script" uid="uid://cutlcirbneq00" path="res://start_menu.gd" id="1_vpdu5"]
+[ext_resource type="Texture2D" uid="uid://rrhvxe8idwgl" path="res://images for background/start background.png" id="2_v2mkm"]
+[ext_resource type="Texture2D" uid="uid://bmnxeookkyupk" path="res://items/button start1.png" id="3_ctwoq"]
+[ext_resource type="FontFile" uid="uid://doktru6xsqb4n" path="res://Iceberg-Regular.ttf" id="4_v2mkm"]
+
+[sub_resource type="Animation" id="Animation_7boi2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StartButton:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(620, 321)]
+}
+
+[sub_resource type="Animation" id="Animation_v2mkm"]
+resource_name = "title_fade"
+loop_mode = 1
+step = 1.0
+
+[sub_resource type="Animation" id="Animation_ppfnh"]
+resource_name = "wiggle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StartButton:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.125, 0.25, 0.375, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(620, 321), Vector2(624, 324), Vector2(619, 325), Vector2(616, 330)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pgi0o"]
+_data = {
+&"RESET": SubResource("Animation_7boi2"),
+&"title_fade": SubResource("Animation_v2mkm"),
+&"wiggle": SubResource("Animation_ppfnh")
+}
+
+[node name="StartMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_vpdu5")
+
+[node name="StartBackground" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 719.0
+texture = ExtResource("2_v2mkm")
+
+[node name="StartButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 600.0
+offset_top = 301.0
+offset_right = 678.0
+offset_bottom = 379.0
+grow_horizontal = 2
+grow_vertical = 2
+icon = ExtResource("3_ctwoq")
+
+[node name="ExitButton" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_pgi0o")
+}
+
+[node name="GameName" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = 1242.0
+offset_bottom = 123.0
+grow_horizontal = 2
+theme_override_colors/selection_color = Color(0, 0, 0, 0)
+theme_override_fonts/normal_font = ExtResource("4_v2mkm")
+theme_override_font_sizes/bold_italics_font_size = 120
+theme_override_font_sizes/italics_font_size = 120
+theme_override_font_sizes/mono_font_size = 120
+theme_override_font_sizes/normal_font_size = 120
+theme_override_font_sizes/bold_font_size = 120
+horizontal_alignment = 1
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
