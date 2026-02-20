@@ -1,0 +1,72 @@
+[gd_scene load_steps=2 format=3 uid="uid://ibga1yekk41q"]
+
+[ext_resource type="Texture2D" uid="uid://bjx754g0mxrwk" path="res://images for background/spider puzzels background.png" id="1_aiqdv"]
+
+[node name="SpiderPuzzle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -3.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Nodes" type="Node2D" parent="."]
+
+[node name="0" type="Marker2D" parent="Nodes"]
+gizmo_extents = 0.0
+
+[node name="1" type="Marker2D" parent="Nodes"]
+
+[node name="2" type="Marker2D" parent="Nodes"]
+
+[node name="3" type="Marker2D" parent="Nodes"]
+
+[node name="4" type="Marker2D" parent="Nodes"]
+position = Vector2(521, 439)
+
+[node name="5" type="Marker2D" parent="Nodes"]
+position = Vector2(514, 255)
+
+[node name="Edges" type="Node2D" parent="."]
+position = Vector2(114, 78)
+
+[node name="Edge_0_1" type="Area2D" parent="Edges"]
+position = Vector2(589, 463)
+
+[node name="Sprite2D" type="Sprite2D" parent="Edges/Edge_0_1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Edges/Edge_0_1"]
+
+[node name="Edge_0_2" type="Area2D" parent="Edges"]
+position = Vector2(745, 354)
+
+[node name="Sprite2D" type="Sprite2D" parent="Edges/Edge_0_2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Edges/Edge_0_2"]
+
+[node name="Edge_0_3" type="Area2D" parent="Edges"]
+position = Vector2(750, 177)
+
+[node name="Sprite2D" type="Sprite2D" parent="Edges/Edge_0_3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Edges/Edge_0_3"]
+
+[node name="Edge_0_4" type="Area2D" parent="Edges"]
+position = Vector2(574, 76)
+
+[node name="Sprite2D" type="Sprite2D" parent="Edges/Edge_0_4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Edges/Edge_0_4"]
+
+[node name="Spider" type="Sprite2D" parent="."]
+
+[node name="Bug" type="Sprite2D" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 718.0
+texture = ExtResource("1_aiqdv")

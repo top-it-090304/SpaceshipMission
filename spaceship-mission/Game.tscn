@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dgy78siw1rcl"]
+[gd_scene load_steps=28 format=3 uid="uid://dgy78siw1rcl"]
 
 [ext_resource type="Script" uid="uid://bh24s60ojy0p5" path="res://node_2d.gd" id="1_3mrqo"]
 [ext_resource type="Texture2D" uid="uid://ceaq4odu0i6ld" path="res://images for background/first room.png" id="2_joorw"]
@@ -9,6 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://drs8e302yexrc" path="res://images for background/third room.png" id="6_gwjdr"]
 [ext_resource type="Texture2D" uid="uid://3n7583oa112d" path="res://images for background/fourth room.png" id="7_lvtmh"]
 [ext_resource type="PackedScene" uid="uid://boalbjqusu3om" path="res://minigames/15puzzle/Board.tscn" id="8_yx171"]
+[ext_resource type="Script" uid="uid://dngcar8h6nwjk" path="res://fourth_room.gd" id="9_yhmtn"]
+[ext_resource type="Texture2D" uid="uid://cjultft6ww4ap" path="res://images for background/screen in 4 room.png" id="10_yx171"]
+[ext_resource type="FontFile" uid="uid://doktru6xsqb4n" path="res://Iceberg-Regular.ttf" id="11_gwjdr"]
+[ext_resource type="Script" uid="uid://bcggij3p5jkj6" path="res://main_message.gd" id="11_lvtmh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3mrqo"]
 size = Vector2(288, 136)
@@ -160,6 +164,7 @@ position = Vector2(1124, 535)
 shape = SubResource("RectangleShape2D_lvtmh")
 
 [node name="ThirdRoom" type="Node2D" parent="."]
+visible = false
 script = ExtResource("6_2vekm")
 
 [node name="ThirdBackground" type="Sprite2D" parent="ThirdRoom"]
@@ -225,13 +230,15 @@ rotation = 0.13439
 color = Color(0, 0.337255, 0, 0.435294)
 
 [node name="FourthRoom" type="Node2D" parent="."]
-visible = false
+script = ExtResource("9_yhmtn")
 
 [node name="FourthBackground" type="Sprite2D" parent="FourthRoom"]
+visible = false
 position = Vector2(629, 323)
 texture = ExtResource("7_lvtmh")
 
 [node name="LeftArrow" type="Button" parent="FourthRoom"]
+visible = false
 offset_left = 16.0
 offset_top = 336.0
 offset_right = 64.0
@@ -239,6 +246,7 @@ offset_bottom = 384.0
 icon = ExtResource("3_2vekm")
 
 [node name="RightArrow" type="Button" parent="FourthRoom"]
+visible = false
 offset_left = 1216.0
 offset_top = 336.0
 offset_right = 1264.0
@@ -246,6 +254,7 @@ offset_bottom = 384.0
 icon = ExtResource("4_yx171")
 
 [node name="Walls" type="Node2D" parent="FourthRoom"]
+visible = false
 position = Vector2(-5, 1)
 
 [node name="Wall1" type="StaticBody2D" parent="FourthRoom/Walls"]
@@ -261,6 +270,57 @@ position = Vector2(-80, 141)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FourthRoom/Walls/Wall2"]
 position = Vector2(713, 88.75)
 shape = SubResource("RectangleShape2D_wuoie")
+
+[node name="LinkMainScreen" type="LinkButton" parent="FourthRoom"]
+visible = false
+offset_left = 384.0
+offset_top = 177.0
+offset_right = 867.0
+offset_bottom = 336.0
+
+[node name="MainMessage" type="Control" parent="FourthRoom"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("11_lvtmh")
+
+[node name="TextStart" type="RichTextLabel" parent="FourthRoom/MainMessage"]
+z_index = 2
+custom_minimum_size = Vector2(-0.1, 0)
+layout_mode = 0
+offset_left = 409.0
+offset_top = 166.0
+offset_right = 893.0
+offset_bottom = 454.0
+theme_override_colors/table_border = Color(1, 1, 1, 1)
+theme_override_colors/table_even_row_bg = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("11_gwjdr")
+theme_override_fonts/mono_font = ExtResource("11_gwjdr")
+theme_override_fonts/italics_font = ExtResource("11_gwjdr")
+theme_override_fonts/bold_italics_font = ExtResource("11_gwjdr")
+theme_override_fonts/bold_font = ExtResource("11_gwjdr")
+theme_override_font_sizes/bold_italics_font_size = 6
+theme_override_font_sizes/italics_font_size = 6
+theme_override_font_sizes/mono_font_size = 6
+theme_override_font_sizes/normal_font_size = 20
+text = "Произошла авария! Космический корабль попал в аномальную зону и вышел из строя. Вся твоя команда осталась запертой в блоке, где вот-вот закончится кислород. Тебе необходимо перезапустить ядро, включить питание корабля, разблокировать дверь, тем самым выпустив команду, и вылететь из проблемной зоны. Исследуй 4 комнаты и решай головоломки, каждая из которых будет приближать тебя к выполнению миссии. Действуй быстро — времени мало!"
+
+[node name="MainScreen" type="TextureRect" parent="FourthRoom/MainMessage"]
+layout_mode = 0
+offset_left = -147.0
+offset_top = -145.0
+offset_right = 1458.0
+offset_bottom = 832.0
+texture = ExtResource("10_yx171")
+
+[node name="ButtonExit" type="Button" parent="FourthRoom/MainMessage"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 298.0
+offset_right = 61.0
+offset_bottom = 346.0
+icon = ExtResource("3_2vekm")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 visible = false
@@ -319,3 +379,5 @@ layout_mode = 2
 [connection signal="pressed" from="ThirdRoom/PuzzleBoardLink" to="ThirdRoom" method="_on_link_pressed"]
 [connection signal="pressed" from="FourthRoom/LeftArrow" to="." method="_on_fourth_room_left_arrow_pressed"]
 [connection signal="pressed" from="FourthRoom/RightArrow" to="." method="_on_fourth_room_right_arrow_pressed"]
+[connection signal="pressed" from="FourthRoom/LinkMainScreen" to="FourthRoom" method="_on_LinkMainScreen_pressed"]
+[connection signal="pressed" from="FourthRoom/MainMessage/ButtonExit" to="FourthRoom" method="hide_message_screen"]
