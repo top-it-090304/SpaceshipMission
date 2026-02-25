@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dgy78siw1rcl"]
+[gd_scene load_steps=35 format=3 uid="uid://dgy78siw1rcl"]
 
 [ext_resource type="Script" uid="uid://bh24s60ojy0p5" path="res://node_2d.gd" id="1_3mrqo"]
 [ext_resource type="Texture2D" uid="uid://ceaq4odu0i6ld" path="res://images for background/first room.png" id="2_joorw"]
@@ -18,6 +18,8 @@
 [ext_resource type="Script" uid="uid://bcggij3p5jkj6" path="res://main_message.gd" id="11_lvtmh"]
 [ext_resource type="Texture2D" uid="uid://cwfg5j6tgficl" path="res://items/Number for box 4.png" id="11_wuoie"]
 [ext_resource type="Texture2D" uid="uid://b5xu1qj6l6u0i" path="res://items/Number for box 3.png" id="17_bvhbk"]
+[ext_resource type="Script" uid="uid://6e4sputjkjpf" path="res://robot_message.gd" id="19_cpsxm"]
+[ext_resource type="Texture2D" uid="uid://bvr0jlgi5vjnv" path="res://images for background/RobotBackground.jpg" id="20_hmewc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3mrqo"]
 size = Vector2(288, 136)
@@ -71,7 +73,6 @@ position = Vector2(11, 39)
 script = ExtResource("1_3mrqo")
 
 [node name="FirstRoom" type="Node2D" parent="."]
-visible = false
 
 [node name="FirstBackground" type="Sprite2D" parent="FirstRoom"]
 position = Vector2(630, 322)
@@ -125,6 +126,7 @@ scale = Vector2(0.138672, 0.166748)
 texture = ExtResource("5_yyih5")
 
 [node name="SecondRoom" type="Node2D" parent="."]
+visible = false
 position = Vector2(1, 2)
 script = ExtResource("6_wuoie")
 
@@ -264,10 +266,10 @@ scale = Vector2(0.199219, 0.230469)
 texture = ExtResource("11_wuoie")
 
 [node name="FourthRoom" type="Node2D" parent="."]
-visible = false
 script = ExtResource("9_yhmtn")
 
 [node name="FourthBackground" type="Sprite2D" parent="FourthRoom"]
+visible = false
 position = Vector2(629, 323)
 texture = ExtResource("7_lvtmh")
 
@@ -358,9 +360,51 @@ offset_bottom = 346.0
 icon = ExtResource("3_2vekm")
 
 [node name="NumberForBox4" type="Sprite2D" parent="FourthRoom"]
+visible = false
 position = Vector2(87, 426)
 scale = Vector2(0.0957031, 0.0976563)
 texture = ExtResource("17_bvhbk")
+
+[node name="LinkRobotMessage" type="LinkButton" parent="FourthRoom"]
+offset_left = 265.0
+offset_top = 396.0
+offset_right = 347.0
+offset_bottom = 520.0
+
+[node name="RobotMessage" type="Control" parent="FourthRoom"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("19_cpsxm")
+
+[node name="RobotText" type="RichTextLabel" parent="FourthRoom/RobotMessage"]
+layout_mode = 0
+offset_left = 380.0
+offset_top = 301.0
+offset_right = 909.0
+offset_bottom = 368.0
+text = "Привет! Я твой робот-ассистент и я готов помочь тебе с выполнением твоей миссии! Какая проблема у тебя возникла?"
+horizontal_alignment = 1
+
+[node name="RobotScreen" type="TextureRect" parent="FourthRoom/RobotMessage"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -9.0
+offset_top = -41.0
+offset_right = 1273.0
+offset_bottom = 680.0
+texture = ExtResource("20_hmewc")
+expand_mode = 1
+
+[node name="ButtonExit" type="Button" parent="FourthRoom/RobotMessage"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 288.0
+offset_right = 50.0
+offset_bottom = 336.0
+icon = ExtResource("3_2vekm")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 visible = false
@@ -423,3 +467,5 @@ layout_mode = 2
 [connection signal="pressed" from="FourthRoom/RightArrow" to="." method="_on_fourth_room_right_arrow_pressed"]
 [connection signal="pressed" from="FourthRoom/LinkMainScreen" to="FourthRoom" method="_on_LinkMainScreen_pressed"]
 [connection signal="pressed" from="FourthRoom/MainMessage/ButtonExit" to="FourthRoom" method="hide_message_screen"]
+[connection signal="pressed" from="FourthRoom/LinkRobotMessage" to="FourthRoom" method="_on_LinkRobotMessage_pressed"]
+[connection signal="pressed" from="FourthRoom/RobotMessage/ButtonExit" to="FourthRoom" method="hide_robot_message_screen"]
