@@ -15,6 +15,10 @@ run/main_scene="uid://bhwlgpb50ehol"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GlobalState="*res://global_state.gd"
+
 [display]
 
 window/size/viewport_width=1280

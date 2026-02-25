@@ -1,7 +1,5 @@
 extends Node2D
 
-
-
 func _ready() -> void:
 	$MainMessage.visible = false
 	$FourthBackground.visible = true

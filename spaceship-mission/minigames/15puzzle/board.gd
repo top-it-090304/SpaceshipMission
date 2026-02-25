@@ -2,17 +2,16 @@ extends Control
 
 signal puzzle_solved
 
-const SIZE := 4                        # размер поля 4x4
-const TILE_SIZE := Vector2i(128, 127)  # размер одного тайла (подгони под свои спрайты)
-
-var board: Array[int] = []             # логическое поле, 16 чисел, 0 = пусто
-var empty_index: int = 15              # индекс пустой клетки
-var tiles_by_number: Dictionary = {}   # number -> ссылка на Tile
+const SIZE := 4                       
+const TILE_SIZE := Vector2i(128, 127) 
+var board: Array[int] = []             
+var empty_index: int = 15              
+var tiles_by_number: Dictionary = {}   
 
 
 func _ready() -> void:
 	_init_board()
-	_create_tiles()      # создаём узлы один раз
+	_create_tiles()      
 	shuffle(200)
 	update_tiles_visual()
 
@@ -21,17 +20,17 @@ func _init_board() -> void:
 	board.clear()
 	for i in range(1, 16):
 		board.append(i)
-	board.append(0)        # последняя клетка пустая
+	board.append(0)       
 	empty_index = 15
 
 
 func index_to_rc(index: int) -> Vector2i:
-	# индекс 0..15 -> (строка, столбец)
+	
 	return Vector2i(index / SIZE, index % SIZE)
 
 
 func rc_to_index(r: int, c: int) -> int:
-	# (строка, столбец) -> индекс 0..15
+	
 	return r * SIZE + c
 
 
@@ -43,7 +42,7 @@ func _create_tiles() -> void:
 	for index in range(16):
 		var number := board[index]
 		if number == 0:
-			continue   # пустую клетку не рисуем
+			continue   
 
 		var tile = tile_scene.instantiate()
 		tile.number = number
@@ -92,14 +91,14 @@ func move_tile(tile_index: int) -> bool:
 
 	var tile_number: int = board[tile_index]
 
-	# Меняем местами тайл и пустоту в массиве
+
 	board[empty_index] = tile_number
 	board[tile_index] = 0
 
-	# Пустая клетка переехала на место тайла
+	
 	empty_index = tile_index
 
-	# Обновляем index_in_board у самого Tile
+
 	var tile: Node = tiles_by_number[tile_number]
 	tile.index_in_board = empty_index
 
@@ -110,7 +109,6 @@ func update_tiles_visual() -> void:
 	for number in tiles_by_number.keys():
 		var tile: Node = tiles_by_number[number]
 
-		# где теперь стоит это число в board?
 		var new_index := board.find(number)
 		if new_index == -1:
 			continue
@@ -122,7 +120,7 @@ func update_tiles_visual() -> void:
 			rc.x * TILE_SIZE.y
 		)
 
-		# анимация через Tween
+	
 		var tween := create_tween()
 		tween.tween_property(tile, "position", target_pos, 0.15) \
 			.set_trans(Tween.TRANS_QUAD) \

@@ -1,0 +1,284 @@
+[gd_scene load_steps=9 format=3 uid="uid://cew22vdhr5mof"]
+
+[ext_resource type="Texture2D" uid="uid://xl8br6k1y1ee" path="res://items/newBox.png" id="1_g3u6n"]
+[ext_resource type="Script" uid="uid://bbi2syjahe6sg" path="res://minigames/LogicThing/box1InSecondRoom/box_1.gd" id="1_uweek"]
+[ext_resource type="Texture2D" uid="uid://de3udsy4qy6eu" path="res://items/openBox.png" id="2_1jmnf"]
+[ext_resource type="FontFile" uid="uid://doktru6xsqb4n" path="res://Iceberg-Regular.ttf" id="3_l0gkc"]
+[ext_resource type="Texture2D" uid="uid://bitctj56v6rjy" path="res://items/newButBox.png" id="4_fhi7n"]
+[ext_resource type="Texture2D" uid="uid://beqpbsqqykdg5" path="res://items/clearButton .png" id="5_v2lfv"]
+[ext_resource type="Texture2D" uid="uid://bk6oodl2ekv35" path="res://items/checkButton.png" id="6_uweek"]
+[ext_resource type="Texture2D" uid="uid://bxtg4qk4r6qxp" path="res://items/left-arrow.png" id="8_yuqr0"]
+
+[node name="Box1" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_uweek")
+
+[node name="BackgroundBoxClose" type="TextureRect" parent="."]
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 1281.0
+offset_bottom = 722.0
+texture = ExtResource("1_g3u6n")
+
+[node name="BackgroundBoxOpen" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 1277.0
+offset_bottom = 720.0
+texture = ExtResource("2_1jmnf")
+
+[node name="CodeDisplay" type="Label" parent="."]
+layout_mode = 0
+offset_left = 471.0
+offset_top = 216.0
+offset_right = 583.0
+offset_bottom = 267.0
+theme_override_colors/font_color = Color(0.960351, 0.960351, 0.960351, 1)
+theme_override_fonts/font = ExtResource("3_l0gkc")
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+
+[node name="Keypad" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button0" type="Button" parent="Keypad"]
+layout_mode = 0
+offset_left = 392.0
+offset_top = 504.0
+offset_right = 465.0
+offset_bottom = 577.0
+icon = ExtResource("4_fhi7n")
+
+[node name="num0" type="Label" parent="Keypad/Button0"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 64.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 51
+text = "0"
+horizontal_alignment = 1
+
+[node name="Button1" type="Button" parent="Keypad"]
+layout_mode = 0
+offset_left = 496.0
+offset_top = 504.0
+offset_right = 569.0
+offset_bottom = 577.0
+icon = ExtResource("4_fhi7n")
+
+[node name="num1" type="Label" parent="Keypad/Button1"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = 64.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_l0gkc")
+theme_override_font_sizes/font_size = 51
+text = "1"
+horizontal_alignment = 1
+
+[node name="Button2" type="Button" parent="Keypad"]
+layout_mode = 0
+offset_left = 600.0
+offset_top = 504.0
+offset_right = 673.0
+offset_bottom = 577.0
+icon = ExtResource("4_fhi7n")
+
+[node name="num2" type="Label" parent="Keypad/Button2"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = 64.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_l0gkc")
+theme_override_font_sizes/font_size = 51
+text = "2"
+horizontal_alignment = 1
+
+[node name="Button3" type="Button" parent="Keypad"]
+layout_mode = 0
+offset_left = 712.0
+offset_top = 504.0
+offset_right = 785.0
+offset_bottom = 577.0
+icon = ExtResource("4_fhi7n")
+
+[node name="num3" type="Label" parent="Keypad/Button3"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = 64.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_l0gkc")
+theme_override_font_sizes/font_size = 51
+text = "3"
+horizontal_alignment = 1
+
+[node name="Button4" type="Button" parent="Keypad"]
+layout_mode = 0
+offset_left = 824.0
+offset_top = 504.0
+offset_right = 897.0
+offset_bottom = 577.0
+icon = ExtResource("4_fhi7n")
+
+[node name="num4" type="Label" parent="Keypad/Button4"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = 64.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_l0gkc")
+theme_override_font_sizes/font_size = 51
+text = "4"
+horizontal_alignment = 1
+
+[node name="Button5" type="Button" parent="Keypad"]
+layout_mode = 0
+offset_left = 392.0
+offset_top = 608.0
+offset_right = 465.0
+offset_bottom = 681.0
+icon = ExtResource("4_fhi7n")
+
+[node name="num5" type="Label" parent="Keypad/Button5"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = 64.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_l0gkc")
+theme_override_font_sizes/font_size = 51
+text = "5"
+horizontal_alignment = 1
+
+[node name="Button6" type="Button" parent="Keypad"]
+layout_mode = 0
+offset_left = 496.0
+offset_top = 608.0
+offset_right = 569.0
+offset_bottom = 681.0
+icon = ExtResource("4_fhi7n")
+
+[node name="num6" type="Label" parent="Keypad/Button6"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = 64.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_l0gkc")
+theme_override_font_sizes/font_size = 51
+text = "6"
+horizontal_alignment = 1
+
+[node name="Button7" type="Button" parent="Keypad"]
+layout_mode = 0
+offset_left = 600.0
+offset_top = 608.0
+offset_right = 673.0
+offset_bottom = 681.0
+icon = ExtResource("4_fhi7n")
+
+[node name="num7" type="Label" parent="Keypad/Button7"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = 64.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_l0gkc")
+theme_override_font_sizes/font_size = 51
+text = "7"
+horizontal_alignment = 1
+
+[node name="Button8" type="Button" parent="Keypad"]
+layout_mode = 0
+offset_left = 712.0
+offset_top = 608.0
+offset_right = 785.0
+offset_bottom = 681.0
+icon = ExtResource("4_fhi7n")
+
+[node name="num8" type="Label" parent="Keypad/Button8"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = 64.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_l0gkc")
+theme_override_font_sizes/font_size = 51
+text = "8"
+horizontal_alignment = 1
+
+[node name="Button9" type="Button" parent="Keypad"]
+layout_mode = 0
+offset_left = 824.0
+offset_top = 608.0
+offset_right = 897.0
+offset_bottom = 681.0
+icon = ExtResource("4_fhi7n")
+
+[node name="num9" type="Label" parent="Keypad/Button9"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = 64.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_l0gkc")
+theme_override_font_sizes/font_size = 51
+text = "9"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonClear" type="Button" parent="."]
+layout_mode = 0
+offset_left = 928.0
+offset_top = 616.0
+offset_right = 987.0
+offset_bottom = 675.0
+icon = ExtResource("5_v2lfv")
+
+[node name="ButtonCheak" type="Button" parent="."]
+layout_mode = 0
+offset_left = 928.0
+offset_top = 512.0
+offset_right = 987.0
+offset_bottom = 571.0
+icon = ExtResource("6_uweek")
+
+[node name="ButtonBack" type="Button" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 360.0
+offset_right = 82.0
+offset_bottom = 418.0
+icon = ExtResource("8_yuqr0")
+
+[connection signal="pressed" from="Keypad/Button0" to="." method="_on_Btn0_pressed"]
+[connection signal="pressed" from="Keypad/Button1" to="." method="_on_Btn1_pressed"]
+[connection signal="pressed" from="Keypad/Button2" to="." method="_on_Btn2_pressed"]
+[connection signal="pressed" from="Keypad/Button3" to="." method="_on_Btn3_pressed"]
+[connection signal="pressed" from="Keypad/Button4" to="." method="_on_Btn4_pressed"]
+[connection signal="pressed" from="Keypad/Button5" to="." method="_on_Btn5_pressed"]
+[connection signal="pressed" from="Keypad/Button6" to="." method="_on_Btn6_pressed"]
+[connection signal="pressed" from="Keypad/Button7" to="." method="_on_Btn7_pressed"]
+[connection signal="pressed" from="Keypad/Button8" to="." method="_on_Btn8_pressed"]
+[connection signal="pressed" from="Keypad/Button9" to="." method="_on_Btn9_pressed"]
+[connection signal="pressed" from="ButtonClear" to="." method="_on_clear_pressed"]
+[connection signal="pressed" from="ButtonCheak" to="." method="_on_check_pressed"]
+[connection signal="pressed" from="ButtonBack" to="." method="_on_BackButton_pressed"]

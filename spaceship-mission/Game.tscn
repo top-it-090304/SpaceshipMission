@@ -1,18 +1,23 @@
-[gd_scene load_steps=28 format=3 uid="uid://dgy78siw1rcl"]
+[gd_scene load_steps=33 format=3 uid="uid://dgy78siw1rcl"]
 
 [ext_resource type="Script" uid="uid://bh24s60ojy0p5" path="res://node_2d.gd" id="1_3mrqo"]
 [ext_resource type="Texture2D" uid="uid://ceaq4odu0i6ld" path="res://images for background/first room.png" id="2_joorw"]
 [ext_resource type="Texture2D" uid="uid://c4sigcula16wo" path="res://items/left-arrow1.png" id="3_2vekm"]
 [ext_resource type="Texture2D" uid="uid://b6ccmfxjwqm1c" path="res://items/right-arrow1.png" id="4_yx171"]
 [ext_resource type="Texture2D" uid="uid://ovnu208su0gv" path="res://images for background/second room.png" id="5_yhmtn"]
+[ext_resource type="Texture2D" uid="uid://ccxiyqbh1d661" path="res://items/Number for box 1 .png" id="5_yyih5"]
 [ext_resource type="Script" uid="uid://dthpnhto80pdr" path="res://third_room.gd" id="6_2vekm"]
 [ext_resource type="Texture2D" uid="uid://drs8e302yexrc" path="res://images for background/third room.png" id="6_gwjdr"]
+[ext_resource type="Script" uid="uid://g6f6ow4cxnse" path="res://second_room.gd" id="6_wuoie"]
+[ext_resource type="Texture2D" uid="uid://bsfnv453vfjpj" path="res://items/Number for box 2.png" id="7_0yprl"]
 [ext_resource type="Texture2D" uid="uid://3n7583oa112d" path="res://images for background/fourth room.png" id="7_lvtmh"]
 [ext_resource type="PackedScene" uid="uid://boalbjqusu3om" path="res://minigames/15puzzle/Board.tscn" id="8_yx171"]
 [ext_resource type="Script" uid="uid://dngcar8h6nwjk" path="res://fourth_room.gd" id="9_yhmtn"]
 [ext_resource type="Texture2D" uid="uid://cjultft6ww4ap" path="res://images for background/screen in 4 room.png" id="10_yx171"]
 [ext_resource type="FontFile" uid="uid://doktru6xsqb4n" path="res://Iceberg-Regular.ttf" id="11_gwjdr"]
 [ext_resource type="Script" uid="uid://bcggij3p5jkj6" path="res://main_message.gd" id="11_lvtmh"]
+[ext_resource type="Texture2D" uid="uid://cwfg5j6tgficl" path="res://items/Number for box 4.png" id="11_wuoie"]
+[ext_resource type="Texture2D" uid="uid://b5xu1qj6l6u0i" path="res://items/Number for box 3.png" id="17_bvhbk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3mrqo"]
 size = Vector2(288, 136)
@@ -69,7 +74,7 @@ script = ExtResource("1_3mrqo")
 visible = false
 
 [node name="FirstBackground" type="Sprite2D" parent="FirstRoom"]
-position = Vector2(630, 323)
+position = Vector2(630, 322)
 texture = ExtResource("2_joorw")
 
 [node name="LeftArrow" type="Button" parent="FirstRoom"]
@@ -97,6 +102,7 @@ shape = SubResource("RectangleShape2D_3mrqo")
 [node name="Wall2" type="StaticBody2D" parent="FirstRoom/Walls"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FirstRoom/Walls/Wall2"]
+visible = false
 position = Vector2(628.313, 275.5)
 shape = SubResource("RectangleShape2D_joorw")
 
@@ -113,12 +119,17 @@ position = Vector2(185, 554)
 position = Vector2(-2, 3)
 shape = SubResource("SegmentShape2D_yx171")
 
+[node name="NumberForBox1" type="Sprite2D" parent="FirstRoom"]
+position = Vector2(1108, 240)
+scale = Vector2(0.138672, 0.166748)
+texture = ExtResource("5_yyih5")
+
 [node name="SecondRoom" type="Node2D" parent="."]
-visible = false
 position = Vector2(1, 2)
+script = ExtResource("6_wuoie")
 
 [node name="SecondBackground" type="Sprite2D" parent="SecondRoom"]
-position = Vector2(637, 319)
+position = Vector2(629, 319)
 scale = Vector2(1.00156, 0.991667)
 texture = ExtResource("5_yhmtn")
 
@@ -137,6 +148,7 @@ offset_bottom = 384.0
 icon = ExtResource("4_yx171")
 
 [node name="Walls" type="Node2D" parent="SecondRoom"]
+visible = false
 
 [node name="Wall1" type="StaticBody2D" parent="SecondRoom/Walls"]
 position = Vector2(132, 34)
@@ -162,6 +174,23 @@ shape = SubResource("RectangleShape2D_gwjdr")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SecondRoom/Walls/Wall4"]
 position = Vector2(1124, 535)
 shape = SubResource("RectangleShape2D_lvtmh")
+
+[node name="NumberForBox2" type="Sprite2D" parent="SecondRoom"]
+position = Vector2(169.5, 182)
+scale = Vector2(0.107422, 0.109375)
+texture = ExtResource("7_0yprl")
+
+[node name="ButtonOpenBox" type="LinkButton" parent="SecondRoom"]
+offset_left = 472.0
+offset_top = 405.0
+offset_right = 562.0
+offset_bottom = 471.0
+
+[node name="OpenBox" type="Control" parent="SecondRoom"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="ThirdRoom" type="Node2D" parent="."]
 visible = false
@@ -208,7 +237,7 @@ shape = SubResource("RectangleShape2D_qjyg3")
 [node name="Wall4" type="StaticBody2D" parent="ThirdRoom/Walls"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ThirdRoom/Walls/Wall4"]
-position = Vector2(629.375, 231.25)
+position = Vector2(627, 232)
 shape = SubResource("RectangleShape2D_elkpi")
 
 [node name="PuzzleBoardLink" type="LinkButton" parent="ThirdRoom"]
@@ -229,11 +258,16 @@ offset_bottom = 224.0
 rotation = 0.13439
 color = Color(0, 0.337255, 0, 0.435294)
 
+[node name="NumberForBox3" type="Sprite2D" parent="ThirdRoom"]
+position = Vector2(300, 363)
+scale = Vector2(0.199219, 0.230469)
+texture = ExtResource("11_wuoie")
+
 [node name="FourthRoom" type="Node2D" parent="."]
+visible = false
 script = ExtResource("9_yhmtn")
 
 [node name="FourthBackground" type="Sprite2D" parent="FourthRoom"]
-visible = false
 position = Vector2(629, 323)
 texture = ExtResource("7_lvtmh")
 
@@ -279,6 +313,7 @@ offset_right = 867.0
 offset_bottom = 336.0
 
 [node name="MainMessage" type="Control" parent="FourthRoom"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -321,6 +356,11 @@ offset_top = 298.0
 offset_right = 61.0
 offset_bottom = 346.0
 icon = ExtResource("3_2vekm")
+
+[node name="NumberForBox4" type="Sprite2D" parent="FourthRoom"]
+position = Vector2(87, 426)
+scale = Vector2(0.0957031, 0.0976563)
+texture = ExtResource("17_bvhbk")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 visible = false
@@ -374,6 +414,8 @@ layout_mode = 2
 [connection signal="pressed" from="FirstRoom/RightArrow" to="." method="_on_first_room_right_arrow_pressed"]
 [connection signal="pressed" from="SecondRoom/LeftArrow" to="." method="_on_second_room_left_arrow_pressed"]
 [connection signal="pressed" from="SecondRoom/RightArrow" to="." method="_on_second_room_right_arrow_pressed"]
+[connection signal="pressed" from="SecondRoom/ButtonOpenBox" to="SecondRoom" method="_on_ChestButton_pressed"]
+[connection signal="pressed" from="SecondRoom/ButtonOpenBox" to="SecondRoom" method="_on_ButtonOpenBox_pressed"]
 [connection signal="pressed" from="ThirdRoom/LeftArrow" to="." method="_on_third_room_left_arrow_pressed"]
 [connection signal="pressed" from="ThirdRoom/RightArrow" to="." method="_on_third_room_right_arrow_pressed"]
 [connection signal="pressed" from="ThirdRoom/PuzzleBoardLink" to="ThirdRoom" method="_on_link_pressed"]

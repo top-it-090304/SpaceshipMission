@@ -5,6 +5,10 @@ var current_room: Node2D
 func _ready() -> void:
 	current_room = $FirstRoom
 	_show_only(current_room)
+	
+	if GlobalState.return_to_second_room:
+		go_to_second_room()
+		GlobalState.return_to_second_room = false
 
 func _show_only(room: Node2D) -> void:
 	for child in get_children():
