@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dgy78siw1rcl"]
+[gd_scene load_steps=35 format=3 uid="uid://dgy78siw1rcl"]
 
 [ext_resource type="Script" uid="uid://bh24s60ojy0p5" path="res://node_2d.gd" id="1_3mrqo"]
 [ext_resource type="Texture2D" uid="uid://ceaq4odu0i6ld" path="res://images for background/first room.png" id="2_joorw"]
@@ -20,7 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://b5xu1qj6l6u0i" path="res://items/Number for box 3.png" id="17_bvhbk"]
 [ext_resource type="Script" uid="uid://6e4sputjkjpf" path="res://robot_message.gd" id="19_cpsxm"]
 [ext_resource type="Texture2D" uid="uid://bvr0jlgi5vjnv" path="res://images for background/RobotBackground.jpg" id="20_hmewc"]
-[ext_resource type="Texture2D" uid="uid://bbdap345hya1h" path="res://items/result_generated-image (3).png" id="21_hmewc"]
+[ext_resource type="Texture2D" uid="uid://c7k4erai4s77o" path="res://images for background/InventorySlots.png" id="21_hmewc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3mrqo"]
 size = Vector2(288, 136)
@@ -61,13 +61,6 @@ size = Vector2(117, 182)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wuoie"]
 size = Vector2(1278, 536.5)
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_d21ai"]
-blend_mode = 1
-particles_animation = true
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
 
 [node name="Game" type="Node2D"]
 position = Vector2(11, 39)
@@ -271,7 +264,6 @@ visible = false
 script = ExtResource("9_yhmtn")
 
 [node name="FourthBackground" type="Sprite2D" parent="FourthRoom"]
-visible = false
 position = Vector2(629, 323)
 texture = ExtResource("7_lvtmh")
 
@@ -418,15 +410,6 @@ offset_top = 5.0
 offset_right = 1294.0
 offset_bottom = 126.0
 
-[node name="InventoryBackground" type="TextureRect" parent="UILayer/InventoryRoot"]
-material = SubResource("CanvasItemMaterial_d21ai")
-layout_mode = 0
-offset_left = 237.0
-offset_top = 607.0
-offset_right = 1005.0
-offset_bottom = 707.0
-texture = ExtResource("21_hmewc")
-
 [node name="Slots" type="HBoxContainer" parent="UILayer/InventoryRoot"]
 layout_mode = 0
 offset_right = 40.0
@@ -456,12 +439,21 @@ layout_mode = 2
 [node name="Slot8" type="TextureButton" parent="UILayer/InventoryRoot/Slots"]
 layout_mode = 2
 
+[node name="InventoryBackground" type="TextureRect" parent="UILayer/InventoryRoot"]
+layout_mode = 0
+offset_left = 348.0
+offset_top = 10.0
+offset_right = 897.0
+offset_bottom = 122.0
+texture = ExtResource("21_hmewc")
+expand_mode = 1
+
 [connection signal="pressed" from="FirstRoom/LeftArrow" to="." method="_on_first_room_left_arrow_pressed"]
 [connection signal="pressed" from="FirstRoom/RightArrow" to="." method="_on_first_room_right_arrow_pressed"]
 [connection signal="pressed" from="SecondRoom/LeftArrow" to="." method="_on_second_room_left_arrow_pressed"]
 [connection signal="pressed" from="SecondRoom/RightArrow" to="." method="_on_second_room_right_arrow_pressed"]
-[connection signal="pressed" from="SecondRoom/ButtonOpenBox" to="SecondRoom" method="_on_ButtonOpenBox_pressed"]
 [connection signal="pressed" from="SecondRoom/ButtonOpenBox" to="SecondRoom" method="_on_ChestButton_pressed"]
+[connection signal="pressed" from="SecondRoom/ButtonOpenBox" to="SecondRoom" method="_on_ButtonOpenBox_pressed"]
 [connection signal="pressed" from="ThirdRoom/LeftArrow" to="." method="_on_third_room_left_arrow_pressed"]
 [connection signal="pressed" from="ThirdRoom/RightArrow" to="." method="_on_third_room_right_arrow_pressed"]
 [connection signal="pressed" from="ThirdRoom/PuzzleBoardLink" to="ThirdRoom" method="_on_link_pressed"]
