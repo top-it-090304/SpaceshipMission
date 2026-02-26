@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dgy78siw1rcl"]
+[gd_scene load_steps=36 format=3 uid="uid://dgy78siw1rcl"]
 
 [ext_resource type="Script" uid="uid://bh24s60ojy0p5" path="res://node_2d.gd" id="1_3mrqo"]
 [ext_resource type="Texture2D" uid="uid://ceaq4odu0i6ld" path="res://images for background/first room.png" id="2_joorw"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://b5xu1qj6l6u0i" path="res://items/Number for box 3.png" id="17_bvhbk"]
 [ext_resource type="Script" uid="uid://6e4sputjkjpf" path="res://robot_message.gd" id="19_cpsxm"]
 [ext_resource type="Texture2D" uid="uid://bvr0jlgi5vjnv" path="res://images for background/RobotBackground.jpg" id="20_hmewc"]
+[ext_resource type="Texture2D" uid="uid://bbdap345hya1h" path="res://items/result_generated-image (3).png" id="21_hmewc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3mrqo"]
 size = Vector2(288, 136)
@@ -97,7 +98,7 @@ icon = ExtResource("4_yx171")
 [node name="Wall1" type="StaticBody2D" parent="FirstRoom/Walls"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FirstRoom/Walls/Wall1"]
-position = Vector2(607, 551)
+position = Vector2(607, 523)
 shape = SubResource("RectangleShape2D_3mrqo")
 
 [node name="Wall2" type="StaticBody2D" parent="FirstRoom/Walls"]
@@ -266,6 +267,7 @@ scale = Vector2(0.199219, 0.230469)
 texture = ExtResource("11_wuoie")
 
 [node name="FourthRoom" type="Node2D" parent="."]
+visible = false
 script = ExtResource("9_yhmtn")
 
 [node name="FourthBackground" type="Sprite2D" parent="FourthRoom"]
@@ -407,7 +409,6 @@ offset_bottom = 336.0
 icon = ExtResource("3_2vekm")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="InventoryRoot" type="Control" parent="UILayer"]
 layout_mode = 3
@@ -420,46 +421,47 @@ offset_bottom = 126.0
 [node name="InventoryBackground" type="TextureRect" parent="UILayer/InventoryRoot"]
 material = SubResource("CanvasItemMaterial_d21ai")
 layout_mode = 0
-offset_left = 216.0
-offset_top = 18.0
-offset_right = 984.0
-offset_bottom = 111.0
+offset_left = 237.0
+offset_top = 607.0
+offset_right = 1005.0
+offset_bottom = 707.0
+texture = ExtResource("21_hmewc")
 
 [node name="Slots" type="HBoxContainer" parent="UILayer/InventoryRoot"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Slot1" type="Button" parent="UILayer/InventoryRoot/Slots"]
+[node name="Slot1" type="TextureButton" parent="UILayer/InventoryRoot/Slots"]
 layout_mode = 2
 
-[node name="Slot2" type="Button" parent="UILayer/InventoryRoot/Slots"]
+[node name="Slot2" type="TextureButton" parent="UILayer/InventoryRoot/Slots"]
 layout_mode = 2
 
-[node name="Slot3" type="Button" parent="UILayer/InventoryRoot/Slots"]
+[node name="Slot3" type="TextureButton" parent="UILayer/InventoryRoot/Slots"]
 layout_mode = 2
 
-[node name="Slot4" type="Button" parent="UILayer/InventoryRoot/Slots"]
+[node name="Slot4" type="TextureButton" parent="UILayer/InventoryRoot/Slots"]
 layout_mode = 2
 
-[node name="Slot5" type="Button" parent="UILayer/InventoryRoot/Slots"]
+[node name="Slot5" type="TextureButton" parent="UILayer/InventoryRoot/Slots"]
 layout_mode = 2
 
-[node name="Slot6" type="Button" parent="UILayer/InventoryRoot/Slots"]
+[node name="Slot6" type="TextureButton" parent="UILayer/InventoryRoot/Slots"]
 layout_mode = 2
 
-[node name="Slot7" type="Button" parent="UILayer/InventoryRoot/Slots"]
+[node name="Slot7" type="TextureButton" parent="UILayer/InventoryRoot/Slots"]
 layout_mode = 2
 
-[node name="Slot8" type="Button" parent="UILayer/InventoryRoot/Slots"]
+[node name="Slot8" type="TextureButton" parent="UILayer/InventoryRoot/Slots"]
 layout_mode = 2
 
 [connection signal="pressed" from="FirstRoom/LeftArrow" to="." method="_on_first_room_left_arrow_pressed"]
 [connection signal="pressed" from="FirstRoom/RightArrow" to="." method="_on_first_room_right_arrow_pressed"]
 [connection signal="pressed" from="SecondRoom/LeftArrow" to="." method="_on_second_room_left_arrow_pressed"]
 [connection signal="pressed" from="SecondRoom/RightArrow" to="." method="_on_second_room_right_arrow_pressed"]
-[connection signal="pressed" from="SecondRoom/ButtonOpenBox" to="SecondRoom" method="_on_ChestButton_pressed"]
 [connection signal="pressed" from="SecondRoom/ButtonOpenBox" to="SecondRoom" method="_on_ButtonOpenBox_pressed"]
+[connection signal="pressed" from="SecondRoom/ButtonOpenBox" to="SecondRoom" method="_on_ChestButton_pressed"]
 [connection signal="pressed" from="ThirdRoom/LeftArrow" to="." method="_on_third_room_left_arrow_pressed"]
 [connection signal="pressed" from="ThirdRoom/RightArrow" to="." method="_on_third_room_right_arrow_pressed"]
 [connection signal="pressed" from="ThirdRoom/PuzzleBoardLink" to="ThirdRoom" method="_on_link_pressed"]
