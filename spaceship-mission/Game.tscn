@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 [gd_scene load_steps=48 format=3 uid="uid://dgy78siw1rcl"]
+=======
+[gd_scene load_steps=35 format=3 uid="uid://dgy78siw1rcl"]
+>>>>>>> 0563eea9be836d9b5a105c85775b4527a6e4c9d9
 
 [ext_resource type="Script" uid="uid://bh24s60ojy0p5" path="res://node_2d.gd" id="1_3mrqo"]
 [ext_resource type="Texture2D" uid="uid://ceaq4odu0i6ld" path="res://images for background/first room.png" id="2_joorw"]
@@ -26,9 +30,13 @@
 [ext_resource type="Texture2D" uid="uid://b5xu1qj6l6u0i" path="res://items/Number for box 3.png" id="17_bvhbk"]
 [ext_resource type="Script" uid="uid://6e4sputjkjpf" path="res://robot_message.gd" id="19_cpsxm"]
 [ext_resource type="Texture2D" uid="uid://bvr0jlgi5vjnv" path="res://images for background/RobotBackground.jpg" id="20_hmewc"]
+<<<<<<< HEAD
 [ext_resource type="Texture2D" uid="uid://bbdap345hya1h" path="res://items/result_generated-image (3).png" id="21_hmewc"]
 [ext_resource type="Script" uid="uid://ck28ivxmq4wrs" path="res://paint_brush_script.gd" id="27_8ktx7"]
 [ext_resource type="Texture2D" uid="uid://bvghn6d0lagwn" path="res://items/paint-brush.png" id="28_hwsgv"]
+=======
+[ext_resource type="Texture2D" uid="uid://c7k4erai4s77o" path="res://images for background/InventorySlots.png" id="21_hmewc"]
+>>>>>>> 0563eea9be836d9b5a105c85775b4527a6e4c9d9
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3mrqo"]
 size = Vector2(288, 136)
@@ -79,6 +87,7 @@ size = Vector2(117, 182)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wuoie"]
 size = Vector2(1278, 536.5)
 
+<<<<<<< HEAD
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gebyw"]
 size = Vector2(38.5765, 17.9666)
 
@@ -89,6 +98,8 @@ particles_anim_h_frames = 1
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
+=======
+>>>>>>> 0563eea9be836d9b5a105c85775b4527a6e4c9d9
 [node name="Game" type="Node2D"]
 position = Vector2(11, 39)
 script = ExtResource("1_3mrqo")
@@ -490,6 +501,7 @@ offset_top = 5.0
 offset_right = 1294.0
 offset_bottom = 126.0
 
+<<<<<<< HEAD
 [node name="InventoryBackground" type="TextureRect" parent="UILayer/InventoryRoot"]
 material = SubResource("CanvasItemMaterial_d21ai")
 layout_mode = 1
@@ -509,6 +521,12 @@ offset_left = 160.0
 offset_top = -61.0
 offset_right = 244.0
 offset_bottom = -1.0
+=======
+[node name="Slots" type="HBoxContainer" parent="UILayer/InventoryRoot"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+>>>>>>> 0563eea9be836d9b5a105c85775b4527a6e4c9d9
 
 [node name="Slot1" type="TextureButton" parent="UILayer/InventoryRoot/Slots"]
 z_index = 1
@@ -561,15 +579,27 @@ offset_top = 80.0
 offset_right = 772.0
 offset_bottom = 140.0
 
+[node name="InventoryBackground" type="TextureRect" parent="UILayer/InventoryRoot"]
+layout_mode = 0
+offset_left = 348.0
+offset_top = 10.0
+offset_right = 897.0
+offset_bottom = 122.0
+texture = ExtResource("21_hmewc")
+expand_mode = 1
+
 [connection signal="pressed" from="FirstRoom/LeftArrow" to="." method="_on_first_room_left_arrow_pressed"]
 [connection signal="pressed" from="FirstRoom/RightArrow" to="." method="_on_first_room_right_arrow_pressed"]
 [connection signal="input_event" from="FirstRoom/KeySprite" to="FirstRoom/KeySprite" method="_on_input_event"]
 [connection signal="pressed" from="SecondRoom/LeftArrow" to="." method="_on_second_room_left_arrow_pressed"]
 [connection signal="pressed" from="SecondRoom/RightArrow" to="." method="_on_second_room_right_arrow_pressed"]
-[connection signal="pressed" from="SecondRoom/ButtonOpenBox" to="SecondRoom" method="_on_ButtonOpenBox_pressed"]
 [connection signal="pressed" from="SecondRoom/ButtonOpenBox" to="SecondRoom" method="_on_ChestButton_pressed"]
+<<<<<<< HEAD
 [connection signal="input_event" from="SecondRoom/BatterySprite" to="SecondRoom/BatterySprite" method="_on_input_event"]
 [connection signal="input_event" from="SecondRoom/screwdriverSprite" to="SecondRoom/screwdriverSprite" method="_on_input_event"]
+=======
+[connection signal="pressed" from="SecondRoom/ButtonOpenBox" to="SecondRoom" method="_on_ButtonOpenBox_pressed"]
+>>>>>>> 0563eea9be836d9b5a105c85775b4527a6e4c9d9
 [connection signal="pressed" from="ThirdRoom/LeftArrow" to="." method="_on_third_room_left_arrow_pressed"]
 [connection signal="pressed" from="ThirdRoom/RightArrow" to="." method="_on_third_room_right_arrow_pressed"]
 [connection signal="pressed" from="ThirdRoom/PuzzleBoardLink" to="ThirdRoom" method="_on_link_pressed"]
