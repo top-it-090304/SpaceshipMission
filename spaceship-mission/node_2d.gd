@@ -2,10 +2,20 @@ extends Node2D
 
 var current_room: Node2D
 
+#inventoryroots
+var tex_key_1 := preload("res://items/key_1.png")
+var tex_battery := preload("res://items/battery.png")
+var tex_paintbrush := preload("res://items/paint-brush.png")
+var tex_screwdriver := preload("res://items/screwdriver.png")
+
+
+
+
 func _ready() -> void:
 	current_room = $FirstRoom
 	_show_only(current_room)
 	_update_slots()
+	
 	
 	if GlobalState.return_to_second_room:
 		go_to_second_room()
@@ -61,7 +71,7 @@ func _on_fourth_room_right_arrow_pressed() -> void:
 	go_to_first_room()
 	
 	
-@onready var slots_container: HBoxContainer = $UILayer/InventoryRoot/Slots
+@onready var slots_container: Control = $UILayer/InventoryRoot/Slots
 
 var items: Array = []          # здесь храним предметы
 var max_slots: int = 7         # столько слотов ты нарисовала
@@ -98,4 +108,38 @@ func add_item(item) -> void:
 	items.append(item)
 	_update_slots()
 	
+
+
+func _on_slot_pressed(index: int) -> void:
+	if index >= items.size():
+		return
+
+	if selected_index == index:
+		# повторное нажатие снимает выбор
+		selected_index = -1
+	else:
+		selected_index = index
+
+	_update_slots()
+
+
+func _on_slot_1_pressed() -> void:
+	_on_slot_pressed(0)
 	
+func _on_slot_2_pressed() -> void:
+	_on_slot_pressed(1)
+
+func _on_slot_3_pressed() -> void:
+	_on_slot_pressed(2)
+
+func _on_slot_4_pressed() -> void:
+	_on_slot_pressed(3)
+
+func _on_slot_5_pressed() -> void:
+	_on_slot_pressed(4)
+
+func _on_slot_6_pressed() -> void:
+	_on_slot_pressed(5)
+
+func _on_slot_7_pressed() -> void:
+	_on_slot_pressed(6)

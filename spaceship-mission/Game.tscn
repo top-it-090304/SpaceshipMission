@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dgy78siw1rcl"]
+[gd_scene load_steps=48 format=3 uid="uid://dgy78siw1rcl"]
 
 [ext_resource type="Script" uid="uid://bh24s60ojy0p5" path="res://node_2d.gd" id="1_3mrqo"]
 [ext_resource type="Texture2D" uid="uid://ceaq4odu0i6ld" path="res://images for background/first room.png" id="2_joorw"]
@@ -6,21 +6,29 @@
 [ext_resource type="Texture2D" uid="uid://b6ccmfxjwqm1c" path="res://items/right-arrow1.png" id="4_yx171"]
 [ext_resource type="Texture2D" uid="uid://ovnu208su0gv" path="res://images for background/second room.png" id="5_yhmtn"]
 [ext_resource type="Texture2D" uid="uid://ccxiyqbh1d661" path="res://items/Number for box 1 .png" id="5_yyih5"]
+[ext_resource type="Script" uid="uid://cc8d6cfy4pyd0" path="res://key_sprite.gd" id="6_0mevm"]
 [ext_resource type="Script" uid="uid://dthpnhto80pdr" path="res://third_room.gd" id="6_2vekm"]
 [ext_resource type="Texture2D" uid="uid://drs8e302yexrc" path="res://images for background/third room.png" id="6_gwjdr"]
 [ext_resource type="Script" uid="uid://g6f6ow4cxnse" path="res://second_room.gd" id="6_wuoie"]
 [ext_resource type="Texture2D" uid="uid://bsfnv453vfjpj" path="res://items/Number for box 2.png" id="7_0yprl"]
 [ext_resource type="Texture2D" uid="uid://3n7583oa112d" path="res://images for background/fourth room.png" id="7_lvtmh"]
+[ext_resource type="Texture2D" uid="uid://0mlb2h4u2tok" path="res://items/key_1.png" id="7_w2501"]
 [ext_resource type="PackedScene" uid="uid://boalbjqusu3om" path="res://minigames/15puzzle/Board.tscn" id="8_yx171"]
 [ext_resource type="Script" uid="uid://dngcar8h6nwjk" path="res://fourth_room.gd" id="9_yhmtn"]
 [ext_resource type="Texture2D" uid="uid://cjultft6ww4ap" path="res://images for background/screen in 4 room.png" id="10_yx171"]
 [ext_resource type="FontFile" uid="uid://doktru6xsqb4n" path="res://Iceberg-Regular.ttf" id="11_gwjdr"]
+[ext_resource type="Script" uid="uid://740g2th2081a" path="res://battery_sprite.gd" id="11_jsoai"]
 [ext_resource type="Script" uid="uid://bcggij3p5jkj6" path="res://main_message.gd" id="11_lvtmh"]
 [ext_resource type="Texture2D" uid="uid://cwfg5j6tgficl" path="res://items/Number for box 4.png" id="11_wuoie"]
+[ext_resource type="Texture2D" uid="uid://ci7k3j81ftvmy" path="res://items/battery.png" id="12_bisgb"]
+[ext_resource type="Script" uid="uid://ct8xakff425wy" path="res://screwdriver_sprite.gd" id="13_y5ctq"]
+[ext_resource type="Texture2D" uid="uid://bypjiikuqh2xb" path="res://items/screwdriver.png" id="14_w7ht3"]
 [ext_resource type="Texture2D" uid="uid://b5xu1qj6l6u0i" path="res://items/Number for box 3.png" id="17_bvhbk"]
 [ext_resource type="Script" uid="uid://6e4sputjkjpf" path="res://robot_message.gd" id="19_cpsxm"]
 [ext_resource type="Texture2D" uid="uid://bvr0jlgi5vjnv" path="res://images for background/RobotBackground.jpg" id="20_hmewc"]
 [ext_resource type="Texture2D" uid="uid://bbdap345hya1h" path="res://items/result_generated-image (3).png" id="21_hmewc"]
+[ext_resource type="Script" uid="uid://ck28ivxmq4wrs" path="res://paint_brush_script.gd" id="27_8ktx7"]
+[ext_resource type="Texture2D" uid="uid://bvghn6d0lagwn" path="res://items/paint-brush.png" id="28_hwsgv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3mrqo"]
 size = Vector2(288, 136)
@@ -35,6 +43,9 @@ size = Vector2(226, 98.5)
 a = Vector2(-179, 98)
 b = Vector2(21, -2)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jsoai"]
+size = Vector2(72.1955, 53.1381)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yx171"]
 size = Vector2(1288, 519.5)
 
@@ -46,6 +57,12 @@ size = Vector2(246.5, 103)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lvtmh"]
 size = Vector2(302, 102)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y5ctq"]
+size = Vector2(39.1034, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ktx7"]
+size = Vector2(54, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yyih5"]
 size = Vector2(281, 429)
@@ -62,6 +79,9 @@ size = Vector2(117, 182)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wuoie"]
 size = Vector2(1278, 536.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gebyw"]
+size = Vector2(38.5765, 17.9666)
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_d21ai"]
 blend_mode = 1
 particles_animation = true
@@ -74,9 +94,10 @@ position = Vector2(11, 39)
 script = ExtResource("1_3mrqo")
 
 [node name="FirstRoom" type="Node2D" parent="."]
+visible = false
 
 [node name="FirstBackground" type="Sprite2D" parent="FirstRoom"]
-position = Vector2(630, 322)
+position = Vector2(630, 323)
 texture = ExtResource("2_joorw")
 
 [node name="LeftArrow" type="Button" parent="FirstRoom"]
@@ -109,13 +130,14 @@ position = Vector2(628.313, 275.5)
 shape = SubResource("RectangleShape2D_joorw")
 
 [node name="Wall3" type="StaticBody2D" parent="FirstRoom/Walls"]
+position = Vector2(-22, 6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FirstRoom/Walls/Wall3"]
 position = Vector2(1154, 573)
 shape = SubResource("RectangleShape2D_2vekm")
 
 [node name="Wall4" type="StaticBody2D" parent="FirstRoom/Walls"]
-position = Vector2(185, 554)
+position = Vector2(169, 529)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FirstRoom/Walls/Wall4"]
 position = Vector2(-2, 3)
@@ -125,6 +147,22 @@ shape = SubResource("SegmentShape2D_yx171")
 position = Vector2(1108, 240)
 scale = Vector2(0.138672, 0.166748)
 texture = ExtResource("5_yyih5")
+
+[node name="KeySprite" type="Area2D" parent="FirstRoom"]
+z_index = 1
+position = Vector2(-71, 54)
+script = ExtResource("6_0mevm")
+
+[node name="CollisionKey" type="CollisionShape2D" parent="FirstRoom/KeySprite"]
+z_index = 1
+position = Vector2(192.415, 534.795)
+rotation = -0.760964
+shape = SubResource("RectangleShape2D_jsoai")
+one_way_collision_margin = 0.0
+
+[node name="Key1" type="Sprite2D" parent="FirstRoom/KeySprite"]
+position = Vector2(189, 532)
+texture = ExtResource("7_w2501")
 
 [node name="SecondRoom" type="Node2D" parent="."]
 visible = false
@@ -194,6 +232,31 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="BatterySprite" type="Area2D" parent="SecondRoom"]
+script = ExtResource("11_jsoai")
+
+[node name="Sprite2D" type="Sprite2D" parent="SecondRoom/BatterySprite"]
+position = Vector2(261, 506)
+rotation = 1.01578
+texture = ExtResource("12_bisgb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SecondRoom/BatterySprite"]
+position = Vector2(261, 506)
+rotation = -0.760964
+shape = SubResource("RectangleShape2D_y5ctq")
+
+[node name="screwdriverSprite" type="Area2D" parent="SecondRoom"]
+script = ExtResource("13_y5ctq")
+
+[node name="Sprite2D" type="Sprite2D" parent="SecondRoom/screwdriverSprite"]
+position = Vector2(698, 176)
+rotation = 0.760964
+texture = ExtResource("14_w7ht3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SecondRoom/screwdriverSprite"]
+position = Vector2(701, 174)
+shape = SubResource("RectangleShape2D_8ktx7")
 
 [node name="ThirdRoom" type="Node2D" parent="."]
 visible = false
@@ -267,16 +330,13 @@ scale = Vector2(0.199219, 0.230469)
 texture = ExtResource("11_wuoie")
 
 [node name="FourthRoom" type="Node2D" parent="."]
-visible = false
 script = ExtResource("9_yhmtn")
 
 [node name="FourthBackground" type="Sprite2D" parent="FourthRoom"]
-visible = false
 position = Vector2(629, 323)
 texture = ExtResource("7_lvtmh")
 
 [node name="LeftArrow" type="Button" parent="FourthRoom"]
-visible = false
 offset_left = 16.0
 offset_top = 336.0
 offset_right = 64.0
@@ -408,6 +468,18 @@ offset_right = 50.0
 offset_bottom = 336.0
 icon = ExtResource("3_2vekm")
 
+[node name="PaintBrushScript" type="Area2D" parent="FourthRoom"]
+script = ExtResource("27_8ktx7")
+
+[node name="Sprite2D" type="Sprite2D" parent="FourthRoom/PaintBrushScript"]
+position = Vector2(369, 489)
+texture = ExtResource("28_hwsgv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FourthRoom/PaintBrushScript"]
+position = Vector2(365.428, 489.422)
+rotation = -0.6353
+shape = SubResource("RectangleShape2D_gebyw")
+
 [node name="UILayer" type="CanvasLayer" parent="."]
 
 [node name="InventoryRoot" type="Control" parent="UILayer"]
@@ -430,41 +502,74 @@ offset_bottom = 100.0
 grow_horizontal = 2
 texture = ExtResource("21_hmewc")
 
-[node name="Slots" type="HBoxContainer" parent="UILayer/InventoryRoot"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Slots" type="Control" parent="UILayer/InventoryRoot"]
+custom_minimum_size = Vector2(60, 60)
+anchors_preset = 0
+offset_left = 160.0
+offset_top = -61.0
+offset_right = 244.0
+offset_bottom = -1.0
 
 [node name="Slot1" type="TextureButton" parent="UILayer/InventoryRoot/Slots"]
+z_index = 1
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
+offset_left = 189.0
+offset_top = 79.0
+offset_right = 249.0
+offset_bottom = 139.0
 
 [node name="Slot2" type="TextureButton" parent="UILayer/InventoryRoot/Slots"]
 layout_mode = 2
+offset_left = 280.0
+offset_top = 75.0
+offset_right = 335.0
+offset_bottom = 135.0
 
 [node name="Slot3" type="TextureButton" parent="UILayer/InventoryRoot/Slots"]
 layout_mode = 2
+offset_left = 368.0
+offset_top = 79.0
+offset_right = 425.0
+offset_bottom = 139.0
 
 [node name="Slot4" type="TextureButton" parent="UILayer/InventoryRoot/Slots"]
 layout_mode = 2
+offset_left = 453.0
+offset_top = 78.0
+offset_right = 511.0
+offset_bottom = 138.0
 
 [node name="Slot5" type="TextureButton" parent="UILayer/InventoryRoot/Slots"]
 layout_mode = 2
+offset_left = 543.0
+offset_top = 81.0
+offset_right = 598.0
+offset_bottom = 144.0
 
 [node name="Slot6" type="TextureButton" parent="UILayer/InventoryRoot/Slots"]
 layout_mode = 2
+offset_left = 633.0
+offset_top = 81.0
+offset_right = 688.0
+offset_bottom = 141.0
 
 [node name="Slot7" type="TextureButton" parent="UILayer/InventoryRoot/Slots"]
 layout_mode = 2
-
-[node name="Slot8" type="TextureButton" parent="UILayer/InventoryRoot/Slots"]
-layout_mode = 2
+offset_left = 718.0
+offset_top = 80.0
+offset_right = 772.0
+offset_bottom = 140.0
 
 [connection signal="pressed" from="FirstRoom/LeftArrow" to="." method="_on_first_room_left_arrow_pressed"]
 [connection signal="pressed" from="FirstRoom/RightArrow" to="." method="_on_first_room_right_arrow_pressed"]
+[connection signal="input_event" from="FirstRoom/KeySprite" to="FirstRoom/KeySprite" method="_on_input_event"]
 [connection signal="pressed" from="SecondRoom/LeftArrow" to="." method="_on_second_room_left_arrow_pressed"]
 [connection signal="pressed" from="SecondRoom/RightArrow" to="." method="_on_second_room_right_arrow_pressed"]
 [connection signal="pressed" from="SecondRoom/ButtonOpenBox" to="SecondRoom" method="_on_ButtonOpenBox_pressed"]
 [connection signal="pressed" from="SecondRoom/ButtonOpenBox" to="SecondRoom" method="_on_ChestButton_pressed"]
+[connection signal="input_event" from="SecondRoom/BatterySprite" to="SecondRoom/BatterySprite" method="_on_input_event"]
+[connection signal="input_event" from="SecondRoom/screwdriverSprite" to="SecondRoom/screwdriverSprite" method="_on_input_event"]
 [connection signal="pressed" from="ThirdRoom/LeftArrow" to="." method="_on_third_room_left_arrow_pressed"]
 [connection signal="pressed" from="ThirdRoom/RightArrow" to="." method="_on_third_room_right_arrow_pressed"]
 [connection signal="pressed" from="ThirdRoom/PuzzleBoardLink" to="ThirdRoom" method="_on_link_pressed"]
@@ -474,3 +579,11 @@ layout_mode = 2
 [connection signal="pressed" from="FourthRoom/MainMessage/ButtonExit" to="FourthRoom" method="hide_message_screen"]
 [connection signal="pressed" from="FourthRoom/LinkRobotMessage" to="FourthRoom" method="_on_LinkRobotMessage_pressed"]
 [connection signal="pressed" from="FourthRoom/RobotMessage/ButtonExit" to="FourthRoom" method="hide_robot_message_screen"]
+[connection signal="input_event" from="FourthRoom/PaintBrushScript" to="FourthRoom/PaintBrushScript" method="_on_input_event"]
+[connection signal="pressed" from="UILayer/InventoryRoot/Slots/Slot1" to="." method="_on_slot_1_pressed"]
+[connection signal="pressed" from="UILayer/InventoryRoot/Slots/Slot2" to="." method="_on_slot_2_pressed"]
+[connection signal="pressed" from="UILayer/InventoryRoot/Slots/Slot3" to="." method="_on_slot_3_pressed"]
+[connection signal="pressed" from="UILayer/InventoryRoot/Slots/Slot4" to="." method="_on_slot_4_pressed"]
+[connection signal="pressed" from="UILayer/InventoryRoot/Slots/Slot5" to="." method="_on_slot_5_pressed"]
+[connection signal="pressed" from="UILayer/InventoryRoot/Slots/Slot6" to="." method="_on_slot_6_pressed"]
+[connection signal="pressed" from="UILayer/InventoryRoot/Slots/Slot7" to="." method="_on_slot_7_pressed"]
