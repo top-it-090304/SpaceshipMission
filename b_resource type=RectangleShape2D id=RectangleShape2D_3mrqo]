@@ -1,0 +1,100 @@
+[1mdiff --cc spaceship-mission/Game.tscn[m
+[1mindex 0bb17b8,5386a33..0000000[m
+[1m--- a/spaceship-mission/Game.tscn[m
+[1m+++ b/spaceship-mission/Game.tscn[m
+[36m@@@ -1,4 -1,4 +1,8 @@@[m
+[32m++<<<<<<< HEAD[m
+[32m +[gd_scene load_steps=36 format=3 uid="uid://dgy78siw1rcl"][m
+[32m++=======[m
+[32m+ [gd_scene load_steps=35 format=3 uid="uid://dgy78siw1rcl"][m
+[32m++>>>>>>> 3fb107e207a02603c4c68072a8214530f2b9d073[m
+  [m
+  [ext_resource type="Script" uid="uid://bh24s60ojy0p5" path="res://node_2d.gd" id="1_3mrqo"][m
+  [ext_resource type="Texture2D" uid="uid://ceaq4odu0i6ld" path="res://images for background/first room.png" id="2_joorw"][m
+[36m@@@ -20,7 -20,7 +24,11 @@@[m
+  [ext_resource type="Texture2D" uid="uid://b5xu1qj6l6u0i" path="res://items/Number for box 3.png" id="17_bvhbk"][m
+  [ext_resource type="Script" uid="uid://6e4sputjkjpf" path="res://robot_message.gd" id="19_cpsxm"][m
+  [ext_resource type="Texture2D" uid="uid://bvr0jlgi5vjnv" path="res://images for background/RobotBackground.jpg" id="20_hmewc"][m
+[32m++<<<<<<< HEAD[m
+[32m +[ext_resource type="Texture2D" uid="uid://bbdap345hya1h" path="res://items/result_generated-image (3).png" id="21_hmewc"][m
+[32m++=======[m
+[32m+ [ext_resource type="Texture2D" uid="uid://c7k4erai4s77o" path="res://images for background/InventorySlots.png" id="21_hmewc"][m
+[32m++>>>>>>> 3fb107e207a02603c4c68072a8214530f2b9d073[m
+  [m
+  [sub_resource type="RectangleShape2D" id="RectangleShape2D_3mrqo"][m
+  size = Vector2(288, 136)[m
+[36m@@@ -62,13 -62,6 +70,16 @@@[m [msize = Vector2(117, 182[m
+  [sub_resource type="RectangleShape2D" id="RectangleShape2D_wuoie"][m
+  size = Vector2(1278, 536.5)[m
+  [m
+[32m++<<<<<<< HEAD[m
+[32m +[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_d21ai"][m
+[32m +blend_mode = 1[m
+[32m +particles_animation = true[m
+[32m +particles_anim_h_frames = 1[m
+[32m +particles_anim_v_frames = 1[m
+[32m +particles_anim_loop = false[m
+[32m +[m
+[32m++=======[m
+[32m++>>>>>>> 3fb107e207a02603c4c68072a8214530f2b9d073[m
+  [node name="Game" type="Node2D"][m
+  position = Vector2(11, 39)[m
+  script = ExtResource("1_3mrqo")[m
+[36m@@@ -418,18 -410,6 +429,21 @@@[m [moffset_top = 5.[m
+  offset_right = 1294.0[m
+  offset_bottom = 126.0[m
+  [m
+[32m++<<<<<<< HEAD[m
+[32m +[node name="InventoryBackground" type="TextureRect" parent="UILayer/InventoryRoot"][m
+[32m +material = SubResource("CanvasItemMaterial_d21ai")[m
+[32m +layout_mode = 1[m
+[32m +anchors_preset = 5[m
+[32m +anchor_left = 0.5[m
+[32m +anchor_right = 0.5[m
+[32m +offset_left = -320.0[m
+[32m +offset_right = 320.0[m
+[32m +offset_bottom = 100.0[m
+[32m +grow_horizontal = 2[m
+[32m +texture = ExtResource("21_hmewc")[m
+[32m +[m
+[32m++=======[m
+[32m++>>>>>>> 3fb107e207a02603c4c68072a8214530f2b9d073[m
+  [node name="Slots" type="HBoxContainer" parent="UILayer/InventoryRoot"][m
+  layout_mode = 0[m
+  offset_right = 40.0[m
+[36m@@@ -455,16 -435,25 +469,27 @@@[m [mlayout_mode = [m
+  [m
+  [node name="Slot7" type="TextureButton" parent="UILayer/InventoryRoot/Slots"][m
+  layout_mode = 2[m
+[32m++<<<<<<< HEAD[m
+[32m++=======[m
+[32m+ [m
+[32m+ [node name="Slot8" type="TextureButton" parent="UILayer/InventoryRoot/Slots"][m
+[32m+ layout_mode = 2[m
+[32m++>>>>>>> 3fb107e207a02603c4c68072a8214530f2b9d073[m
+  [m
+[31m -[node name="InventoryBackground" type="TextureRect" parent="UILayer/InventoryRoot"][m
+[31m -layout_mode = 0[m
+[31m -offset_left = 348.0[m
+[31m -offset_top = 10.0[m
+[31m -offset_right = 897.0[m
+[31m -offset_bottom = 122.0[m
+[31m -texture = ExtResource("21_hmewc")[m
+[31m -expand_mode = 1[m
+[32m +[node name="Slot8" type="TextureButton" parent="UILayer/InventoryRoot/Slots"][m
+[32m +layout_mode = 2[m
+  [m
+  [connection signal="pressed" from="FirstRoom/LeftArrow" to="." method="_on_first_room_left_arrow_pressed"][m
+  [connection signal="pressed" from="FirstRoom/RightArrow" to="." method="_on_first_room_right_arrow_pressed"][m
+  [connection signal="pressed" from="SecondRoom/LeftArrow" to="." method="_on_second_room_left_arrow_pressed"][m
+  [connection signal="pressed" from="SecondRoom/RightArrow" to="." method="_on_second_room_right_arrow_pressed"][m
+[32m++<<<<<<< HEAD[m
+[32m +[connection signal="pressed" from="SecondRoom/ButtonOpenBox" to="SecondRoom" method="_on_ButtonOpenBox_pressed"][m
+[32m +[connection signal="pressed" from="SecondRoom/ButtonOpenBox" to="SecondRoom" method="_on_ChestButton_pressed"][m
+[32m++=======[m
+[32m+ [connection signal="pressed" from="SecondRoom/ButtonOpenBox" to="SecondRoom" method="_on_ChestButton_pressed"][m
+[32m+ [connection signal="pressed" from="SecondRoom/ButtonOpenBox" to="SecondRoom" method="_on_ButtonOpenBox_pressed"][m
+[32m++>>>>>>> 3fb107e207a02603c4c68072a8214530f2b9d073[m
+  [connection signal="pressed" from="ThirdRoom/LeftArrow" to="." method="_on_third_room_left_arrow_pressed"][m
+  [connection signal="pressed" from="ThirdRoom/RightArrow" to="." method="_on_third_room_right_arrow_pressed"][m
+  [connection signal="pressed" from="ThirdRoom/PuzzleBoardLink" to="ThirdRoom" method="_on_link_pressed"][m

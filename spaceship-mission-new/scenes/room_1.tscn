@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://c7wbs35qq4ugy"]
+
+[node name="Room1" type="Node2D"]
+
+[node name="RoomBackground" type="TextureRect" parent="."]
+offset_right = 1279.0
+offset_bottom = 718.0
