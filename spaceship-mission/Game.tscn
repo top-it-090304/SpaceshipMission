@@ -420,11 +420,14 @@ offset_bottom = 126.0
 
 [node name="InventoryBackground" type="TextureRect" parent="UILayer/InventoryRoot"]
 material = SubResource("CanvasItemMaterial_d21ai")
-layout_mode = 0
-offset_left = 237.0
-offset_top = 607.0
-offset_right = 1005.0
-offset_bottom = 707.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -320.0
+offset_right = 320.0
+offset_bottom = 100.0
+grow_horizontal = 2
 texture = ExtResource("21_hmewc")
 
 [node name="Slots" type="HBoxContainer" parent="UILayer/InventoryRoot"]
