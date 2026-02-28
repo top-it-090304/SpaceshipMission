@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://boalbjqusu3om"]
+
+[ext_resource type="Script" uid="uid://dma0f5q6gtkqs" path="res://minigame/15puzzle/board.gd" id="1_nap5k"]
+[ext_resource type="Texture2D" uid="uid://d2epaf2f7pib" path="res://ImagesBackground/15 puzels background.png" id="1_p787d"]
+[ext_resource type="Texture2D" uid="uid://c13a6h4iv6bw4" path="res://items/left-arrow.png" id="3_3hini"]
+
+[node name="Board" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_nap5k")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+offset_left = 1.0
+offset_top = -2.0
+offset_right = 1281.0
+offset_bottom = 718.0
+texture = ExtResource("1_p787d")
+
+[node name="Tiles" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 383.0
+offset_top = 107.0
+offset_right = 898.0
+offset_bottom = 616.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="Tiles"]
+modulate = Color(0.622572, 0.535566, 0.231939, 1)
+self_modulate = Color(0.727017, 0.199193, 0.131369, 1)
+layout_mode = 0
+offset_left = -251.0
+offset_top = 18.0
+offset_right = -99.0
+offset_bottom = 148.0
+theme_override_colors/font_disabled_color = Color(0.491637, 0.224089, 0.126332, 1)
+theme_override_colors/icon_disabled_color = Color(0.37712, 0.11178, 0.717778, 1)
+theme_override_colors/font_pressed_color = Color(0.568277, 0.503703, 0.871464, 1)
+text = "для прохождения 
+"
+
+[node name="Exit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 108.0
+offset_top = 344.0
+offset_right = 156.0
+offset_bottom = 392.0
+icon = ExtResource("3_3hini")
+
+[connection signal="pressed" from="Tiles/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]

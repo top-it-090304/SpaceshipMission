@@ -2,7 +2,11 @@ extends Node2D
 
 var current_room: Node2D = null
 var room_index: int = 1   # начинаем с Room1
+var board_scene := preload("res://minigame/15puzzle/Board.tscn")
+var board_instance: Node = null
 
+	
+	
 func _ready() -> void:
 	_load_room(room_index)
 
@@ -43,3 +47,21 @@ func _on_room_go_right() -> void:
 	if room_index > 4:
 		room_index = 1          # с 4 комнаты уходим в 1
 	_load_room(room_index)
+	
+	
+func open_board() -> void:
+	if board_instance:
+		return
+	board_instance = board_scene.instantiate()
+	$MiniGameLayer.add_child(board_instance)
+	board_instance.connect("puzzle_closed", Callable(self, "_on_board_closed"))
+	board_instance.connect("puzzle_solved", Callable(self, "_on_board_solved"))
+
+func _on_board_closed() -> void:
+	print("BOARD CLOSED")
+	if board_instance:
+		board_instance.queue_free()
+		board_instance = null
+
+func _on_board_solved() -> void:
+	print("15-puzzle solved, grant reward")

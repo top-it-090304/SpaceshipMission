@@ -37,5 +37,20 @@ grow_horizontal = 0
 grow_vertical = 2
 icon = ExtResource("4_dw1qw")
 
+[node name="Minigame" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="15Puzzels" type="LinkButton" parent="Minigame"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 184.0
+offset_right = 177.0
+offset_bottom = 484.0
+rotation = 0.0296706
+
 [connection signal="pressed" from="LeftArrow" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="RightArrow" to="." method="_on_right_pressed"]
+[connection signal="pressed" from="Minigame/15Puzzels" to="." method="_on_puzzels_pressed"]
