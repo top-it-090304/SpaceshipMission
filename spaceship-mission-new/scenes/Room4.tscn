@@ -1,7 +1,10 @@
-[gd_scene format=3 uid="uid://c1xbopnljxxr7"]
+[gd_scene load_steps=2 format=3 uid="uid://c1xbopnljxxr7"]
+
+[ext_resource type="Texture2D" uid="uid://djo6i58g8yaqo" path="res://ImagesBackground/result_Room4.png" id="1_synf0"]
 
 [node name="Room4" type="Node2D"]
 
 [node name="RoomBackground" type="TextureRect" parent="."]
 offset_right = 1278.0
 offset_bottom = 721.0
+texture = ExtResource("1_synf0")
