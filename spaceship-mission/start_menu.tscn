@@ -76,11 +76,6 @@ grow_horizontal = 2
 grow_vertical = 2
 icon = ExtResource("3_ctwoq")
 
-[node name="ExitButton" type="Button" parent="."]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_pgi0o")
