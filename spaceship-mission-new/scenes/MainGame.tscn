@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://lqwo3aoiphos"]
+
+[ext_resource type="Script" uid="uid://c6kdlp46ni2sm" path="res://scenes/main_game.gd" id="1_hat22"]
+
+[node name="MainGame" type="Node2D"]
+position = Vector2(-1, 0)
+script = ExtResource("1_hat22")
+
+[node name="RoomsRoot" type="Node2D" parent="."]
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="InventoryRoot" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

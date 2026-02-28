@@ -1,10 +1,41 @@
-[gd_scene load_steps=2 format=3 uid="uid://y7603qu0ubty"]
+[gd_scene load_steps=5 format=3 uid="uid://y7603qu0ubty"]
 
 [ext_resource type="Texture2D" uid="uid://dbb40vjffroc5" path="res://ImagesBackground/result_Room2.png" id="1_iw126"]
+[ext_resource type="Script" uid="uid://dks4irfrf7csn" path="res://scenes/room_2.gd" id="1_uq8dp"]
+[ext_resource type="Texture2D" uid="uid://ch4kncjxv2o5" path="res://items/right-arrow.png" id="3_lx35x"]
+[ext_resource type="Texture2D" uid="uid://c13a6h4iv6bw4" path="res://items/left-arrow.png" id="4_yltfi"]
 
 [node name="Room2" type="Node2D"]
+script = ExtResource("1_uq8dp")
 
 [node name="RoomBackground" type="TextureRect" parent="."]
 offset_right = 1278.0
 offset_bottom = 721.0
 texture = ExtResource("1_iw126")
+
+[node name="RightArrow" type="Button" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 1222.0
+offset_top = 331.5
+offset_right = 1280.0
+offset_bottom = 389.5
+grow_horizontal = 0
+grow_vertical = 2
+icon = ExtResource("3_lx35x")
+
+[node name="LeftArrow" type="Button" parent="."]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 331.5
+offset_right = 58.0
+offset_bottom = 389.5
+grow_vertical = 2
+icon = ExtResource("4_yltfi")
+
+[connection signal="pressed" from="RightArrow" to="." method="_on_right_pressed"]
+[connection signal="pressed" from="LeftArrow" to="." method="_on_left_pressed"]
