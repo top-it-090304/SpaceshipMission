@@ -51,6 +51,15 @@ offset_right = 177.0
 offset_bottom = 484.0
 rotation = 0.0296706
 
+[node name="SolvedBanner" type="ColorRect" parent="."]
+visible = false
+offset_left = 84.0
+offset_top = 184.0
+offset_right = 168.0
+offset_bottom = 258.0
+rotation = 0.136136
+color = Color(0.447059, 0.658824, 0.223529, 0.65098)
+
 [connection signal="pressed" from="LeftArrow" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="RightArrow" to="." method="_on_right_pressed"]
-[connection signal="pressed" from="Minigame/15Puzzels" to="." method="_on_puzzels_pressed"]
+[connection signal="pressed" from="Minigame/15Puzzels" to="." method="_on_puzzle_button_pressed"]

@@ -1,17 +1,5 @@
 extends Control
 
-signal puzzle_solved
-
-signal puzzle_closed
-
-func _on_exit_button_pressed() -> void:
-	emit_signal("puzzle_closed")
-
-func _on_puzzle_solved() -> void:
-	print("Puzzle solved!")
-	emit_signal("puzzle_solved")
-	emit_signal("puzzle_closed")
-
 const SIZE := 4                       
 const TILE_SIZE := Vector2i(128, 127) 
 var board: Array[int] = []             
@@ -74,13 +62,6 @@ func on_tile_pressed(tile: Node) -> void:
 
 	if move_tile(tile_index):
 		update_tiles_visual()
-
-		if is_solved():
-			_on_puzzle_solved()
-
-	if move_tile(tile_index):
-		update_tiles_visual()
-
 		if is_solved():
 			_on_puzzle_solved()
 
@@ -178,12 +159,16 @@ func reset_puzzle() -> void:
 	
 
 
-func _on_exit_pressed() -> void:
-	print("EXIT CLICK")
-	emit_signal("puzzle_closed")
+func _close_puzzle(solved: bool) -> void:
+	var main_game := get_tree().get_first_node_in_group("MainGame")
+	if main_game:
+		if solved:
+			main_game.on_board_solved()
+		main_game.close_board()
+		
+func _on_exit_button_pressed() -> void:
+	_close_puzzle(false)
 	
-
-
-func _on_button_pressed() -> void:
-	emit_signal("puzzle_solved")
-	emit_signal("puzzle_closed")
+func _on_puzzle_solved() -> void:
+	print("Puzzle solved!")
+	_close_puzzle(true)

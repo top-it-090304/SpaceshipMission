@@ -14,5 +14,11 @@ func _on_right_pressed() -> void:
 	emit_signal("go_right")
 
 
-func _on_puzzels_pressed() -> void:
-	get_tree().change_scene_to_file("res://minigame/15puzzle/Board.tscn")
+func _on_puzzle_button_pressed() -> void:
+	var main_game := get_tree().get_first_node_in_group("MainGame")
+	
+	if main_game == null:
+		return
+	if main_game.puzzle_solved_15:
+		return
+	main_game.open_board()

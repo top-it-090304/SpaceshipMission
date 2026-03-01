@@ -53,5 +53,5 @@ offset_right = 156.0
 offset_bottom = 392.0
 icon = ExtResource("3_3hini")
 
-[connection signal="pressed" from="Tiles/Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Tiles/Button" to="." method="_on_puzzle_solved"]
+[connection signal="pressed" from="Exit" to="." method="_on_exit_button_pressed"]

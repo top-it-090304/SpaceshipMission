@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c6kdlp46ni2sm" path="res://scenes/main_game.gd" id="1_hat22"]
 
-[node name="MainGame" type="Node2D"]
+[node name="MainGame" type="Node2D" groups=["MainGame"]]
 position = Vector2(-1, 0)
 script = ExtResource("1_hat22")
 

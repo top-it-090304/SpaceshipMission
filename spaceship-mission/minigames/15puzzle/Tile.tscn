@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=3 uid="uid://qm3kxqql20dv"]
+[gd_scene load_steps=3 format=3 uid="uid://qm3kxqql20dv"]
 
-[ext_resource type="Texture2D" uid="uid://blujnddnieeva" path="res://items/tile background.png" id="1_7jg1a"]
 [ext_resource type="Script" uid="uid://c0klu0kxvt1gd" path="res://minigames/15puzzle/tile.gd" id="1_hpd3s"]
 [ext_resource type="FontFile" uid="uid://doktru6xsqb4n" path="res://Iceberg-Regular.ttf" id="2_hpd3s"]
 
@@ -16,7 +15,6 @@ offset_left = -35.0
 offset_top = -39.0
 offset_right = 169.0
 offset_bottom = 160.0
-texture = ExtResource("1_7jg1a")
 
 [node name="NumberLabel" type="Label" parent="."]
 layout_mode = 1
