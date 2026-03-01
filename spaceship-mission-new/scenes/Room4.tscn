@@ -37,5 +37,12 @@ offset_bottom = 389.5
 grow_vertical = 2
 icon = ExtResource("4_ey0fo")
 
+[node name="MainMassage" type="LinkButton" parent="."]
+offset_left = 360.0
+offset_top = 189.0
+offset_right = 906.0
+offset_bottom = 383.0
+
 [connection signal="pressed" from="RightArrow" to="." method="_on_right_pressed"]
 [connection signal="pressed" from="LeftArrow" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="MainMassage" to="." method="_on_main_massage_button_pressed"]

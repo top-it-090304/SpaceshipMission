@@ -5,6 +5,8 @@ var room_index: int = 1   # начинаем с Room1
 var board_scene := preload("res://minigame/15puzzle/Board.tscn")
 var board_instance: Node = null
 var puzzle_solved_15: bool = false
+var message4_scene := preload("res://scenes/MainMassage.tscn")
+var message4_instance: Node = null
 	
 	
 func _ready() -> void:
@@ -55,7 +57,7 @@ func _on_room_go_right() -> void:
 	
 	
 func open_board() -> void:
-	
+	 
 	if board_instance != null:
 		
 		return
@@ -81,3 +83,15 @@ func on_board_solved() -> void:
 		var banner := current_room.get_node_or_null("SolvedBanner")
 		if banner:
 			banner.visible = true
+func open_message4() -> void:
+	if message4_instance:
+		return
+	message4_instance = message4_scene.instantiate()
+	$MiniGameLayer.add_child(message4_instance)
+func close_message4() -> void:
+	if message4_instance:
+		message4_instance.queue_free()
+		message4_instance = null
+
+	room_index = 4
+	_load_room(room_index)
