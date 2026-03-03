@@ -37,5 +37,12 @@ offset_bottom = 389.5
 grow_vertical = 2
 icon = ExtResource("4_yltfi")
 
+[node name="LinkButtonBox1" type="LinkButton" parent="."]
+offset_left = 398.0
+offset_top = 441.0
+offset_right = 607.0
+offset_bottom = 592.0
+
 [connection signal="pressed" from="RightArrow" to="." method="_on_right_pressed"]
 [connection signal="pressed" from="LeftArrow" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="LinkButtonBox1" to="." method="_on_box1_pressed"]

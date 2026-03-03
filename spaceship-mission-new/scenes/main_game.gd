@@ -7,6 +7,9 @@ var board_instance: Node = null
 var puzzle_solved_15: bool = false
 var message4_scene := preload("res://scenes/MainMassage.tscn")
 var message4_instance: Node = null
+var chest_scene := preload("res://logicitems/box1InSecondRoom/Box1.tscn")
+var chest_instance: Node = null
+var chest_opened: bool = false
 	
 	
 func _ready() -> void:
@@ -94,4 +97,19 @@ func close_message4() -> void:
 		message4_instance = null
 
 	room_index = 4
+	_load_room(room_index)
+
+func open_chest() -> void:
+	if chest_instance:
+		return
+	chest_instance = chest_scene.instantiate()
+	$MiniGameLayer.add_child(chest_instance)
+
+func close_chest() -> void:
+	if chest_instance:
+		chest_instance.queue_free()
+		chest_instance = null
+
+	chest_opened = true      # сундук открыт, можно потом использовать
+	room_index = 2
 	_load_room(room_index)

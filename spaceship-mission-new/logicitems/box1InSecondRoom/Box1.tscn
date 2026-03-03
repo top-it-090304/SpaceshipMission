@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://cew22vdhr5mof"]
 
 [ext_resource type="Texture2D" uid="uid://c64ktwoeeewwy" path="res://items/newBox.png" id="1_g3u6n"]
-[ext_resource type="Script" uid="uid://bbi2syjahe6sg" path="res://logic items/box1InSecondRoom/box_1.gd" id="1_uweek"]
+[ext_resource type="Script" uid="uid://bbi2syjahe6sg" path="res://logicitems/box1InSecondRoom/box_1.gd" id="1_uweek"]
 [ext_resource type="Texture2D" uid="uid://fyheymyxhhj2" path="res://items/openBox.png" id="2_1jmnf"]
 [ext_resource type="FontFile" uid="uid://b7dduljs7hlra" path="res://Iceberg-Regular.ttf" id="3_l0gkc"]
 [ext_resource type="Texture2D" uid="uid://l6h6crkveapg" path="res://items/newButBox.png" id="4_fhi7n"]
@@ -282,4 +282,4 @@ icon = ExtResource("8_yuqr0")
 [connection signal="pressed" from="Keypad/Button9" to="." method="_on_Btn9_pressed"]
 [connection signal="pressed" from="ButtonClear" to="." method="_on_clear_pressed"]
 [connection signal="pressed" from="ButtonCheak" to="." method="_on_check_pressed"]
-[connection signal="pressed" from="ButtonBack" to="." method="_on_BackButton_pressed"]
+[connection signal="pressed" from="ButtonBack" to="." method="_on_ExitButton_pressed"]
