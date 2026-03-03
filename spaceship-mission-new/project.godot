@@ -12,8 +12,9 @@ config_version=5
 
 config/name="spaceship-mission-new"
 run/main_scene="uid://dutw422wybcdt"
+config/custom_user_dir_name="ru.sofia.spaceship"
 config/features=PackedStringArray("4.4", "Mobile")
-config/icon="res://icon.svg"
+config/icon="uid://n8aoi0b2b0f4"
 
 [display]
 
@@ -26,3 +27,4 @@ window/stretch/aspect="ignore"
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
