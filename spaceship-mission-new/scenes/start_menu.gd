@@ -10,7 +10,8 @@ func _ready() -> void:
 	title_label.text = ""
 	char_index = 0
 
-	_type_next_char()             # запускаем печать букв
+	_type_next_char()   
+	#shake_button()          # запускаем печать букв
 	#$AnimationPlayer.play("wiggle")  # вибрация кнопки, если есть анимация
 
 
@@ -32,3 +33,4 @@ func _on_start_button_pressed() -> void:
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
+	
