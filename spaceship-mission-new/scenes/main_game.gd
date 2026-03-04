@@ -100,16 +100,31 @@ func close_message4() -> void:
 	_load_room(room_index)
 
 func open_chest() -> void:
-	if chest_instance:
+	if chest_instance != null:
 		return
 	chest_instance = chest_scene.instantiate()
 	$MiniGameLayer.add_child(chest_instance)
+
 
 func close_chest() -> void:
 	if chest_instance:
 		chest_instance.queue_free()
 		chest_instance = null
 
-	chest_opened = true      # сундук открыт, можно потом использовать
+		 # сундук открыт, можно потом использовать
 	room_index = 2
 	_load_room(room_index)
+	
+func on_chest_solved() -> void:
+	chest_opened = true
+	#func close_board() -> void:
+	#if board_instance:
+		#board_instance.queue_free()
+		#board_instance = null
+#
+	#room_index = 3
+	#_load_room(room_index)
+	#if puzzle_solved_15 and current_room:
+		#var banner := current_room.get_node_or_null("SolvedBanner")
+		#if banner:
+			#banner.visible = true

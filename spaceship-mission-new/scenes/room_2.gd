@@ -21,4 +21,5 @@ func _on_box1_pressed() -> void:
 	# если нужно запретить повторный вход, когда сундук уже открыт:
 	if main_game.chest_opened:
 		return
-		main_game.open_chest()
+
+	main_game.open_chest()
