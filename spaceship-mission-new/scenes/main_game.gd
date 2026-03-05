@@ -1,7 +1,7 @@
 extends Node2D
 
 
-@onready var inventory := $UILayer/InventoryRoot as Control  
+@onready var inventory := $UILayer/InventoryRoot
 var current_room: Node2D = null
 var room_index: int = 1   # начинаем с Room1
 var board_scene := preload("res://minigame/15puzzle/Board.tscn")

@@ -1,8 +1,7 @@
 extends Area2D
 
-
-@export var item_id: String = "key"        # идентификатор предмета
-@export var texture: Texture2D             # картинка предмета в комнате
+@export var item_id: String = "key"
+@export var texture: Texture2D
 
 func _ready() -> void:
 	$Sprite2D.texture = texture

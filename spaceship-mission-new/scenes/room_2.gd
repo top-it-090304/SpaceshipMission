@@ -27,5 +27,5 @@ func _on_box1_pressed() -> void:
 func _on_screwdriver_pressed() -> void:
 	var main_game := get_tree().get_first_node_in_group("MainGame")
 	if main_game:
-		main_game.inventory.add_item("key")
+		main_game.inventory.add_item("card") 
 	$Screwdriver.hide()

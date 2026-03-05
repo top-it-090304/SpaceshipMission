@@ -29,6 +29,7 @@ offset_left = 344.0
 offset_top = 37.0
 offset_right = 412.0
 offset_bottom = 94.0
+mouse_filter = 0
 
 [node name="Slot2" type="TextureRect" parent="Slots"]
 layout_mode = 0
@@ -36,6 +37,7 @@ offset_left = 429.0
 offset_top = 37.0
 offset_right = 497.0
 offset_bottom = 93.0
+mouse_filter = 0
 
 [node name="Slot3" type="TextureRect" parent="Slots"]
 layout_mode = 0
@@ -43,6 +45,7 @@ offset_left = 518.0
 offset_top = 36.0
 offset_right = 583.0
 offset_bottom = 98.0
+mouse_filter = 0
 
 [node name="Slot4" type="TextureRect" parent="Slots"]
 layout_mode = 0
@@ -50,6 +53,7 @@ offset_left = 604.0
 offset_top = 39.0
 offset_right = 671.0
 offset_bottom = 95.0
+mouse_filter = 0
 
 [node name="Slot5" type="TextureRect" parent="Slots"]
 layout_mode = 0
@@ -57,6 +61,7 @@ offset_left = 689.0
 offset_top = 41.0
 offset_right = 759.0
 offset_bottom = 89.0
+mouse_filter = 0
 
 [node name="Slot6" type="TextureRect" parent="Slots"]
 layout_mode = 0
@@ -64,6 +69,7 @@ offset_left = 775.0
 offset_top = 39.0
 offset_right = 846.0
 offset_bottom = 98.0
+mouse_filter = 0
 
 [node name="Slot7" type="TextureRect" parent="Slots"]
 layout_mode = 0
@@ -71,3 +77,4 @@ offset_left = 861.0
 offset_top = 36.0
 offset_right = 932.0
 offset_bottom = 94.0
+mouse_filter = 0
