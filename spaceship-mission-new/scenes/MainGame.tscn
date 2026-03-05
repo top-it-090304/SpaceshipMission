@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://lqwo3aoiphos"]
+[gd_scene load_steps=3 format=3 uid="uid://lqwo3aoiphos"]
 
 [ext_resource type="Script" uid="uid://c6kdlp46ni2sm" path="res://scenes/main_game.gd" id="1_hat22"]
+[ext_resource type="PackedScene" uid="uid://b8le3fmn8kbgs" path="res://scenes/InventoryRoot.tscn" id="2_xej52"]
 
 [node name="MainGame" type="Node2D" groups=["MainGame"]]
 position = Vector2(-1, 0)
@@ -10,10 +11,6 @@ script = ExtResource("1_hat22")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
-[node name="InventoryRoot" type="Control" parent="UILayer"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="InventoryRoot" parent="UILayer" instance=ExtResource("2_xej52")]
 
 [node name="MiniGameLayer" type="CanvasLayer" parent="."]
