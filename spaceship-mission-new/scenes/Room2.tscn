@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://y7603qu0ubty"]
+[gd_scene load_steps=7 format=3 uid="uid://y7603qu0ubty"]
 
 [ext_resource type="Texture2D" uid="uid://dbb40vjffroc5" path="res://ImagesBackground/result_Room2.png" id="1_iw126"]
 [ext_resource type="Script" uid="uid://dks4irfrf7csn" path="res://scenes/room_2.gd" id="1_uq8dp"]
 [ext_resource type="Texture2D" uid="uid://ch4kncjxv2o5" path="res://items/right-arrow.png" id="3_lx35x"]
 [ext_resource type="Texture2D" uid="uid://c13a6h4iv6bw4" path="res://items/left-arrow.png" id="4_yltfi"]
+[ext_resource type="PackedScene" uid="uid://cn1y03h5it8rh" path="res://scenes/Item.tscn" id="5_4tgmk"]
+[ext_resource type="Texture2D" uid="uid://drok0fqnbkhsd" path="res://items/battery.png" id="6_5ujgq"]
 
 [node name="Room2" type="Node2D"]
 script = ExtResource("1_uq8dp")
@@ -48,6 +50,11 @@ offset_left = 141.0
 offset_top = 142.0
 offset_right = 181.0
 offset_bottom = 182.0
+
+[node name="Item" parent="." instance=ExtResource("5_4tgmk")]
+position = Vector2(672, 356)
+item_id = "battery "
+texture = ExtResource("6_5ujgq")
 
 [connection signal="pressed" from="RightArrow" to="." method="_on_right_pressed"]
 [connection signal="pressed" from="LeftArrow" to="." method="_on_left_pressed"]
