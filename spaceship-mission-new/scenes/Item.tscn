@@ -9,8 +9,10 @@ size = Vector2(77, 32)
 script = ExtResource("1_j3wwg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 2
 shape = SubResource("RectangleShape2D_bx46p")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

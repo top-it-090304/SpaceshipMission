@@ -4,9 +4,9 @@ const MAX_SLOTS := 7
 
 var items: Array[String] = []
 var item_textures := {
-	"key": preload("res://items/battery.png"),
-	"card": preload("res://items/screwdriver.png"),
-	"screwdriver": preload("res://items/screwdriver.png"),
+	"battery": preload("res://items/battery.png"),
+	"screwdriver": preload("res://items/screwdriver.png")
+	
 }
 
 @onready var slots := [
@@ -32,9 +32,12 @@ func _ready() -> void:
 	_update_slots()
 
 func add_item(id: String) -> void:
+	print("Inventory.add_item:", id)
 	if items.size() >= MAX_SLOTS or id in items:
+		print("Cannot add, items =", items)
 		return
 	items.append(id)
+	print("Items now:", items)
 	# если раньше ничего не было выбрано — выберем первый добавленный предмет
 	if selected_index == -1:
 		selected_index = items.size() - 1

@@ -1,7 +1,7 @@
 extends Node2D
 
 
-@onready var inventory := $UILayer/InventoryRoot
+@onready var inventory := $UILayer/InventoryRoot as Control
 var current_room: Node2D = null
 var room_index: int = 1   # начинаем с Room1
 var board_scene := preload("res://minigame/15puzzle/Board.tscn")
@@ -12,10 +12,22 @@ var message4_instance: Node = null
 var chest_scene := preload("res://logicitems/box1InSecondRoom/Box1.tscn")
 var chest_instance: Node = null
 var chest_opened: bool = false
-	
-	
+
+var collected_items: Array[String] = [] # сюда складываем id подобранных предметов
+
 func _ready() -> void:
 	_load_room(room_index)
+
+func mark_item_collected(id: String) -> void:
+	if id in collected_items:
+		return
+	collected_items.append(id)
+
+func is_item_collected(id: String) -> bool:
+	return id in collected_items
+	
+	
+
 
 func _load_room(index: int) -> void:
 	if current_room:

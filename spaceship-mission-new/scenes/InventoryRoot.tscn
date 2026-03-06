@@ -33,10 +33,10 @@ mouse_filter = 0
 
 [node name="Slot2" type="TextureRect" parent="Slots"]
 layout_mode = 0
-offset_left = 429.0
-offset_top = 37.0
-offset_right = 497.0
-offset_bottom = 93.0
+offset_left = 430.0
+offset_top = 40.0
+offset_right = 498.0
+offset_bottom = 96.0
 mouse_filter = 0
 
 [node name="Slot3" type="TextureRect" parent="Slots"]
