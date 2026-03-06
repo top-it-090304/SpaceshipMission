@@ -49,7 +49,7 @@ func _open_chest() -> void:
 
 	var main_game := get_tree().get_first_node_in_group("MainGame")
 	if main_game:
-		main_game.on_chest1_solved()   
+		main_game.on_chest_solved()   
 
 	await get_tree().create_timer(0.7).timeout
 	_close_chest()
@@ -93,7 +93,7 @@ func _on_Btn9_pressed() -> void:
 func _close_chest() -> void:
 	var main_game := get_tree().get_first_node_in_group("MainGame")
 	if main_game:
-		main_game.close_chest1()
+		main_game.close_chest()
 	
 func _on_ExitButton_pressed() -> void:
 	_close_chest()

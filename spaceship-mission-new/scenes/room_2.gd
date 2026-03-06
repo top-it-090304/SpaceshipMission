@@ -18,9 +18,18 @@ func _on_box1_pressed() -> void:
 	if main_game == null:
 		return
 
-	# если нужно запретить повторный вход, когда сундук уже открыт:
-	if main_game.chest_opened:
+	if main_game.chest1_opened:
 		return
 
-	main_game.open_chest()
+	main_game.open_chest1()
+	
+func _on_box2_pressed() -> void:
+	var main_game := get_tree().get_first_node_in_group("MainGame")
+	if main_game == null:
+		return
+
+	if main_game.chest2_opened:
+		return
+
+	main_game.open_chest2()
 	

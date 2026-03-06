@@ -5,8 +5,9 @@ const MAX_SLOTS := 7
 var items: Array[String] = []
 var item_textures := {
 	"battery": preload("res://items/battery.png"),
-	"screwdriver": preload("res://items/screwdriver.png")
-	
+	"screwdriver": preload("res://items/screwdriver.png"),
+	"brush": preload("res://items/paint-brush.png"),
+	"key": preload("res://items/key_1.png"),
 }
 
 @onready var slots := [

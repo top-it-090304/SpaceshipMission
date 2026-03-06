@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c7wbs35qq4ugy"]
+[gd_scene load_steps=6 format=3 uid="uid://c7wbs35qq4ugy"]
 
 [ext_resource type="Script" uid="uid://cew24iau8qbh4" path="res://scenes/room_1.gd" id="1_2dtu0"]
 [ext_resource type="Texture2D" uid="uid://caqi272gd5ah5" path="res://ImagesBackground/result_Room1.png" id="2_7sa2y"]
 [ext_resource type="Texture2D" uid="uid://ch4kncjxv2o5" path="res://items/right-arrow.png" id="3_sf7up"]
 [ext_resource type="Texture2D" uid="uid://c13a6h4iv6bw4" path="res://items/left-arrow.png" id="4_xhlaj"]
+[ext_resource type="PackedScene" uid="uid://cn1y03h5it8rh" path="res://scenes/Item.tscn" id="5_bj4ne"]
 
 [node name="Room1" type="Node2D"]
 position = Vector2(-431, -118)
@@ -15,10 +16,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 431.0
-offset_top = 124.0
-offset_right = 1711.0
-offset_bottom = 844.0
+offset_left = 434.0
+offset_top = 117.0
+offset_right = 1714.0
+offset_bottom = 837.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_7sa2y")
@@ -47,6 +48,8 @@ offset_right = 489.0
 offset_bottom = 513.0
 grow_vertical = 2
 icon = ExtResource("4_xhlaj")
+
+[node name="Item" parent="." instance=ExtResource("5_bj4ne")]
 
 [connection signal="pressed" from="RightArrow" to="." method="_on_right_pressed"]
 [connection signal="pressed" from="LeftArrow" to="." method="_on_left_pressed"]

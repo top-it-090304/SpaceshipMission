@@ -4,14 +4,25 @@ extends Node2D
 @onready var inventory := $UILayer/InventoryRoot as Control
 var current_room: Node2D = null
 var room_index: int = 1   # начинаем с Room1
+
+#minigame
 var board_scene := preload("res://minigame/15puzzle/Board.tscn")
 var board_instance: Node = null
 var puzzle_solved_15: bool = false
+
+#massage
 var message4_scene := preload("res://scenes/MainMassage.tscn")
 var message4_instance: Node = null
-var chest_scene := preload("res://logicitems/box1InSecondRoom/Box1.tscn")
-var chest_instance: Node = null
-var chest_opened: bool = false
+
+# box 1
+var chest1_scene := preload("res://logicitems/box1InSecondRoom/Box1.tscn")
+var chest1_instance: Node = null
+var chest1_opened: bool = false
+
+# box 2
+var chest2_scene := preload("res://logicitems/box2InSecondRoom/Box2.tscn")
+var chest2_instance: Node = null
+var chest2_opened: bool = false
 
 var collected_items: Array[String] = [] # сюда складываем id подобранных предметов
 
@@ -113,32 +124,38 @@ func close_message4() -> void:
 	room_index = 4
 	_load_room(room_index)
 
-func open_chest() -> void:
-	if chest_instance != null:
+func open_chest1() -> void:
+	if chest1_instance != null:
 		return
-	chest_instance = chest_scene.instantiate()
-	$MiniGameLayer.add_child(chest_instance)
+	chest1_instance = chest1_scene.instantiate()
+	$MiniGameLayer.add_child(chest1_instance)
 
 
-func close_chest() -> void:
-	if chest_instance:
-		chest_instance.queue_free()
-		chest_instance = null
+func close_chest1() -> void:
+	if chest1_instance:
+		chest1_instance.queue_free()
+		chest1_instance = null
 
 		 # сундук открыт, можно потом использовать
 	room_index = 2
 	_load_room(room_index)
 	
-func on_chest_solved() -> void:
-	chest_opened = true
-	#func close_board() -> void:
-	#if board_instance:
-		#board_instance.queue_free()
-		#board_instance = null
-#
-	#room_index = 3
-	#_load_room(room_index)
-	#if puzzle_solved_15 and current_room:
-		#var banner := current_room.get_node_or_null("SolvedBanner")
-		#if banner:
-			#banner.visible = true
+func on_chest1_solved() -> void:
+	chest1_opened = true
+	
+	
+func open_chest2() -> void:
+	if chest2_instance != null:
+		return
+	chest2_instance = chest2_scene.instantiate()
+	$MiniGameLayer.add_child(chest2_instance)
+
+func close_chest2() -> void:
+	if chest2_instance:
+		chest2_instance.queue_free()
+		chest2_instance = null
+	room_index = 2 
+	_load_room(room_index)
+
+func on_chest2_solved() -> void:
+	chest2_opened = true	
