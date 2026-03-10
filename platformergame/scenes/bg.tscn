@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://coqa0om1yubk3"]
+
+[ext_resource type="Texture2D" uid="uid://ddcroarhj4k8w" path="res://images for godot/230267208_297be290-37be-44f0-a666-ef7885616407.jpg" id="1_qd2e1"]
+[ext_resource type="Texture2D" uid="uid://bsd183m0a2kef" path="res://images for godot/layer2.png" id="2_5vsr6"]
+[ext_resource type="Texture2D" uid="uid://xai2iwddjiwh" path="res://images for godot/Frame 5.png" id="3_w68nc"]
+
+[node name="Bg" type="ParallaxBackground"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.164405, 0.16171)
+texture = ExtResource("1_qd2e1")
+centered = false
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.6, 1)
+motion_mirroring = Vector2(1150, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer"]
+position = Vector2(84, 69)
+scale = Vector2(0.832031, 0.801389)
+texture = ExtResource("2_5vsr6")
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.8, 1)
+motion_mirroring = Vector2(1153, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer2"]
+scale = Vector2(0.899219, 0.895833)
+texture = ExtResource("3_w68nc")
+centered = false

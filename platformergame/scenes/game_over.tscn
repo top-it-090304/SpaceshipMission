@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1kywr8731mvr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0nqlu"]
+bg_color = Color(0.303433, 0.483737, 0.882984, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xeevv"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqhvx"]
+bg_color = Color(0.460563, 0.60943, 0.811276, 1)
+
+[node name="GameOver" type="CanvasLayer"]
+
+[node name="Button" type="Button" parent="."]
+process_mode = 2
+offset_left = 351.0
+offset_top = 252.0
+offset_right = 813.0
+offset_bottom = 333.0
+theme_override_font_sizes/font_size = 40
+theme_override_styles/hover = SubResource("StyleBoxFlat_0nqlu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xeevv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_wqhvx")
+text = "ПОПРОБОВАТЬ СНОВА"
