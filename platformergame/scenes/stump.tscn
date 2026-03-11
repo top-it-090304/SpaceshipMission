@@ -1,16 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://074wj0ckgfn0"]
+[gd_scene load_steps=3 format=3 uid="uid://074wj0ckgfn0"]
 
-[ext_resource type="Texture2D" uid="uid://crmq4ln0fhi3l" path="res://images for godot/stump3.png" id="1_c6xkf"]
+[ext_resource type="Texture2D" uid="uid://bpjld5to2lgks" path="res://images/Polygon 1.png" id="1_c6xkf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c6xkf"]
+size = Vector2(39, 42)
 
 [node name="Stump" type="Area2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0.499996, -0.999996)
-scale = Vector2(0.393382, 0.460057)
+scale = Vector2(0.557802, 0.576695)
 texture = ExtResource("1_c6xkf")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-position = Vector2(0.305181, -0.999996)
-scale = Vector2(0.375582, 0.460057)
-polygon = PackedVector2Array(106, -135.3, 102, -137, 95, -137, 44.9, -54, 43.2, -54, 40.2, -25.8, 31, -41.5, 31, -43.3, 28.7, -44.3, 14.3, -33, 12.7, -33, -16.2, 36.1, -45, -52.3, -45, -57, -49, -60, -49, -61.2, -51.2, -62.3, -55.7, -59, -57.5, -59, -62.5, -43, -64.1, -43, -60.1, 33.5, -81.1, 9, -86.9, 9, -113.9, 41, -116.3, 41, -108, 98.3, -108, 104.4, -104, 113.3, -104, 115.8, -15, 123.8, -15, 124.9, 107, 131, 110.1, 131, 112.1, 128, 113.9, 128, 114.9, 89, 116, 89, 120, -86, 120, -104.5, 106, -131.6)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_c6xkf")

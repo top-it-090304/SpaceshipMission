@@ -45,6 +45,7 @@ func new_game():
 	# reset hud
 	$HUD.get_node("StartLabel").show()
 	$GameOver.hide()
+	$Win.hide()
 
 func _process(delta):
 	if game_running:
@@ -61,6 +62,9 @@ func _process(delta):
 		# update score
 		score += speed
 		show_score()
+
+		if score >= 10000:
+			win()
 		
 		# Update ground position
 		if $Camera2D.position.x - $Ground.position.x > screen_size.x * 1.5:
@@ -85,7 +89,7 @@ func generate_obs():
 			var obs_height = obs.get_node("Sprite2D").texture.get_height()
 			var obs_scale = obs.get_node("Sprite2D").scale
 			var obs_x : int = screen_size.x + score + 100 + (i * 40)
-			var obs_y : int = screen_size.y - ground_height - (obs_height * obs_scale.y / 2)
+			var obs_y : int = screen_size.y - ground_height - (obs_height * obs_scale.y / 2) - 160
 			last_obs = obs
 			add_obs(obs, obs_x, obs_y)
 
@@ -115,4 +119,11 @@ func adjust_difficulty():
 func game_over():
 	get_tree().paused = true
 	game_running = false
-	$GameOver.show() 
+	$GameOver.show()
+
+	
+func win():
+	get_tree().paused = true
+	game_running = false
+	$Win.show()
+	$Win.get_node("Label").text = "ПОБЕДА!" 

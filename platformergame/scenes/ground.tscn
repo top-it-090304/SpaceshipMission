@@ -1,19 +1,19 @@
 [gd_scene load_steps=3 format=3 uid="uid://d1bc07spyxgq5"]
 
-[ext_resource type="Texture2D" uid="uid://tbvi62xpkm75" path="res://images for godot/Group 9 (1).png" id="1_pybca"]
+[ext_resource type="Texture2D" uid="uid://t4chqan5ojky" path="res://images/bg/layer_ground.png" id="1_pybca"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mi8v4"]
-size = Vector2(2296, 66.6875)
+size = Vector2(2312, 232)
 
 [node name="Ground" type="StaticBody2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 top_level = true
-position = Vector2(1148, 617.344)
+position = Vector2(1156, 532)
 shape = SubResource("RectangleShape2D_mi8v4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-5.96046e-08, 384)
-scale = Vector2(0.902191, 1)
+position = Vector2(0, 416)
+scale = Vector2(0.902191, 0.828571)
 texture = ExtResource("1_pybca")
 centered = false
