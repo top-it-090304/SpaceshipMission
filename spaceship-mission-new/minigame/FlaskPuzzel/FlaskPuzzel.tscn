@@ -1,0 +1,83 @@
+[gd_scene load_steps=5 format=3 uid="uid://bk1stlpail2vg"]
+
+[ext_resource type="Texture2D" uid="uid://gmvjliy0oteg" path="res://items/backbotl.png" id="1_vykvq"]
+[ext_resource type="Texture2D" uid="uid://le8tgcvrn0ea" path="res://items/Group 210.png" id="2_64em1"]
+[ext_resource type="Texture2D" uid="uid://xrhunkufh8hc" path="res://items/Group 211.png" id="3_7yi23"]
+[ext_resource type="Texture2D" uid="uid://3rvrvo8pctqn" path="res://items/Group 212.png" id="4_5mrnj"]
+
+[node name="FlaskPuzzel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1282.0
+offset_bottom = 720.0
+texture = ExtResource("1_vykvq")
+
+[node name="Board" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -15.0
+offset_top = -6.0
+offset_right = 113.0
+offset_bottom = 81.0
+
+[node name="Flask1" type="Control" parent="Board"]
+anchors_preset = 0
+offset_left = 11.0
+offset_top = 4.0
+offset_right = 221.0
+offset_bottom = 271.0
+
+[node name="TextureRect" type="TextureRect" parent="Board/Flask1"]
+layout_mode = 0
+offset_left = -41.0
+offset_top = 76.0
+offset_right = 495.0
+offset_bottom = 612.0
+texture = ExtResource("2_64em1")
+
+[node name="ColorRect" type="ColorRect" parent="Board/Flask1"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Flask2" type="Control" parent="Board"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Board/Flask2"]
+layout_mode = 0
+offset_left = 383.0
+offset_top = 138.0
+offset_right = 895.0
+offset_bottom = 650.0
+texture = ExtResource("3_7yi23")
+
+[node name="ColorRect" type="ColorRect" parent="Board/Flask2"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Flask3" type="Control" parent="Board"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Board/Flask3"]
+layout_mode = 0
+offset_left = 794.0
+offset_top = 136.0
+offset_right = 1306.0
+offset_bottom = 648.0
+texture = ExtResource("4_5mrnj")
+
+[node name="ColorRect" type="ColorRect" parent="Board/Flask3"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
