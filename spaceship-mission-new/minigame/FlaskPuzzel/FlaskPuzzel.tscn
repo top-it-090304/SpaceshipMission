@@ -1,9 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://bk1stlpail2vg"]
+[gd_scene load_steps=10 format=3 uid="uid://bk1stlpail2vg"]
 
+[ext_resource type="Script" uid="uid://c2ayhbj28onb4" path="res://minigame/FlaskPuzzel/flask_puzzel.gd" id="1_8ecy7"]
 [ext_resource type="Texture2D" uid="uid://gmvjliy0oteg" path="res://items/backbotl.png" id="1_vykvq"]
 [ext_resource type="Texture2D" uid="uid://le8tgcvrn0ea" path="res://items/Group 210.png" id="2_64em1"]
 [ext_resource type="Texture2D" uid="uid://xrhunkufh8hc" path="res://items/Group 211.png" id="3_7yi23"]
+[ext_resource type="Texture2D" uid="uid://l4uafo4cw0tn" path="res://items/Vector 7.png" id="3_guwq5"]
 [ext_resource type="Texture2D" uid="uid://3rvrvo8pctqn" path="res://items/Group 212.png" id="4_5mrnj"]
+[ext_resource type="Texture2D" uid="uid://dfwntev7qk7h1" path="res://items/Vector 8.png" id="5_de5qf"]
+[ext_resource type="Texture2D" uid="uid://b8hy11fthr435" path="res://items/Vector 9.png" id="7_y8eq0"]
+[ext_resource type="Texture2D" uid="uid://c13a6h4iv6bw4" path="res://items/left-arrow.png" id="9_07rta"]
 
 [node name="FlaskPuzzel" type="Control"]
 layout_mode = 3
@@ -12,6 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_8ecy7")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 0
@@ -21,10 +27,10 @@ texture = ExtResource("1_vykvq")
 
 [node name="Board" type="Control" parent="."]
 anchors_preset = 0
-offset_left = 1.0
-offset_top = 2.0
-offset_right = 1284.0
-offset_bottom = 720.0
+offset_left = 24.0
+offset_top = -23.0
+offset_right = 1307.0
+offset_bottom = 695.0
 
 [node name="Flask1" type="Control" parent="Board"]
 anchors_preset = 0
@@ -33,63 +39,73 @@ offset_top = 4.0
 offset_right = 221.0
 offset_bottom = 271.0
 
-[node name="TextureRect" type="TextureRect" parent="Board/Flask1"]
-layout_mode = 0
-offset_left = -12.0
-offset_top = 84.0
-offset_right = 524.0
-offset_bottom = 620.0
-texture = ExtResource("2_64em1")
+[node name="Mask" type="Control" parent="Board/Flask1"]
+clip_children = 1
+anchors_preset = 0
+offset_left = 100.0
+offset_top = 209.0
+offset_right = 380.0
+offset_bottom = 591.0
 
-[node name="ColorRect" type="ColorRect" parent="Board/Flask1"]
-layout_mode = 0
-offset_left = 134.0
-offset_top = 196.0
-offset_right = 376.0
-offset_bottom = 541.0
+[node name="Water" type="Sprite2D" parent="Board/Flask1/Mask"]
+position = Vector2(142, 186)
+scale = Vector2(1.04618, 1.03552)
+texture = ExtResource("3_guwq5")
+
+[node name="Outline" type="Sprite2D" parent="Board/Flask1"]
+position = Vector2(240, 347)
+texture = ExtResource("2_64em1")
 
 [node name="Flask2" type="Control" parent="Board"]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 11.0
+offset_top = 4.0
+offset_right = 221.0
+offset_bottom = 271.0
 
-[node name="TextureRect" type="TextureRect" parent="Board/Flask2"]
-layout_mode = 0
-offset_left = 417.0
-offset_top = 145.0
-offset_right = 929.0
-offset_bottom = 657.0
-texture = ExtResource("3_7yi23")
+[node name="Mask" type="Control" parent="Board/Flask2"]
+anchors_preset = 0
+offset_left = 531.0
+offset_top = 291.0
+offset_right = 785.0
+offset_bottom = 592.0
 
-[node name="ColorRect" type="ColorRect" parent="Board/Flask2"]
-layout_mode = 0
-offset_left = 602.0
-offset_top = 293.0
-offset_right = 745.0
-offset_bottom = 593.0
+[node name="Water" type="Sprite2D" parent="Board/Flask2/Mask"]
+position = Vector2(125, 151)
+texture = ExtResource("5_de5qf")
+
+[node name="Outline" type="Sprite2D" parent="Board/Flask2"]
+position = Vector2(637, 392)
+texture = ExtResource("4_5mrnj")
 
 [node name="Flask3" type="Control" parent="Board"]
 anchors_preset = 0
-offset_top = 1.0
-offset_right = 40.0
-offset_bottom = 41.0
+offset_left = 855.0
+offset_top = 151.0
+offset_right = 1210.0
+offset_bottom = 635.0
 
-[node name="TextureRect" type="TextureRect" parent="Board/Flask3"]
-layout_mode = 0
-offset_left = 841.0
-offset_top = 144.0
-offset_right = 1353.0
-offset_bottom = 656.0
-texture = ExtResource("4_5mrnj")
+[node name="Mask" type="Control" parent="Board/Flask3"]
+anchors_preset = 0
+offset_left = -9.0
+offset_top = -117.0
+offset_right = 325.0
+offset_bottom = 199.0
 
-[node name="ColorRect" type="ColorRect" parent="Board/Flask3"]
-layout_mode = 0
-offset_left = 990.0
-offset_top = 284.0
-offset_right = 1241.0
-offset_bottom = 594.0
+[node name="Water" type="Sprite2D" parent="Board/Flask3/Mask"]
+position = Vector2(191, 402)
+texture = ExtResource("7_y8eq0")
+
+[node name="Outline" type="Sprite2D" parent="Board/Flask3"]
+position = Vector2(178, 243)
+texture = ExtResource("3_7yi23")
 
 [node name="ExitButton" type="Button" parent="Board"]
 layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+offset_left = 6.0
+offset_top = 361.0
+offset_right = 64.0
+offset_bottom = 419.0
+icon = ExtResource("9_07rta")
+
+[connection signal="pressed" from="Board/ExitButton" to="." method="_on_exit_pressed"]
