@@ -21,10 +21,10 @@ texture = ExtResource("1_vykvq")
 
 [node name="Board" type="Control" parent="."]
 anchors_preset = 0
-offset_left = -15.0
-offset_top = -6.0
-offset_right = 113.0
-offset_bottom = 81.0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 1284.0
+offset_bottom = 720.0
 
 [node name="Flask1" type="Control" parent="Board"]
 anchors_preset = 0
@@ -35,16 +35,18 @@ offset_bottom = 271.0
 
 [node name="TextureRect" type="TextureRect" parent="Board/Flask1"]
 layout_mode = 0
-offset_left = -41.0
-offset_top = 76.0
-offset_right = 495.0
-offset_bottom = 612.0
+offset_left = -12.0
+offset_top = 84.0
+offset_right = 524.0
+offset_bottom = 620.0
 texture = ExtResource("2_64em1")
 
 [node name="ColorRect" type="ColorRect" parent="Board/Flask1"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 134.0
+offset_top = 196.0
+offset_right = 376.0
+offset_bottom = 541.0
 
 [node name="Flask2" type="Control" parent="Board"]
 anchors_preset = 0
@@ -53,31 +55,41 @@ offset_bottom = 40.0
 
 [node name="TextureRect" type="TextureRect" parent="Board/Flask2"]
 layout_mode = 0
-offset_left = 383.0
-offset_top = 138.0
-offset_right = 895.0
-offset_bottom = 650.0
+offset_left = 417.0
+offset_top = 145.0
+offset_right = 929.0
+offset_bottom = 657.0
 texture = ExtResource("3_7yi23")
 
 [node name="ColorRect" type="ColorRect" parent="Board/Flask2"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 602.0
+offset_top = 293.0
+offset_right = 745.0
+offset_bottom = 593.0
 
 [node name="Flask3" type="Control" parent="Board"]
 anchors_preset = 0
+offset_top = 1.0
 offset_right = 40.0
-offset_bottom = 40.0
+offset_bottom = 41.0
 
 [node name="TextureRect" type="TextureRect" parent="Board/Flask3"]
 layout_mode = 0
-offset_left = 794.0
-offset_top = 136.0
-offset_right = 1306.0
-offset_bottom = 648.0
+offset_left = 841.0
+offset_top = 144.0
+offset_right = 1353.0
+offset_bottom = 656.0
 texture = ExtResource("4_5mrnj")
 
 [node name="ColorRect" type="ColorRect" parent="Board/Flask3"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 990.0
+offset_top = 284.0
+offset_right = 1241.0
+offset_bottom = 594.0
+
+[node name="ExitButton" type="Button" parent="Board"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
