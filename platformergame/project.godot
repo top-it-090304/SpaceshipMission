@@ -14,3 +14,8 @@ config/name="PlatformerGame"
 run/main_scene="uid://758w4f8xpdcd"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
