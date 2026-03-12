@@ -27,41 +27,41 @@ texture = ExtResource("1_vykvq")
 
 [node name="Board" type="Control" parent="."]
 anchors_preset = 0
-offset_left = 24.0
-offset_top = -23.0
-offset_right = 1307.0
-offset_bottom = 695.0
+offset_left = -8.0
+offset_top = -20.0
+offset_right = 1275.0
+offset_bottom = 698.0
 
 [node name="Flask1" type="Control" parent="Board"]
 anchors_preset = 0
-offset_left = 11.0
-offset_top = 4.0
-offset_right = 221.0
-offset_bottom = 271.0
+offset_left = 2.0
+offset_top = 75.0
+offset_right = 452.0
+offset_bottom = 628.0
 
 [node name="Mask" type="Control" parent="Board/Flask1"]
 clip_children = 1
 anchors_preset = 0
 offset_left = 100.0
-offset_top = 209.0
-offset_right = 380.0
-offset_bottom = 591.0
+offset_top = 179.0
+offset_right = 390.0
+offset_bottom = 551.0
 
 [node name="Water" type="Sprite2D" parent="Board/Flask1/Mask"]
-position = Vector2(142, 186)
+position = Vector2(154, 185)
 scale = Vector2(1.04618, 1.03552)
 texture = ExtResource("3_guwq5")
 
 [node name="Outline" type="Sprite2D" parent="Board/Flask1"]
-position = Vector2(240, 347)
+position = Vector2(251, 312)
 texture = ExtResource("2_64em1")
 
 [node name="Flask2" type="Control" parent="Board"]
 anchors_preset = 0
-offset_left = 11.0
-offset_top = 4.0
-offset_right = 221.0
-offset_bottom = 271.0
+offset_left = 473.0
+offset_top = 197.0
+offset_right = 740.0
+offset_bottom = 599.0
 
 [node name="Mask" type="Control" parent="Board/Flask2"]
 anchors_preset = 0
@@ -71,7 +71,8 @@ offset_right = 785.0
 offset_bottom = 592.0
 
 [node name="Water" type="Sprite2D" parent="Board/Flask2/Mask"]
-position = Vector2(125, 151)
+position = Vector2(-329, 34.25)
+scale = Vector2(1.62791, 1.32724)
 texture = ExtResource("5_de5qf")
 
 [node name="Outline" type="Sprite2D" parent="Board/Flask2"]
@@ -93,11 +94,11 @@ offset_right = 325.0
 offset_bottom = 199.0
 
 [node name="Water" type="Sprite2D" parent="Board/Flask3/Mask"]
-position = Vector2(191, 402)
+position = Vector2(-205, 417)
 texture = ExtResource("7_y8eq0")
 
 [node name="Outline" type="Sprite2D" parent="Board/Flask3"]
-position = Vector2(178, 243)
+position = Vector2(-214, 261)
 texture = ExtResource("3_7yi23")
 
 [node name="ExitButton" type="Button" parent="Board"]
