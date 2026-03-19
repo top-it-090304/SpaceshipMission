@@ -1,36 +1,35 @@
 extends Control
 signal puzzle_solved
 
-# ёмкость колб (в делениях)
+# Ёмкость колб (в делениях)
 const CAPACITY := {
 	1: 10,
 	2: 6,
 	3: 5,
 }
 
-# стартовые объёмы (как в Rusty Lake: 0 / 6 / 5)
+# Стартовые объёмы: Flask1=5, Flask2=6 (полная), Flask3=0 (пустая)
 var volume := {
-	1: 0,
+	1: 5,
 	2: 6,
-	3: 5,
+	3: 0,
 }
 
-# высота Mask при ПОЛНОЙ колбе.
-# Берём из инспектора size.y у Mask, когда вода ровно на верхней красной линии.
+# Высота Mask при ПОЛНОЙ колбе (в пикселях)
 const MASK_MAX_HEIGHT := {
-	1: 382.0, # Flask1
-	2: 301.0, # Flask2
-	3: 316.0, # Flask3
+	1: 372.0,  # Flask1 — исправлено с 382 на 372
+	2: 301.0,  # Flask2
+	3: 316.0,  # Flask3
 }
 
-# ссылки на Mask внутри каждой колбы
+# Ссылки на Mask внутри каждой колбы
 @onready var masks := {
 	1: $Board/Flask1/Mask,
 	2: $Board/Flask2/Mask,
 	3: $Board/Flask3/Mask,
 }
 
-# ссылки на сами колбы (для подсветки/кликов)
+# Ссылки на сами колбы (для подсветки/кликов)
 @onready var flask_nodes := {
 	1: $Board/Flask1,
 	2: $Board/Flask2,
@@ -38,15 +37,13 @@ const MASK_MAX_HEIGHT := {
 }
 
 var selected_flask := 0
-const TARGET_VOLUME := 8 # победа, когда в большой колбе 8
+const TARGET_VOLUME := 8  # победа, когда в Flask1 ровно 8 делений
 
 func _ready() -> void:
 	_connect_flasks()
 	_update_all_flasks()
-	#$ExitButton.pressed.connect(_on_exit_pressed)
 
 # ---------- клики по колбам ----------
-
 func _connect_flasks() -> void:
 	for i in flask_nodes.keys():
 		var node = flask_nodes[i]
@@ -67,53 +64,42 @@ func _on_flask_clicked(index: int) -> void:
 			_highlight_flask(selected_flask, false)
 			selected_flask = 0
 			return
-
 		_pour(selected_flask, index)
 		_highlight_flask(selected_flask, false)
 		selected_flask = 0
 		_check_win()
 
 # ---------- переливание ----------
-
 func _pour(from_idx: int, to_idx: int) -> void:
 	if from_idx == to_idx:
 		return
-
 	var from_vol = volume[from_idx]
-	var to_vol = volume[to_idx]
-	var cap_to = CAPACITY[to_idx]
-
+	var to_vol   = volume[to_idx]
+	var cap_to   = CAPACITY[to_idx]
 	if from_vol == 0:
 		return
 	if to_vol >= cap_to:
 		return
-
-	var space = cap_to - to_vol
+	var space  = cap_to - to_vol
 	var amount = min(space, from_vol)
-
 	volume[from_idx] -= amount
-	volume[to_idx] += amount
-
+	volume[to_idx]   += amount
 	_update_flask(from_idx)
 	_update_flask(to_idx)
 
 # ---------- обновление масок (уровень воды) ----------
-
 func _update_all_flasks() -> void:
 	for i in masks.keys():
 		_update_flask(i)
 
 func _update_flask(index: int) -> void:
-	var mask := masks[index] as Control
-
-	var cap := float(CAPACITY[index])
-	var v := float(volume[index])
-	var max_h = MASK_MAX_HEIGHT[index]
-
-	var height = max_h * (v / cap)
-
+	var mask     := masks[index] as Control
+	var cap      := float(CAPACITY[index])
+	var v        := float(volume[index])
+	var max_h    = MASK_MAX_HEIGHT[index]
+	var height   = max_h * (v / cap)
 	var parent_h = mask.get_parent().size.y
-	mask.size.y = height
+	mask.size.y     = height
 	mask.position.y = parent_h - height
 
 func _highlight_flask(index: int, enable: bool) -> void:
@@ -122,8 +108,8 @@ func _highlight_flask(index: int, enable: bool) -> void:
 		outline.modulate = Color(1, 1, 0.7)
 	else:
 		outline.modulate = Color(1, 1, 1)
-# ---------- победа и выход ----------
 
+# ---------- победа и выход ----------
 func _check_win() -> void:
 	if volume[1] == TARGET_VOLUME:
 		puzzle_solved.emit()

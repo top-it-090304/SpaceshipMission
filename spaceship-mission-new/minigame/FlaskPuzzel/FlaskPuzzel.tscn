@@ -58,21 +58,21 @@ texture = ExtResource("2_64em1")
 
 [node name="Flask2" type="Control" parent="Board"]
 anchors_preset = 0
-offset_left = 473.0
-offset_top = 197.0
-offset_right = 740.0
-offset_bottom = 599.0
+offset_left = 428.0
+offset_top = 23.0
+offset_right = 695.0
+offset_bottom = 425.0
 
 [node name="Mask" type="Control" parent="Board/Flask2"]
 anchors_preset = 0
-offset_left = 531.0
-offset_top = 291.0
-offset_right = 785.0
-offset_bottom = 592.0
+offset_left = 530.0
+offset_top = 330.0
+offset_right = 784.0
+offset_bottom = 631.0
 
 [node name="Water" type="Sprite2D" parent="Board/Flask2/Mask"]
-position = Vector2(-329, 34.25)
-scale = Vector2(1.62791, 1.32724)
+position = Vector2(125.5, 114.875)
+scale = Vector2(0.988372, 0.982557)
 texture = ExtResource("5_de5qf")
 
 [node name="Outline" type="Sprite2D" parent="Board/Flask2"]
@@ -81,10 +81,10 @@ texture = ExtResource("4_5mrnj")
 
 [node name="Flask3" type="Control" parent="Board"]
 anchors_preset = 0
-offset_left = 855.0
-offset_top = 151.0
-offset_right = 1210.0
-offset_bottom = 635.0
+offset_left = 839.0
+offset_top = 157.0
+offset_right = 1194.0
+offset_bottom = 641.0
 
 [node name="Mask" type="Control" parent="Board/Flask3"]
 anchors_preset = 0
