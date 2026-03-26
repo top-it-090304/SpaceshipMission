@@ -103,6 +103,7 @@ scale = Vector2(1.20313, 1.08789)
 texture = ExtResource("4_5mrnj")
 
 [node name="ClickArea" type="Button" parent="Board/Flask2"]
+layout_mode = 0
 offset_left = 540.0
 offset_top = 161.0
 offset_right = 637.0
@@ -143,6 +144,7 @@ scale = Vector2(0.775391, 0.730469)
 texture = ExtResource("5_5lktb")
 
 [node name="ClickArea" type="Button" parent="Board/Flask3"]
+layout_mode = 0
 offset_left = -81.0
 offset_top = 162.0
 offset_right = 23.0
