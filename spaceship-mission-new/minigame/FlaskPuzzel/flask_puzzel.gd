@@ -151,5 +151,7 @@ func _on_exit_pressed() -> void:
 
 
 func _on_button_pressed() -> void:
-	_check_win()
+	var main_game := get_tree().get_first_node_in_group("MainGame")
+	if main_game:
+		main_game.on_flask_solved()
 	

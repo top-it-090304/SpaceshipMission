@@ -73,7 +73,7 @@ offset_left = 232.0
 offset_top = 216.0
 offset_right = 280.0
 offset_bottom = 272.0
-color = Color(0, 0.784314, 0.196078, 0.705882)
+color = Color(0.447059, 0.658824, 0.223529, 0.65098)
 
 [connection signal="pressed" from="LeftArrow" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="RightArrow" to="." method="_on_right_pressed"]
