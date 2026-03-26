@@ -194,18 +194,16 @@ func open_platformer() -> void:
 	platformer_instance = platformer_scene.instantiate()
 	platformer_instance.connect("game_won", Callable(self, "on_platformer_solved"))
 	$MiniGameLayer.add_child(platformer_instance)
+	$UILayer.visible = false  # скрыть инвентарь
 
 func close_platformer() -> void:
 	if platformer_instance:
 		platformer_instance.queue_free()
 		platformer_instance = null
 	get_tree().paused = false
+	$UILayer.visible = true  # вернуть инвентарь
 	room_index = 3
 	_load_room(room_index)
-	if platformer_solved and current_room:
-		var banner := current_room.get_node_or_null("SolvedBannerPlatformer")
-		if banner:
-			banner.visible = true
 
 func on_platformer_solved() -> void:
 	platformer_solved = true
