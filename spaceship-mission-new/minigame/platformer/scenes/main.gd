@@ -4,7 +4,7 @@ extends Node
 var stump_scene: PackedScene = preload("res://minigame/platformergame/scenes/stump.tscn")
 var obstacle_types := [stump_scene]
 var obstacles: Array = []
-
+signal game_won
 # game variables
 const DINO_START_POS := Vector2i(150, 485)
 const CAM_START_POS := Vector2i(577, 323)
@@ -126,4 +126,5 @@ func win():
 	get_tree().paused = true
 	game_running = false
 	$Win.show()
-	$Win.get_node("Label").text = "ПОБЕДА!" 
+	$Win.get_node("Label").text = "ПОБЕДА!"
+	game_won.emit()
