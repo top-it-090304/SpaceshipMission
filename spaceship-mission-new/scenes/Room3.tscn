@@ -51,7 +51,7 @@ offset_right = 177.0
 offset_bottom = 484.0
 rotation = 0.0296706
 
-[node name="SolvedBanner" type="ColorRect" parent="."]
+[node name="SolvedBanner15" type="ColorRect" parent="."]
 visible = false
 offset_left = 84.0
 offset_top = 184.0
@@ -60,6 +60,22 @@ offset_bottom = 258.0
 rotation = 0.136136
 color = Color(0.447059, 0.658824, 0.223529, 0.65098)
 
+[node name="Button" type="Button" parent="."]
+offset_left = 216.0
+offset_top = 204.0
+offset_right = 282.0
+offset_bottom = 452.0
+flat = true
+
+[node name="SolvedBannerFlask" type="ColorRect" parent="."]
+visible = false
+offset_left = 232.0
+offset_top = 216.0
+offset_right = 280.0
+offset_bottom = 272.0
+color = Color(0, 0.784314, 0.196078, 0.705882)
+
 [connection signal="pressed" from="LeftArrow" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="RightArrow" to="." method="_on_right_pressed"]
 [connection signal="pressed" from="Minigame/15Puzzels" to="." method="_on_puzzle_button_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_flask_button_pressed"]

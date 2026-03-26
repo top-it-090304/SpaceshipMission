@@ -1,16 +1,20 @@
 extends Node2D
 
-
 @onready var inventory := $UILayer/InventoryRoot as Control
 var current_room: Node2D = null
-var room_index: int = 1   # начинаем с Room1
+var room_index: int = 1
 
-#minigame
+# 15puzzle
 var board_scene := preload("res://minigame/15puzzle/Board.tscn")
 var board_instance: Node = null
 var puzzle_solved_15: bool = false
 
-#massage
+# FlaskPuzzel
+var flask_scene := preload("res://minigame/FlaskPuzzel/FlaskPuzzel.tscn")
+var flask_instance: Node = null
+var flask_solved: bool = false
+
+# massage
 var message4_scene := preload("res://scenes/MainMassage.tscn")
 var message4_instance: Node = null
 
@@ -24,7 +28,7 @@ var chest2_scene := preload("res://logicitems/box2InSecondRoom/Box2.tscn")
 var chest2_instance: Node = null
 var chest2_opened: bool = false
 
-var collected_items: Array[String] = [] # сюда складываем id подобранных предметов
+var collected_items: Array[String] = []
 
 func _ready() -> void:
 	_load_room(room_index)
@@ -36,9 +40,6 @@ func mark_item_collected(id: String) -> void:
 
 func is_item_collected(id: String) -> bool:
 	return id in collected_items
-	
-	
-
 
 func _load_room(index: int) -> void:
 	if current_room:
@@ -47,103 +48,122 @@ func _load_room(index: int) -> void:
 
 	var path := ""
 	match index:
-		1:
-			path = "res://scenes/Room1.tscn"
-		2:
-			path = "res://scenes/Room2.tscn"
-		3:
-			path = "res://scenes/Room3.tscn"
-		4:
-			path = "res://scenes/Room4.tscn"
+		1: path = "res://scenes/Room1.tscn"
+		2: path = "res://scenes/Room2.tscn"
+		3: path = "res://scenes/Room3.tscn"
+		4: path = "res://scenes/Room4.tscn"
 
 	var packed := load(path)
 	current_room = packed.instantiate()
 	$RoomsRoot.add_child(current_room)
 
-	# подписка на сигналы комнат
 	if current_room.has_signal("go_left"):
 		current_room.connect("go_left", Callable(self, "_on_room_go_left"))
 	if current_room.has_signal("go_right"):
 		current_room.connect("go_right", Callable(self, "_on_room_go_right"))
 
-	# показать зелёный прямоугольник, если пятнашки уже решены
 	if index == 3 and puzzle_solved_15 and current_room:
-		var banner := current_room.get_node_or_null("SolvedBanner")
-		if banner:
-			banner.visible = true
+		var banner15 := current_room.get_node_or_null("SolvedBanner15")
+		if banner15:
+			banner15.visible = true
+
+	if index == 3 and flask_solved and current_room:
+		var banner_flask := current_room.get_node_or_null("SolvedBannerFlask")
+		if banner_flask:
+			banner_flask.visible = true
+
 func _on_room_go_left() -> void:
 	room_index -= 1
 	if room_index < 1:
-		room_index = 4          
+		room_index = 4
 	_load_room(room_index)
 
 func _on_room_go_right() -> void:
 	room_index += 1
 	if room_index > 4:
-		room_index = 1        
+		room_index = 1
 	_load_room(room_index)
-	
-	
+
+# -------- 15puzzle --------
 func open_board() -> void:
-	 
 	if board_instance != null:
-		
 		return
 	board_instance = board_scene.instantiate()
 	$MiniGameLayer.add_child(board_instance)
-	
-	
+
 func close_board() -> void:
 	if board_instance:
 		board_instance.queue_free()
 		board_instance = null
-
 	room_index = 3
 	_load_room(room_index)
 	if puzzle_solved_15 and current_room:
-		var banner := current_room.get_node_or_null("SolvedBanner")
+		var banner := current_room.get_node_or_null("SolvedBanner15")
 		if banner:
 			banner.visible = true
-	
+
 func on_board_solved() -> void:
 	puzzle_solved_15 = true
 	if current_room and current_room.name == "Room3":
-		var banner := current_room.get_node_or_null("SolvedBanner")
+		var banner := current_room.get_node_or_null("SolvedBanner15")
 		if banner:
 			banner.visible = true
+
+# -------- FlaskPuzzel --------
+func open_flask() -> void:
+	if flask_instance != null:
+		return
+	flask_instance = flask_scene.instantiate()
+	flask_instance.connect("puzzle_solved", Callable(self, "on_flask_solved"))
+	$MiniGameLayer.add_child(flask_instance)
+
+func close_flask() -> void:
+	if flask_instance:
+		flask_instance.queue_free()
+		flask_instance = null
+	room_index = 3
+	_load_room(room_index)
+	if flask_solved and current_room:
+		var banner := current_room.get_node_or_null("SolvedBannerFlask")
+		if banner:
+			banner.visible = true
+
+func on_flask_solved() -> void:
+	flask_solved = true
+	close_flask()
+
+# -------- massage --------
 func open_message4() -> void:
 	if message4_instance:
 		return
 	message4_instance = message4_scene.instantiate()
 	$MiniGameLayer.add_child(message4_instance)
+
 func close_message4() -> void:
 	if message4_instance:
 		message4_instance.queue_free()
 		message4_instance = null
-
 	room_index = 4
 	_load_room(room_index)
 
+# -------- chest 1 --------
 func open_chest1() -> void:
 	if chest1_instance != null:
 		return
 	chest1_instance = chest1_scene.instantiate()
 	$MiniGameLayer.add_child(chest1_instance)
 
-
 func close_chest1() -> void:
 	if chest1_instance:
 		chest1_instance.queue_free()
 		chest1_instance = null
-
-		 # сундук открыт, можно потом использовать
 	room_index = 2
 	_load_room(room_index)
-	
+
 func on_chest1_solved() -> void:
 	chest1_opened = true
-	
-	
+
+# -------- chest 2 --------
 func open_chest2() -> void:
 	if chest2_instance != null:
 		return
@@ -154,8 +174,8 @@ func close_chest2() -> void:
 	if chest2_instance:
 		chest2_instance.queue_free()
 		chest2_instance = null
-	room_index = 2 
+	room_index = 2
 	_load_room(room_index)
 
 func on_chest2_solved() -> void:
-	chest2_opened = true	
+	chest2_opened = true

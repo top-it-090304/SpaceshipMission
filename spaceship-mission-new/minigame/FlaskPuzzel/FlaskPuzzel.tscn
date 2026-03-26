@@ -24,9 +24,9 @@ texture = ExtResource("1_vykvq")
 
 [node name="Board" type="Control" parent="."]
 anchors_preset = 0
-offset_left = -2.0
+offset_left = -7.0
 offset_top = -15.0
-offset_right = 1281.0
+offset_right = 1276.0
 offset_bottom = 703.0
 
 [node name="Flask1" type="Control" parent="Board"]
@@ -62,20 +62,28 @@ position = Vector2(291, 281)
 scale = Vector2(1.14844, 1.02433)
 texture = ExtResource("3_7yi23")
 
+[node name="ClickArea" type="Button" parent="Board/Flask1"]
+layout_mode = 0
+offset_left = 195.0
+offset_top = 42.0
+offset_right = 379.0
+offset_bottom = 477.0
+flat = true
+
 [node name="Flask2" type="Control" parent="Board"]
 anchors_preset = 0
-offset_left = 497.0
-offset_top = 21.0
-offset_right = 764.0
-offset_bottom = 423.0
+offset_left = 498.0
+offset_top = 18.0
+offset_right = 765.0
+offset_bottom = 420.0
 
 [node name="Mask" type="Control" parent="Board/Flask2"]
 clip_children = 1
 anchors_preset = 0
-offset_left = 530.0
-offset_top = 330.0
-offset_right = 784.0
-offset_bottom = 631.0
+offset_left = 527.0
+offset_top = 218.0
+offset_right = 638.0
+offset_bottom = 532.0
 
 [node name="Water" type="ColorRect" parent="Board/Flask2/Mask"]
 layout_mode = 1
@@ -83,9 +91,8 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 7.0
-offset_top = -110.0
-offset_right = -151.0
-offset_bottom = -105.0
+offset_right = 2.0
+offset_bottom = 11.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.2, 0.5, 1, 0.889)
@@ -94,6 +101,13 @@ color = Color(0.2, 0.5, 1, 0.889)
 position = Vector2(585, 369.5)
 scale = Vector2(1.20313, 1.08789)
 texture = ExtResource("4_5mrnj")
+
+[node name="ClickArea" type="Button" parent="Board/Flask2"]
+offset_left = 540.0
+offset_top = 161.0
+offset_right = 637.0
+offset_bottom = 532.0
+flat = true
 
 [node name="Flask3" type="Control" parent="Board"]
 anchors_preset = 0
@@ -105,20 +119,20 @@ offset_bottom = 597.0
 [node name="Mask" type="Control" parent="Board/Flask3"]
 clip_children = 1
 anchors_preset = 0
-offset_left = -9.0
-offset_top = -117.0
-offset_right = 325.0
-offset_bottom = 199.0
+offset_left = -69.0
+offset_top = 222.0
+offset_right = 12.0
+offset_bottom = 439.0
 
 [node name="Water" type="ColorRect" parent="Board/Flask3/Mask"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -62.0
-offset_top = 341.0
-offset_right = -317.0
-offset_bottom = 242.0
+offset_left = -1.0
+offset_top = 1.0
+offset_right = -5.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.2, 0.5, 1, 0.889)
@@ -128,6 +142,13 @@ position = Vector2(-31, 319)
 scale = Vector2(0.775391, 0.730469)
 texture = ExtResource("5_5lktb")
 
+[node name="ClickArea" type="Button" parent="Board/Flask3"]
+offset_left = -81.0
+offset_top = 162.0
+offset_right = 23.0
+offset_bottom = 446.0
+flat = true
+
 [node name="ExitButton" type="Button" parent="Board"]
 layout_mode = 0
 offset_left = 6.0
@@ -136,4 +157,14 @@ offset_right = 64.0
 offset_bottom = 419.0
 icon = ExtResource("9_07rta")
 
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 565.0
+offset_top = 35.0
+offset_right = 717.0
+offset_bottom = 96.0
+text = "для прохождения 
+"
+
 [connection signal="pressed" from="Board/ExitButton" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

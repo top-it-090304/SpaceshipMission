@@ -22,3 +22,10 @@ func _on_puzzle_button_pressed() -> void:
 	if main_game.puzzle_solved_15:
 		return
 	main_game.open_board()
+func _on_flask_button_pressed() -> void:
+	var main_game := get_tree().get_first_node_in_group("MainGame")
+	if main_game == null:
+		return
+	if main_game.flask_solved:
+		return
+	main_game.open_flask()

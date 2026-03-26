@@ -56,10 +56,10 @@ texture = ExtResource("2_fgoeh")
 [node name="Button" type="Button" parent="Background"]
 clip_contents = true
 layout_mode = 0
-offset_left = 606.0
-offset_top = 333.0
-offset_right = 664.0
-offset_bottom = 391.0
+offset_left = 611.0
+offset_top = 322.0
+offset_right = 669.0
+offset_bottom = 380.0
 icon = ExtResource("3_kcs48")
 script = ExtResource("4_kcs48")
 
