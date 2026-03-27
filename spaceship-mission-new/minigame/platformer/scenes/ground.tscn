@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://d1bc07spyxgq5"]
 
-[ext_resource type="Texture2D" uid="uid://t4chqan5ojky" path="res://images/bg/layer_ground.png" id="1_pybca"]
+[ext_resource type="Texture2D" uid="uid://t4chqan5ojky" path="res://minigame/platformergame/images/bg/layer_ground.png" id="1_pybca"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mi8v4"]
 size = Vector2(2312, 232)
