@@ -90,6 +90,14 @@ offset_right = 356.0
 offset_bottom = 283.0
 color = Color(0.447059, 0.658824, 0.223529, 0.65098)
 
+[node name="MainReact" type="ColorRect" parent="."]
+visible = false
+offset_left = 607.0
+offset_top = 274.0
+offset_right = 671.0
+offset_bottom = 433.0
+color = Color(0.447059, 0.658824, 0.223529, 0.65098)
+
 [connection signal="pressed" from="LeftArrow" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="RightArrow" to="." method="_on_right_pressed"]
 [connection signal="pressed" from="Minigame/15Puzzels" to="." method="_on_puzzle_button_pressed"]
