@@ -4,7 +4,7 @@ extends Node2D
 var current_room: Node2D = null
 var room_index: int = 1
 # platformer
-var platformer_scene := preload("res://minigame/platformergame/scenes/main.tscn")
+var platformer_scene := preload("res://minigame/platformer/scenes/main.tscn")
 var platformer_instance: Node = null
 var platformer_solved: bool = false
 # 15puzzle

@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=3 uid="uid://758w4f8xpdcd"]
 
-[ext_resource type="Script" uid="uid://crj8bnmjqygsg" path="res://minigame/platformergame/scenes/main.gd" id="1_jyhfs"]
-[ext_resource type="PackedScene" uid="uid://coqa0om1yubk3" path="res://minigame/platformergame/scenes/bg.tscn" id="1_sugp2"]
-[ext_resource type="PackedScene" uid="uid://d1bc07spyxgq5" path="res://minigame/platformergame/scenes/ground.tscn" id="2_jyhfs"]
-[ext_resource type="PackedScene" uid="uid://ckw433n2urwts" path="res://minigame/platformergame/scenes/player.tscn" id="3_tbgi4"]
-[ext_resource type="PackedScene" uid="uid://dr43jbpgnk5lt" path="res://minigame/platformergame/scenes/hud.tscn" id="5_tbgi4"]
-[ext_resource type="PackedScene" uid="uid://c1kywr8731mvr" path="res://minigame/platformergame/scenes/game_over.tscn" id="6_tefeu"]
-[ext_resource type="PackedScene" uid="uid://bhdve2ovw6pxd" path="res://minigame/platformergame/scenes/win.tscn" id="7_o6xl0"]
+[ext_resource type="Script" uid="uid://crj8bnmjqygsg" path="res://minigame/platformer/scenes/main.gd" id="1_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://coqa0om1yubk3" path="res://minigame/platformer/scenes/bg.tscn" id="1_sugp2"]
+[ext_resource type="PackedScene" uid="uid://d1bc07spyxgq5" path="res://minigame/platformer/scenes/ground.tscn" id="2_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://ckw433n2urwts" path="res://minigame/platformer/scenes/player.tscn" id="3_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://dr43jbpgnk5lt" path="res://minigame/platformer/scenes/hud.tscn" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://c1kywr8731mvr" path="res://minigame/platformer/scenes/game_over.tscn" id="6_tefeu"]
+[ext_resource type="PackedScene" uid="uid://bhdve2ovw6pxd" path="res://minigame/platformer/scenes/win.tscn" id="7_o6xl0"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_jyhfs")

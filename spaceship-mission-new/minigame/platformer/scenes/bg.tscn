@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://coqa0om1yubk3"]
 
-[ext_resource type="Texture2D" uid="uid://bdo1rhatb8p2y" path="res://minigame/platformergame/images/bg/layer1.png" id="1_dpp0m"]
-[ext_resource type="Texture2D" uid="uid://4bhtpx0wcilh" path="res://minigame/platformergame/images/bg/layer_elements.png" id="2_qd2e1"]
+[ext_resource type="Texture2D" uid="uid://bdo1rhatb8p2y" path="res://minigame/platformer/images/bg/layer1.png" id="1_dpp0m"]
+[ext_resource type="Texture2D" uid="uid://4bhtpx0wcilh" path="res://minigame/platformer/images/bg/layer_elements.png" id="2_qd2e1"]
 
 [node name="Bg" type="ParallaxBackground"]
 

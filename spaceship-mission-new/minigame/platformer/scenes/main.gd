@@ -2,7 +2,7 @@ extends Node
 
 signal game_won
 
-var stump_scene: PackedScene = preload("res://minigame/platformergame/scenes/stump.tscn")
+var stump_scene: PackedScene = preload("res://minigame/platformer/scenes/stump.tscn")
 var obstacle_types := [stump_scene]
 var obstacles: Array = []
 
