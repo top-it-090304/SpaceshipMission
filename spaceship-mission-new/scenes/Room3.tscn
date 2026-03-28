@@ -22,6 +22,7 @@ offset_right = 58.0
 offset_bottom = 389.5
 grow_vertical = 2
 icon = ExtResource("3_d6xrr")
+flat = true
 
 [node name="RightArrow" type="Button" parent="."]
 anchors_preset = 6
@@ -36,6 +37,7 @@ offset_bottom = 389.5
 grow_horizontal = 0
 grow_vertical = 2
 icon = ExtResource("4_dw1qw")
+flat = true
 
 [node name="Minigame" type="Control" parent="."]
 layout_mode = 3

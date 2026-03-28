@@ -26,6 +26,7 @@ offset_bottom = 389.5
 grow_horizontal = 0
 grow_vertical = 2
 icon = ExtResource("3_mdqbh")
+flat = true
 
 [node name="LeftArrow" type="Button" parent="."]
 anchors_preset = 4
@@ -36,6 +37,7 @@ offset_right = 58.0
 offset_bottom = 389.5
 grow_vertical = 2
 icon = ExtResource("4_ey0fo")
+flat = true
 
 [node name="MainMassage" type="LinkButton" parent="."]
 offset_left = 360.0
