@@ -81,7 +81,6 @@ offset_bottom = 94.0
 mouse_filter = 0
 
 [node name="ToggleButton" type="TextureButton" parent="."]
-z_index = 2
 layout_mode = 0
 offset_left = 612.0
 offset_top = 140.0

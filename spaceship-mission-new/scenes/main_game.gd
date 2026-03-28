@@ -1,8 +1,14 @@
 extends Node2D
 
 @onready var inventory := $UILayer/InventoryRoot as Control
+@onready var fade_rect := $UILayer/FadeRect
+
 var current_room: Node2D = null
 var room_index: int = 1
+
+const FADE_DURATION: float = 0.25
+
+
 # platformer
 var platformer_scene := preload("res://minigame/platformer/scenes/main.tscn")
 var platformer_instance: Node = null
@@ -34,6 +40,7 @@ var chest2_opened: bool = false
 var collected_items: Array[String] = []
 
 func _ready() -> void:
+	fade_rect.modulate.a = 0.0
 	_load_room(room_index)
 
 func mark_item_collected(id: String) -> void:
@@ -43,6 +50,17 @@ func mark_item_collected(id: String) -> void:
 
 func is_item_collected(id: String) -> bool:
 	return id in collected_items
+
+# --- Смена комнаты с fade ---
+func _go_to_room(index: int) -> void:
+	room_index = index
+	var tween := create_tween()
+	# Плавно темнеем
+	tween.tween_property(fade_rect, "modulate:a", 1.0, FADE_DURATION)
+	# В момент полного затемнения — грузим комнату
+	tween.tween_callback(_load_room.bind(room_index))
+	# Плавно светлеем
+	tween.tween_property(fade_rect, "modulate:a", 0.0, FADE_DURATION)
 
 func _load_room(index: int) -> void:
 	if current_room:
@@ -74,22 +92,23 @@ func _load_room(index: int) -> void:
 		var banner_flask := current_room.get_node_or_null("SolvedBannerFlask")
 		if banner_flask:
 			banner_flask.visible = true
+
 	if index == 3 and platformer_solved and current_room:
 		var banner_plat := current_room.get_node_or_null("SolvedBannerPlatformer")
 		if banner_plat:
 			banner_plat.visible = true
 
 func _on_room_go_left() -> void:
-	room_index -= 1
-	if room_index < 1:
-		room_index = 4
-	_load_room(room_index)
+	var next := room_index - 1
+	if next < 1:
+		next = 4
+	_go_to_room(next)
 
 func _on_room_go_right() -> void:
-	room_index += 1
-	if room_index > 4:
-		room_index = 1
-	_load_room(room_index)
+	var next := room_index + 1
+	if next > 4:
+		next = 1
+	_go_to_room(next)
 
 # -------- 15puzzle --------
 func open_board() -> void:
@@ -186,7 +205,7 @@ func close_chest2() -> void:
 
 func on_chest2_solved() -> void:
 	chest2_opened = true
-	
+
 # -------- platformer --------
 func open_platformer() -> void:
 	if platformer_instance != null:
@@ -194,14 +213,14 @@ func open_platformer() -> void:
 	platformer_instance = platformer_scene.instantiate()
 	platformer_instance.connect("game_won", Callable(self, "on_platformer_solved"))
 	$MiniGameLayer.add_child(platformer_instance)
-	$UILayer.visible = false  # скрыть инвентарь
+	$UILayer.visible = false
 
 func close_platformer() -> void:
 	if platformer_instance:
 		platformer_instance.queue_free()
 		platformer_instance = null
 	get_tree().paused = false
-	$UILayer.visible = true  # вернуть инвентарь
+	$UILayer.visible = true
 	room_index = 3
 	_load_room(room_index)
 

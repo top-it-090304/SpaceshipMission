@@ -13,4 +13,11 @@ script = ExtResource("1_hat22")
 
 [node name="InventoryRoot" parent="UILayer" instance=ExtResource("2_xej52")]
 
+[node name="FadeRect" type="ColorRect" parent="UILayer"]
+modulate = Color(1, 1, 1, 0)
+offset_right = 1278.0
+offset_bottom = 719.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
 [node name="MiniGameLayer" type="CanvasLayer" parent="."]
