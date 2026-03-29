@@ -62,6 +62,11 @@ theme_override_fonts/mono_font = ExtResource("5_7fyak")
 theme_override_fonts/italics_font = ExtResource("5_7fyak")
 theme_override_fonts/bold_italics_font = ExtResource("5_7fyak")
 theme_override_fonts/bold_font = ExtResource("5_7fyak")
+theme_override_font_sizes/bold_italics_font_size = 50
+theme_override_font_sizes/italics_font_size = 50
+theme_override_font_sizes/mono_font_size = 50
+theme_override_font_sizes/normal_font_size = 50
+theme_override_font_sizes/bold_font_size = 50
 
 [node name="MiniGameLayer" type="CanvasLayer" parent="."]
 

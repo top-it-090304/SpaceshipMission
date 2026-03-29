@@ -158,6 +158,7 @@ offset_top = 361.0
 offset_right = 64.0
 offset_bottom = 419.0
 icon = ExtResource("9_07rta")
+flat = true
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0

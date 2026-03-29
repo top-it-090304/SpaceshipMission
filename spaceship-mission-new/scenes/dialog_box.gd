@@ -1,13 +1,13 @@
 extends Panel
 
 const NEXT_ARROW: Texture2D = preload("res://items/right-arrow.png")
-const TYPE_SPEED: float = 0.04  # секунд на букву
+const TYPE_SPEED: float = 0.04  
 
 # Сюда вписывай свои сообщения
 var messages: Array[String] = [
-	"Сообщение 1...",
-	"Сообщение 2...",
-	"Сообщение 3...",
+	"Как же расскалывается голова...",
+	"Что произошло?...",
+	"Для начала нужно найти главный экран, чтобы узнать в каком состоянии корабль..."
 ]
 
 var current_index: int = 0
