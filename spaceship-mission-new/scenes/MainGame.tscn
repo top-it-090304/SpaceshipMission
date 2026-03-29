@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://lqwo3aoiphos"]
+[gd_scene load_steps=8 format=3 uid="uid://lqwo3aoiphos"]
 
 [ext_resource type="Script" path="res://scenes/main_game (3).gd" id="1_x628s"]
 [ext_resource type="PackedScene" uid="uid://b8le3fmn8kbgs" path="res://scenes/InventoryRoot.tscn" id="2_xej52"]
 [ext_resource type="Script" uid="uid://bqapxbqcmqmc3" path="res://scenes/dialog_box.gd" id="3_p73vr"]
 [ext_resource type="Texture2D" uid="uid://ch4kncjxv2o5" path="res://items/right-arrow.png" id="4_x628s"]
 [ext_resource type="FontFile" uid="uid://b7dduljs7hlra" path="res://Iceberg-Regular.ttf" id="5_7fyak"]
+[ext_resource type="Texture2D" uid="uid://dtssbgpdfm7wv" path="res://items/Rerson.png" id="6_7fyak"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xej52"]
 bg_color = Color(0.310617, 0.310617, 0.310617, 1)
@@ -30,8 +31,10 @@ script = ExtResource("1_x628s")
 
 [node name="FadeRect" type="ColorRect" parent="UILayer"]
 modulate = Color(1, 1, 1, 0)
-offset_right = 1278.0
-offset_bottom = 719.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 1279.0
+offset_bottom = 720.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
@@ -53,7 +56,7 @@ texture_normal = ExtResource("4_x628s")
 
 [node name="DialogLabel" type="RichTextLabel" parent="UILayer/DialogBox"]
 layout_mode = 0
-offset_left = 24.0
+offset_left = 345.0
 offset_top = 15.0
 offset_right = 1020.0
 offset_bottom = 206.0
@@ -67,6 +70,11 @@ theme_override_font_sizes/italics_font_size = 50
 theme_override_font_sizes/mono_font_size = 50
 theme_override_font_sizes/normal_font_size = 50
 theme_override_font_sizes/bold_font_size = 50
+
+[node name="Person" type="Sprite2D" parent="UILayer/DialogBox"]
+position = Vector2(118, 100)
+scale = Vector2(0.475836, 0.475806)
+texture = ExtResource("6_7fyak")
 
 [node name="MiniGameLayer" type="CanvasLayer" parent="."]
 

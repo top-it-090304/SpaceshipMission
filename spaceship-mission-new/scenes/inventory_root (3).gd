@@ -21,7 +21,7 @@ var item_textures := {
 	"screwdriver": preload("res://items/screwdriver.png"),
 	"brush": preload("res://items/paint-brush.png"),
 	"key": preload("res://items/key_1.png"),
-	
+	"card": preload("res://items/result_card1box.png"),
 }
 
 @onready var slots := [
@@ -114,6 +114,13 @@ func _on_slot_gui_input(idx: int, event: InputEvent) -> void:
 		else:
 			selected_index = idx
 		_update_slots()
+		# Если выбрана карточка — показываем крупный вид
+		if selected_index >= 0 and items[selected_index] == "card":
+			var main_game := get_tree().get_first_node_in_group("MainGame")
+			if main_game:
+				var card_viewer = main_game.get_node_or_null("UILayer/CardViewer")
+				if card_viewer:
+					card_viewer.show_card()
 
 func _update_slots() -> void:
 	for i in range(slots.size()):
