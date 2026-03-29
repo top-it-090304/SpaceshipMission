@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var item_id: String = "card"
+@export var item_id: String = "battery"
 @export var texture: Texture2D
 
 func _ready() -> void:
