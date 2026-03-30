@@ -1,4 +1,30 @@
-[gd_scene format=3 uid="uid://qnuvaucscnuu"]
+[gd_scene load_steps=6 format=3 uid="uid://qnuvaucscnuu"]
+
+[ext_resource type="Texture2D" uid="uid://cjwhfuuv2ttds" path="res://ImagesBackground/spider puzzels background.png" id="1_s1r1w"]
+[ext_resource type="Texture2D" uid="uid://ch4kncjxv2o5" path="res://items/right-arrow.png" id="2_b37t8"]
+[ext_resource type="FontFile" uid="uid://b7dduljs7hlra" path="res://Iceberg-Regular.ttf" id="3_cmf18"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ggf0"]
+bg_color = Color(0.26293, 0.482014, 0.487516, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fb63t"]
+bg_color = Color(0.26293, 0.482014, 0.487516, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [node name="PauseMenu" type="Control"]
 layout_mode = 3
@@ -7,3 +33,46 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_top = -1.0
+offset_right = 1281.0
+offset_bottom = 719.0
+texture = ExtResource("1_s1r1w")
+
+[node name="Title" type="Label" parent="TextureRect"]
+layout_mode = 0
+offset_left = 376.0
+offset_top = 84.0
+offset_right = 913.0
+offset_bottom = 178.0
+
+[node name="ResumeButton" type="TextureButton" parent="TextureRect"]
+layout_mode = 0
+offset_left = 1123.0
+offset_top = 335.0
+offset_right = 1174.0
+offset_bottom = 388.0
+texture_normal = ExtResource("2_b37t8")
+
+[node name="ResetButton" type="Button" parent="TextureRect"]
+offset_left = 504.0
+offset_top = 227.0
+offset_right = 798.0
+offset_bottom = 302.0
+theme_override_fonts/font = ExtResource("3_cmf18")
+theme_override_font_sizes/font_size = 31
+theme_override_styles/normal = SubResource("StyleBoxFlat_5ggf0")
+text = "Сбросить прогресс"
+
+[node name="QuitButton" type="Button" parent="TextureRect"]
+offset_left = 504.0
+offset_top = 336.0
+offset_right = 798.0
+offset_bottom = 411.0
+theme_override_fonts/font = ExtResource("3_cmf18")
+theme_override_font_sizes/font_size = 31
+theme_override_styles/normal = SubResource("StyleBoxFlat_fb63t")
+text = "Выйти"

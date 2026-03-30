@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://lqwo3aoiphos"]
+[gd_scene load_steps=11 format=3 uid="uid://lqwo3aoiphos"]
 
 [ext_resource type="Script" uid="uid://cahgk48yj6lx2" path="res://scenes/main_game (3).gd" id="1_x628s"]
 [ext_resource type="PackedScene" uid="uid://b8le3fmn8kbgs" path="res://scenes/InventoryRoot.tscn" id="2_xej52"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dtssbgpdfm7wv" path="res://items/Rerson.png" id="6_7fyak"]
 [ext_resource type="Script" uid="uid://dump6lqi5vela" path="res://scenes/card_viewer (1).gd" id="7_1hpqh"]
 [ext_resource type="Texture2D" uid="uid://b4q8vctdwf4vl" path="res://items/card1box.png" id="8_7f7ne"]
+[ext_resource type="Texture2D" uid="uid://jejls1h06xkx" path="res://items/setting.png" id="9_7f7ne"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xej52"]
 bg_color = Color(0.310617, 0.310617, 0.310617, 1)
@@ -100,6 +101,13 @@ offset_top = 307.0
 offset_right = 1056.0
 offset_bottom = 357.0
 texture_normal = ExtResource("4_x628s")
+
+[node name="MenuButton" type="TextureButton" parent="UILayer"]
+offset_left = 1203.0
+offset_top = 12.0
+offset_right = 1263.0
+offset_bottom = 72.0
+texture_normal = ExtResource("9_7f7ne")
 
 [node name="MiniGameLayer" type="CanvasLayer" parent="."]
 
