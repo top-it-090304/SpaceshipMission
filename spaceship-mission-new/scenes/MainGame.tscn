@@ -1,12 +1,12 @@
 [gd_scene load_steps=10 format=3 uid="uid://lqwo3aoiphos"]
 
-[ext_resource type="Script" path="res://scenes/main_game (3).gd" id="1_x628s"]
+[ext_resource type="Script" uid="uid://cahgk48yj6lx2" path="res://scenes/main_game (3).gd" id="1_x628s"]
 [ext_resource type="PackedScene" uid="uid://b8le3fmn8kbgs" path="res://scenes/InventoryRoot.tscn" id="2_xej52"]
 [ext_resource type="Script" uid="uid://bqapxbqcmqmc3" path="res://scenes/dialog_box.gd" id="3_p73vr"]
 [ext_resource type="Texture2D" uid="uid://ch4kncjxv2o5" path="res://items/right-arrow.png" id="4_x628s"]
 [ext_resource type="FontFile" uid="uid://b7dduljs7hlra" path="res://Iceberg-Regular.ttf" id="5_7fyak"]
 [ext_resource type="Texture2D" uid="uid://dtssbgpdfm7wv" path="res://items/Rerson.png" id="6_7fyak"]
-[ext_resource type="Script" path="res://scenes/card_viewer (1).gd" id="7_1hpqh"]
+[ext_resource type="Script" uid="uid://dump6lqi5vela" path="res://scenes/card_viewer (1).gd" id="7_1hpqh"]
 [ext_resource type="Texture2D" uid="uid://b4q8vctdwf4vl" path="res://items/card1box.png" id="8_7f7ne"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xej52"]
