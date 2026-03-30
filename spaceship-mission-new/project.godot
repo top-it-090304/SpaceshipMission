@@ -16,6 +16,10 @@ config/custom_user_dir_name="ru.sofia.spaceship"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="uid://n8aoi0b2b0f4"
 
+[autoload]
+
+GameState="*res://scenes/GameState.gd"
+
 [display]
 
 window/size/viewport_width=1280
