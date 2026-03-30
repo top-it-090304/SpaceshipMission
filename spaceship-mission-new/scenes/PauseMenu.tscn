@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://qnuvaucscnuu"]
 
-[ext_resource type="Script" path="res://scenes/pause_menu.gd" id="1_b37t8"]
+[ext_resource type="Script" uid="uid://phe2asyv3we7" path="res://scenes/pause_menu.gd" id="1_b37t8"]
 [ext_resource type="Texture2D" uid="uid://cjwhfuuv2ttds" path="res://ImagesBackground/spider puzzels background.png" id="1_s1r1w"]
 [ext_resource type="Texture2D" uid="uid://ch4kncjxv2o5" path="res://items/right-arrow.png" id="2_b37t8"]
 [ext_resource type="FontFile" uid="uid://b7dduljs7hlra" path="res://Iceberg-Regular.ttf" id="3_cmf18"]
@@ -36,7 +36,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_b37t8")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 1.0
 offset_top = -1.0
@@ -44,14 +44,14 @@ offset_right = 1281.0
 offset_bottom = 719.0
 texture = ExtResource("1_s1r1w")
 
-[node name="Title" type="Label" parent="TextureRect"]
+[node name="Title" type="Label" parent="Background"]
 layout_mode = 0
 offset_left = 376.0
 offset_top = 84.0
 offset_right = 913.0
 offset_bottom = 178.0
 
-[node name="ResumeButton" type="TextureButton" parent="TextureRect"]
+[node name="ResumeButton" type="TextureButton" parent="Background"]
 layout_mode = 0
 offset_left = 1123.0
 offset_top = 335.0
@@ -59,7 +59,7 @@ offset_right = 1174.0
 offset_bottom = 388.0
 texture_normal = ExtResource("2_b37t8")
 
-[node name="ResetButton" type="Button" parent="TextureRect"]
+[node name="ResetButton" type="Button" parent="Background"]
 offset_left = 504.0
 offset_top = 227.0
 offset_right = 798.0
@@ -69,7 +69,7 @@ theme_override_font_sizes/font_size = 31
 theme_override_styles/normal = SubResource("StyleBoxFlat_5ggf0")
 text = "Сбросить прогресс"
 
-[node name="QuitButton" type="Button" parent="TextureRect"]
+[node name="QuitButton" type="Button" parent="Background"]
 offset_left = 504.0
 offset_top = 336.0
 offset_right = 798.0
