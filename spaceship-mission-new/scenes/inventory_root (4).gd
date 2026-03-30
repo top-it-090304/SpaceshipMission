@@ -21,8 +21,8 @@ var item_textures := {
 	"screwdriver": preload("res://items/screwdriver.png"),
 	"brush": preload("res://items/paint-brush.png"),
 	"key": preload("res://items/key_1.png"),
-	"card": preload("res://items/cardnotnumber.png"),
-	
+	"card": preload("res://items/result_card1box.png"),
+	"keycard": preload("res://items/keycard.png"),
 }
 
 @onready var slots := [
