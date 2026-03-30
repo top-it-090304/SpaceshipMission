@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://qnuvaucscnuu"]
+[gd_scene load_steps=7 format=3 uid="uid://qnuvaucscnuu"]
 
+[ext_resource type="Script" path="res://scenes/pause_menu.gd" id="1_b37t8"]
 [ext_resource type="Texture2D" uid="uid://cjwhfuuv2ttds" path="res://ImagesBackground/spider puzzels background.png" id="1_s1r1w"]
 [ext_resource type="Texture2D" uid="uid://ch4kncjxv2o5" path="res://items/right-arrow.png" id="2_b37t8"]
 [ext_resource type="FontFile" uid="uid://b7dduljs7hlra" path="res://Iceberg-Regular.ttf" id="3_cmf18"]
@@ -33,6 +34,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_b37t8")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
