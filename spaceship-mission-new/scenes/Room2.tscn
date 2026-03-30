@@ -51,6 +51,7 @@ offset_bottom = 592.0
 
 [node name="battery" parent="." instance=ExtResource("5_4tgmk")]
 position = Vector2(671, 362)
+item_id = "battery"
 texture = ExtResource("6_5ujgq")
 
 [node name="screwdriver" parent="." instance=ExtResource("5_4tgmk")]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://lqwo3aoiphos"]
 
-[ext_resource type="Script" uid="uid://bo72y4ascporf" path="res://scenes/main_game (4).gd" id="1_7f7ne"]
+[ext_resource type="Script" path="res://scenes/main_game (5).gd" id="1_7f7ne"]
 [ext_resource type="PackedScene" uid="uid://b8le3fmn8kbgs" path="res://scenes/InventoryRoot.tscn" id="2_xej52"]
 [ext_resource type="Script" uid="uid://bqapxbqcmqmc3" path="res://scenes/dialog_box.gd" id="3_p73vr"]
 [ext_resource type="Texture2D" uid="uid://ch4kncjxv2o5" path="res://items/right-arrow.png" id="4_x628s"]
