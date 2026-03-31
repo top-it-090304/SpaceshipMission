@@ -1,6 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://c7wbs35qq4ugy"]
+[gd_scene load_steps=11 format=3 uid="uid://c7wbs35qq4ugy"]
 
-[ext_resource type="Script" uid="uid://cew24iau8qbh4" path="res://scenes/room_1.gd" id="1_2dtu0"]
+[ext_resource type="Script" path="res://scenes/room_1 (2).gd" id="1_bc387"]
 [ext_resource type="Texture2D" uid="uid://caqi272gd5ah5" path="res://ImagesBackground/result_Room1.png" id="2_7sa2y"]
 [ext_resource type="Texture2D" uid="uid://ch4kncjxv2o5" path="res://items/right-arrow.png" id="3_sf7up"]
 [ext_resource type="Texture2D" uid="uid://c13a6h4iv6bw4" path="res://items/left-arrow.png" id="4_xhlaj"]
@@ -21,9 +21,21 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i1w2g"]
+bg_color = Color(0.408329, 0.408329, 0.408329, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
 [node name="Room1" type="Node2D"]
 position = Vector2(-431, -118)
-script = ExtResource("1_2dtu0")
+script = ExtResource("1_bc387")
 
 [node name="RoomBackground" type="TextureRect" parent="."]
 anchors_preset = 8
@@ -108,6 +120,38 @@ texture_normal = ExtResource("3_sf7up")
 position = Vector2(154, 98)
 scale = Vector2(0.379542, 0.411296)
 texture = ExtResource("7_hwyyj")
+
+[node name="Stars" type="TextureButton" parent="."]
+offset_left = 907.0
+offset_top = 422.0
+offset_right = 1145.0
+offset_bottom = 516.0
+
+[node name="StarsDialog" type="Panel" parent="."]
+visible = false
+offset_left = 490.0
+offset_top = 627.0
+offset_right = 1659.0
+offset_bottom = 823.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_i1w2g")
+
+[node name="DialogLabel" type="RichTextLabel" parent="StarsDialog"]
+layout_mode = 0
+offset_left = 265.0
+offset_top = 25.0
+offset_right = 1058.0
+offset_bottom = 182.0
+
+[node name="NextButton" type="TextureButton" parent="StarsDialog"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 3.4
+anchor_bottom = 7.199
+offset_left = 1092.0
+offset_top = 73.0
+offset_right = -2832.6
+offset_bottom = -1288.0
+texture_normal = ExtResource("3_sf7up")
 
 [connection signal="pressed" from="RightArrow" to="." method="_on_right_pressed"]
 [connection signal="pressed" from="LeftArrow" to="." method="_on_left_pressed"]
