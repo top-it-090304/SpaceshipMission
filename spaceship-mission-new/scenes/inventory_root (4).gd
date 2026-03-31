@@ -22,7 +22,8 @@ var item_textures := {
 	"brush": preload("res://items/paint-brush.png"),
 	"key": preload("res://items/key_1.png"),
 	"card": preload("res://items/result_card1box.png"),
-	"keycard": preload("res://items/keycard.png"),
+	"keycard": preload("res://items/cardnotnumber.png"),
+	"starmap": preload("res://items/starmap.png")
 }
 
 @onready var slots := [
@@ -80,8 +81,9 @@ func add_item(id: String) -> void:
 		return
 	items.append(id)
 	print("Items now:", items)
-	if selected_index == -1:
-		selected_index = items.size() - 1
+	selected_index = items.size() - 1
+	#if selected_index == -1:
+		#selected_index = items.size() - 1
 	_update_slots()
 
 func remove_item(id: String) -> void:
