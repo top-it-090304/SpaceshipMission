@@ -1,3 +1,4 @@
+
 extends Node2D
 
 signal go_left
@@ -17,6 +18,9 @@ var messages_no_card: Array[String] = [
 var messages_with_card: Array[String] = [
 	"✅ Карта принята. Личность подтверждена. Панель управления разблокирована.",
 ]
+var messages_already_unlocked: Array[String] = [
+	"✅ Панель управления разблокирована.",
+]
 
 # --- Сообщения для экрана звёздного неба (Stars) ---
 var messages_no_access: Array[String] = [
@@ -26,7 +30,6 @@ var messages_no_starmap: Array[String] = [
 	"🌌 Система навигации повреждена. Для корректировки маршрута и прокладки курса через аномальную зону необходима звёздная карта. Найдите её.",
 ]
 
-# --- Диалог активный ---
 var active_dialog: Panel = null
 var active_label: RichTextLabel = null
 var active_next: TextureButton = null
@@ -44,12 +47,10 @@ var active_next: TextureButton = null
 func _ready() -> void:
 	$LeftArrow.pressed.connect(_on_left_pressed)
 	$RightArrow.pressed.connect(_on_right_pressed)
-
 	screen_button.pressed.connect(_on_screen_pressed)
 	screen_next.pressed.connect(func(): _on_next_pressed(screen_dialog))
 	screen_dialog.visible = false
 	screen_next.visible = true
-
 	stars_button.pressed.connect(_on_stars_pressed)
 	stars_next.pressed.connect(func(): _on_next_pressed(stars_dialog))
 	stars_dialog.visible = false
@@ -61,11 +62,16 @@ func _on_left_pressed() -> void:
 func _on_right_pressed() -> void:
 	emit_signal("go_right")
 
-# --- Клик по панели управления ---
 func _on_screen_pressed() -> void:
 	var main_game := get_tree().get_first_node_in_group("MainGame")
 	if main_game == null:
 		return
+
+	# Уже разблокировано — просто показываем статус
+	if main_game.screen_unlocked:
+		_open_dialog(screen_dialog, screen_label, screen_next, messages_already_unlocked)
+		return
+
 	var inventory = main_game.get_node("UILayer/InventoryRoot")
 	if inventory.get_selected_item_id() == "keycard":
 		inventory.remove_item("keycard")
@@ -75,30 +81,24 @@ func _on_screen_pressed() -> void:
 	else:
 		_open_dialog(screen_dialog, screen_label, screen_next, messages_no_card)
 
-# --- Клик по экрану звёздного неба ---
 func _on_stars_pressed() -> void:
 	var main_game := get_tree().get_first_node_in_group("MainGame")
 	if main_game == null:
 		return
 	var inventory = main_game.get_node("UILayer/InventoryRoot")
 
-	# Доступ не подтверждён
 	if not main_game.screen_unlocked:
 		_open_dialog(stars_dialog, stars_label, stars_next, messages_no_access)
 		return
 
-	# Доступ подтверждён, звёздная карта выбрана — открываем мини-игру
 	if inventory.get_selected_item_id() == "starmap":
 		inventory.remove_item("starmap")
 		inventory.clear_selection()
-		# TODO: открыть сцену мини-игры
 		# main_game.open_starmap_minigame()
 		return
 
-	# Доступ подтверждён, карты нет
 	_open_dialog(stars_dialog, stars_label, stars_next, messages_no_starmap)
 
-# --- Универсальный показ диалога ---
 func _open_dialog(dialog: Panel, label: RichTextLabel, next_btn: TextureButton, messages: Array[String]) -> void:
 	active_dialog = dialog
 	active_label = label

@@ -1,7 +1,7 @@
 extends Control
 
 signal code_entered_correctly
-const CORRECT_CODE := "0000"
+const CORRECT_CODE := "6751"
 
 var current_code: String = ""
 
