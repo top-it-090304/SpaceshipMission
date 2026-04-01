@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://lqwo3aoiphos"]
 
-[ext_resource type="Script" uid="uid://c1y5eji56eu6b" path="res://scenes/main_game (7).gd" id="1_7f7ne"]
+[ext_resource type="Script" path="res://scenes/main_game (9).gd" id="1_7f7ne"]
 [ext_resource type="PackedScene" uid="uid://b8le3fmn8kbgs" path="res://scenes/InventoryRoot.tscn" id="2_xej52"]
 [ext_resource type="Script" uid="uid://bqapxbqcmqmc3" path="res://scenes/dialog_box.gd" id="3_p73vr"]
 [ext_resource type="Texture2D" uid="uid://ch4kncjxv2o5" path="res://items/right-arrow.png" id="4_x628s"]
@@ -116,5 +116,6 @@ offset_bottom = 72.0
 texture_normal = ExtResource("9_7f7ne")
 
 [node name="MiniGameLayer" type="CanvasLayer" parent="."]
+layer = 0
 
 [connection signal="pressed" from="UILayer/DialogBox/NextButton" to="UILayer/DialogBox" method="_on_next_pressed"]

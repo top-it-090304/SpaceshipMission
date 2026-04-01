@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://b1fy3rvcpy4tq"]
+[gd_scene load_steps=6 format=3 uid="uid://b1fy3rvcpy4tq"]
 
 [ext_resource type="Texture2D" uid="uid://b5pnce45knoss" path="res://ImagesBackground/ballbackground.png" id="1_3pv5o"]
+[ext_resource type="Script" path="res://logicitems/Ball/ball (2).gd" id="1_f40br"]
 [ext_resource type="Texture2D" uid="uid://ch4kncjxv2o5" path="res://items/right-arrow.png" id="2_atptk"]
 [ext_resource type="Texture2D" uid="uid://dtssbgpdfm7wv" path="res://items/Rerson.png" id="3_atptk"]
 
@@ -16,49 +17,39 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[node name="Ball" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Ball" type="Node2D"]
+script = ExtResource("1_f40br")
 
 [node name="Background" type="TextureRect" parent="."]
-layout_mode = 0
 offset_right = 1279.0
 offset_bottom = 722.0
 texture = ExtResource("1_3pv5o")
 
 [node name="BackButton" type="TextureButton" parent="."]
-layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -72.0
-offset_top = -19.0
-offset_right = -22.0
-offset_bottom = 31.0
+offset_left = 1202.0
+offset_top = 337.0
+offset_right = 1252.0
+offset_bottom = 387.0
 grow_horizontal = 0
 grow_vertical = 2
 texture_normal = ExtResource("2_atptk")
 
 [node name="BallButton" type="TextureButton" parent="."]
-layout_mode = 0
 offset_left = 422.0
 offset_top = 103.0
 offset_right = 855.0
 offset_bottom = 485.0
 
 [node name="DustLayer" type="TextureRect" parent="."]
-layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="BallDialog" type="Panel" parent="."]
-layout_mode = 0
 offset_left = 50.0
 offset_top = 481.0
 offset_right = 1232.0
@@ -89,3 +80,16 @@ texture_normal = ExtResource("2_atptk")
 position = Vector2(148, 94)
 scale = Vector2(0.486059, 0.450605)
 texture = ExtResource("3_atptk")
+
+[node name="RiddleLabel" type="Label" parent="."]
+offset_left = 516.0
+offset_top = 139.0
+offset_right = 802.0
+offset_bottom = 511.0
+theme_override_colors/font_color = Color(0, 0, 0, 0.231373)
+theme_override_font_sizes/font_size = 49
+text = "A+A+A=18
+B+B+A=20
+
+B+C+C=17
+C+D+D=7"

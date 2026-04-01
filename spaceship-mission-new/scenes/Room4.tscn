@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://c1xbopnljxxr7"]
 
 [ext_resource type="Texture2D" uid="uid://djo6i58g8yaqo" path="res://ImagesBackground/result_Room4.png" id="1_synf0"]
-[ext_resource type="Script" uid="uid://bndrltqnq4cec" path="res://scenes/room_4.gd" id="1_x0e7d"]
+[ext_resource type="Script" path="res://scenes/room_4 (2).gd" id="1_xsx8e"]
 [ext_resource type="Texture2D" uid="uid://ch4kncjxv2o5" path="res://items/right-arrow.png" id="3_mdqbh"]
 [ext_resource type="Texture2D" uid="uid://c13a6h4iv6bw4" path="res://items/left-arrow.png" id="4_ey0fo"]
 [ext_resource type="Texture2D" uid="uid://cb6d26nydhix7" path="res://items/RobotPath.png" id="5_ey0fo"]
@@ -20,7 +20,7 @@ corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
 [node name="Room4" type="Node2D"]
-script = ExtResource("1_x0e7d")
+script = ExtResource("1_xsx8e")
 
 [node name="RoomBackground" type="TextureRect" parent="."]
 offset_right = 1278.0
@@ -101,6 +101,12 @@ texture_normal = ExtResource("3_mdqbh")
 position = Vector2(142, 79)
 scale = Vector2(0.347778, 0.367164)
 texture = ExtResource("5_ey0fo")
+
+[node name="BallButton" type="TextureButton" parent="."]
+offset_left = 107.0
+offset_top = 307.0
+offset_right = 222.0
+offset_bottom = 418.0
 
 [connection signal="pressed" from="RightArrow" to="." method="_on_right_pressed"]
 [connection signal="pressed" from="LeftArrow" to="." method="_on_left_pressed"]
