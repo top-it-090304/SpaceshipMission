@@ -1,4 +1,20 @@
-[gd_scene format=3 uid="uid://b1fy3rvcpy4tq"]
+[gd_scene load_steps=5 format=3 uid="uid://b1fy3rvcpy4tq"]
+
+[ext_resource type="Texture2D" uid="uid://b5pnce45knoss" path="res://ImagesBackground/ballbackground.png" id="1_3pv5o"]
+[ext_resource type="Texture2D" uid="uid://ch4kncjxv2o5" path="res://items/right-arrow.png" id="2_atptk"]
+[ext_resource type="Texture2D" uid="uid://dtssbgpdfm7wv" path="res://items/Rerson.png" id="3_atptk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f40br"]
+bg_color = Color(0.408329, 0.408329, 0.408329, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [node name="Ball" type="Control"]
 layout_mode = 3
@@ -7,3 +23,69 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1279.0
+offset_bottom = 722.0
+texture = ExtResource("1_3pv5o")
+
+[node name="BackButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -19.0
+offset_right = -22.0
+offset_bottom = 31.0
+grow_horizontal = 0
+grow_vertical = 2
+texture_normal = ExtResource("2_atptk")
+
+[node name="BallButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 422.0
+offset_top = 103.0
+offset_right = 855.0
+offset_bottom = 485.0
+
+[node name="DustLayer" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BallDialog" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 481.0
+offset_right = 1232.0
+offset_bottom = 690.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_f40br")
+
+[node name="DialogLabel" type="RichTextLabel" parent="BallDialog"]
+layout_mode = 0
+offset_left = 275.0
+offset_top = 20.0
+offset_right = 1058.0
+offset_bottom = 189.0
+theme_override_font_sizes/bold_italics_font_size = 30
+theme_override_font_sizes/italics_font_size = 30
+theme_override_font_sizes/mono_font_size = 30
+theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/bold_font_size = 30
+
+[node name="NextButton" type="TextureButton" parent="BallDialog"]
+layout_mode = 0
+offset_left = 1109.0
+offset_top = 78.0
+offset_right = 1159.0
+offset_bottom = 128.0
+texture_normal = ExtResource("2_atptk")
+
+[node name="Sprite2D" type="Sprite2D" parent="BallDialog"]
+position = Vector2(148, 94)
+scale = Vector2(0.486059, 0.450605)
+texture = ExtResource("3_atptk")
