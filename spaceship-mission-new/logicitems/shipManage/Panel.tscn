@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c556fjblcury3" path="res://items/gamepad_1865458.png" id="6_oeod8"]
 [ext_resource type="Texture2D" uid="uid://dphg4ypgpgbyh" path="res://items/triangle_7492921.png" id="7_4y08j"]
 [ext_resource type="Texture2D" uid="uid://df1l8nqclynxn" path="res://items/record_2221521.png" id="8_ru05u"]
-[ext_resource type="Script" uid="uid://d05ffn4oluf1j" path="res://logicitems/shipManage/panel (5).gd" id="9_4y08j"]
+[ext_resource type="Script" uid="uid://dnccwefv5ksmq" path="res://logicitems/shipManage/grid (1).gd" id="9_ru05u"]
 
 [node name="Panel" type="Node2D"]
 script = ExtResource("1_4y08j")
@@ -149,4 +149,4 @@ texture = ExtResource("7_4y08j")
 
 [node name="Grid" type="Node2D" parent="ScreenArea"]
 position = Vector2(400, 147)
-script = ExtResource("9_4y08j")
+script = ExtResource("9_ru05u")
