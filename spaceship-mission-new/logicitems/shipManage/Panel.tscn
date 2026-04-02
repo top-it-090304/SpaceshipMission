@@ -1,15 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://34ohx67rdpnm"]
+[gd_scene load_steps=10 format=3 uid="uid://34ohx67rdpnm"]
 
 [ext_resource type="Texture2D" uid="uid://1iynpty0ef3e" path="res://ImagesBackground/panelback.png" id="1_3ig1j"]
-[ext_resource type="Script" uid="uid://do0bcehiainxq" path="res://logicitems/shipManage/panel.gd" id="1_lowwi"]
+[ext_resource type="Script" uid="uid://b2j2h3o8f48bu" path="res://logicitems/shipManage/panel (4).gd" id="1_4y08j"]
 [ext_resource type="Texture2D" uid="uid://d14j1ypfneb3c" path="res://items/down-arrow .png" id="2_pd63f"]
 [ext_resource type="Texture2D" uid="uid://c1fq2kx5j4wx2" path="res://items/panelarrow1.png" id="3_pd63f"]
 [ext_resource type="FontFile" uid="uid://b7dduljs7hlra" path="res://Iceberg-Regular.ttf" id="4_4ua0v"]
+[ext_resource type="Texture2D" uid="uid://c556fjblcury3" path="res://items/gamepad_1865458.png" id="6_oeod8"]
+[ext_resource type="Texture2D" uid="uid://dphg4ypgpgbyh" path="res://items/triangle_7492921.png" id="7_4y08j"]
+[ext_resource type="Texture2D" uid="uid://df1l8nqclynxn" path="res://items/record_2221521.png" id="8_ru05u"]
+[ext_resource type="Script" uid="uid://d05ffn4oluf1j" path="res://logicitems/shipManage/panel (5).gd" id="9_4y08j"]
 
 [node name="Panel" type="Node2D"]
-script = ExtResource("1_lowwi")
+script = ExtResource("1_4y08j")
 
 [node name="Background" type="TextureRect" parent="."]
+offset_left = 1.0
 offset_top = 1.0
 offset_right = 1281.0
 offset_bottom = 721.0
@@ -21,10 +26,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -24.0
-offset_top = -59.0
-offset_right = 26.0
-offset_bottom = -9.0
+offset_left = 616.0
+offset_top = 632.0
+offset_right = 666.0
+offset_bottom = 682.0
 grow_horizontal = 2
 grow_vertical = 0
 texture_normal = ExtResource("2_pd63f")
@@ -73,6 +78,9 @@ offset_left = 1032.0
 offset_top = 128.0
 offset_right = 1160.0
 offset_bottom = 248.0
+theme_override_fonts/font = ExtResource("4_4ua0v")
+theme_override_font_sizes/font_size = 85
+horizontal_alignment = 1
 
 [node name="RightMinus" type="TextureButton" parent="."]
 offset_left = 1056.0
@@ -88,3 +96,57 @@ offset_right = 1234.0
 offset_bottom = 442.0
 rotation = -3.14159
 texture_normal = ExtResource("3_pd63f")
+
+[node name="Joystick" type="Node2D" parent="."]
+
+[node name="JoyUp" type="TextureButton" parent="Joystick"]
+offset_left = 164.0
+offset_top = 446.0
+offset_right = 209.0
+offset_bottom = 497.0
+
+[node name="JoyDown" type="TextureButton" parent="Joystick"]
+offset_left = 163.0
+offset_top = 562.0
+offset_right = 221.0
+offset_bottom = 621.0
+
+[node name="JoyLeft" type="TextureButton" parent="Joystick"]
+offset_left = 92.0
+offset_top = 513.0
+offset_right = 153.0
+offset_bottom = 560.0
+
+[node name="JoyRight" type="TextureButton" parent="Joystick"]
+offset_left = 231.0
+offset_top = 511.0
+offset_right = 281.0
+offset_bottom = 561.0
+
+[node name="Joy" type="Sprite2D" parent="Joystick"]
+position = Vector2(187, 535)
+scale = Vector2(0.416016, 0.404297)
+texture = ExtResource("6_oeod8")
+
+[node name="ScreenArea" type="Node2D" parent="."]
+
+[node name="ScreenBg" type="ColorRect" parent="ScreenArea"]
+visible = false
+offset_left = 369.0
+offset_top = 147.0
+offset_right = 915.0
+offset_bottom = 558.0
+
+[node name="Dot" type="Sprite2D" parent="ScreenArea"]
+position = Vector2(572, 302)
+scale = Vector2(0.154297, 0.145508)
+texture = ExtResource("8_ru05u")
+
+[node name="Arrow" type="Sprite2D" parent="ScreenArea"]
+position = Vector2(630, 346)
+scale = Vector2(0.181152, 0.194824)
+texture = ExtResource("7_4y08j")
+
+[node name="Grid" type="Node2D" parent="ScreenArea"]
+position = Vector2(400, 147)
+script = ExtResource("9_4y08j")
