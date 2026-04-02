@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://cx4k9m2r7n8p3q"]
+
+[ext_resource type="Script" path="res://minigame/jumper/scenes/player.gd" id="1_jplyr"]
+[ext_resource type="Texture2D" uid="uid://clk61bqb3qejx" path="res://minigame/platformer/images/player_walk_1.png" id="2_jplyr"]
+[ext_resource type="Texture2D" uid="uid://bcli75f55j3kb" path="res://minigame/platformer/images/jump.png" id="3_jplyr"]
+[ext_resource type="Texture2D" uid="uid://3mngthclwqkj" path="res://minigame/platformer/images/player_walk_2.png" id="4_jplyr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jplyr"]
+size = Vector2(56.5, 74)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jplyr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jplyr")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_jplyr")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jplyr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_jplyr")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 13.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_jplyr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jplyr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_jplyr")
+animation = &"idle"

@@ -1,0 +1,90 @@
+[gd_scene load_steps=6 format=3 uid="uid://34ohx67rdpnm"]
+
+[ext_resource type="Texture2D" uid="uid://1iynpty0ef3e" path="res://ImagesBackground/panelback.png" id="1_3ig1j"]
+[ext_resource type="Script" uid="uid://do0bcehiainxq" path="res://logicitems/shipManage/panel.gd" id="1_lowwi"]
+[ext_resource type="Texture2D" uid="uid://d14j1ypfneb3c" path="res://items/down-arrow .png" id="2_pd63f"]
+[ext_resource type="Texture2D" uid="uid://c1fq2kx5j4wx2" path="res://items/panelarrow1.png" id="3_pd63f"]
+[ext_resource type="FontFile" uid="uid://b7dduljs7hlra" path="res://Iceberg-Regular.ttf" id="4_4ua0v"]
+
+[node name="Panel" type="Node2D"]
+script = ExtResource("1_lowwi")
+
+[node name="Background" type="TextureRect" parent="."]
+offset_top = 1.0
+offset_right = 1281.0
+offset_bottom = 721.0
+texture = ExtResource("1_3ig1j")
+
+[node name="BackButton" type="TextureButton" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_top = -59.0
+offset_right = 26.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("2_pd63f")
+
+[node name="LeftScreen" type="ColorRect" parent="."]
+visible = false
+offset_left = 114.0
+offset_top = 127.0
+offset_right = 258.0
+offset_bottom = 245.0
+
+[node name="LeftLabel" type="Label" parent="."]
+offset_left = 116.0
+offset_top = 131.0
+offset_right = 256.0
+offset_bottom = 239.0
+theme_override_fonts/font = ExtResource("4_4ua0v")
+theme_override_font_sizes/font_size = 85
+horizontal_alignment = 1
+
+[node name="LeftMinus" type="TextureButton" parent="."]
+offset_left = 166.0
+offset_top = 286.0
+offset_right = 256.0
+offset_bottom = 376.0
+rotation = -4.71239
+texture_normal = ExtResource("3_pd63f")
+
+[node name="LeftPlus" type="TextureButton" parent="."]
+offset_left = 208.0
+offset_top = 376.0
+offset_right = 298.0
+offset_bottom = 466.0
+rotation = -1.5708
+texture_normal = ExtResource("3_pd63f")
+
+[node name="RightScreen" type="ColorRect" parent="."]
+visible = false
+offset_left = 1032.0
+offset_top = 128.0
+offset_right = 1160.0
+offset_bottom = 248.0
+
+[node name="RightLabel" type="Label" parent="."]
+offset_left = 1032.0
+offset_top = 128.0
+offset_right = 1160.0
+offset_bottom = 248.0
+
+[node name="RightMinus" type="TextureButton" parent="."]
+offset_left = 1056.0
+offset_top = 360.0
+offset_right = 1146.0
+offset_bottom = 450.0
+texture_normal = ExtResource("3_pd63f")
+
+[node name="RightPlus" type="TextureButton" parent="."]
+offset_left = 1144.0
+offset_top = 352.0
+offset_right = 1234.0
+offset_bottom = 442.0
+rotation = -3.14159
+texture_normal = ExtResource("3_pd63f")

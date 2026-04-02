@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bk58o8yj4aobq"]
+
+[ext_resource type="Script" uid="uid://b8s34bbwbvj83" path="res://minigame/PipePuzzle/PipePuzzle.gd" id="1_ejw78"]
+
+[node name="PipePuzzle" type="Node2D"]
+script = ExtResource("1_ejw78")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="WinLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0

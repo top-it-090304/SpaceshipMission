@@ -1,0 +1,121 @@
+[gd_scene load_steps=11 format=3 uid="uid://lqwo3aoiphos"]
+
+[ext_resource type="Script" uid="uid://5neu0xnxqb4x" path="res://scenes/main_game (9).gd" id="1_7f7ne"]
+[ext_resource type="PackedScene" uid="uid://b8le3fmn8kbgs" path="res://scenes/InventoryRoot.tscn" id="2_xej52"]
+[ext_resource type="Script" uid="uid://bqapxbqcmqmc3" path="res://scenes/dialog_box.gd" id="3_p73vr"]
+[ext_resource type="Texture2D" uid="uid://ch4kncjxv2o5" path="res://items/right-arrow.png" id="4_x628s"]
+[ext_resource type="FontFile" uid="uid://b7dduljs7hlra" path="res://Iceberg-Regular.ttf" id="5_7fyak"]
+[ext_resource type="Texture2D" uid="uid://dtssbgpdfm7wv" path="res://items/Rerson.png" id="6_7fyak"]
+[ext_resource type="Script" uid="uid://dump6lqi5vela" path="res://scenes/card_viewer (1).gd" id="7_1hpqh"]
+[ext_resource type="Texture2D" uid="uid://b4q8vctdwf4vl" path="res://items/card1box.png" id="8_7f7ne"]
+[ext_resource type="Texture2D" uid="uid://jejls1h06xkx" path="res://items/setting.png" id="9_7f7ne"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xej52"]
+bg_color = Color(0.310617, 0.310617, 0.310617, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="MainGame" type="Node2D" groups=["MainGame"]]
+position = Vector2(-1, 0)
+script = ExtResource("1_7f7ne")
+
+[node name="RoomsRoot" type="Node2D" parent="."]
+
+[node name="InputBlocker" type="ColorRect" parent="."]
+visible = false
+offset_right = 1282.0
+offset_bottom = 715.0
+color = Color(0.054902, 0.054902, 0.054902, 0.435294)
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="InventoryRoot" parent="UILayer" instance=ExtResource("2_xej52")]
+
+[node name="FadeRect" type="ColorRect" parent="UILayer"]
+modulate = Color(1, 1, 1, 0)
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 1279.0
+offset_bottom = 720.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="DialogBox" type="Panel" parent="UILayer"]
+offset_left = 67.0
+offset_top = 474.0
+offset_right = 1216.0
+offset_bottom = 696.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xej52")
+script = ExtResource("3_p73vr")
+
+[node name="NextButton" type="TextureButton" parent="UILayer/DialogBox"]
+layout_mode = 0
+offset_left = 1074.0
+offset_top = 82.0
+offset_right = 1124.0
+offset_bottom = 132.0
+texture_normal = ExtResource("4_x628s")
+
+[node name="DialogLabel" type="RichTextLabel" parent="UILayer/DialogBox"]
+layout_mode = 0
+offset_left = 345.0
+offset_top = 15.0
+offset_right = 1020.0
+offset_bottom = 206.0
+theme_override_fonts/normal_font = ExtResource("5_7fyak")
+theme_override_fonts/mono_font = ExtResource("5_7fyak")
+theme_override_fonts/italics_font = ExtResource("5_7fyak")
+theme_override_fonts/bold_italics_font = ExtResource("5_7fyak")
+theme_override_fonts/bold_font = ExtResource("5_7fyak")
+theme_override_font_sizes/bold_italics_font_size = 50
+theme_override_font_sizes/italics_font_size = 50
+theme_override_font_sizes/mono_font_size = 50
+theme_override_font_sizes/normal_font_size = 50
+theme_override_font_sizes/bold_font_size = 50
+
+[node name="Person" type="Sprite2D" parent="UILayer/DialogBox"]
+position = Vector2(118, 100)
+scale = Vector2(0.475836, 0.475806)
+texture = ExtResource("6_7fyak")
+
+[node name="CardViewer" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("7_1hpqh")
+
+[node name="CardImage" type="TextureRect" parent="UILayer/CardViewer"]
+layout_mode = 0
+offset_left = -38.0
+offset_top = -30.0
+offset_right = 1338.0
+offset_bottom = 738.0
+texture = ExtResource("8_7f7ne")
+
+[node name="CloseButton" type="TextureButton" parent="UILayer/CardViewer"]
+layout_mode = 0
+offset_left = 1006.0
+offset_top = 307.0
+offset_right = 1056.0
+offset_bottom = 357.0
+texture_normal = ExtResource("4_x628s")
+
+[node name="MenuButton" type="TextureButton" parent="UILayer"]
+offset_left = 1203.0
+offset_top = 12.0
+offset_right = 1263.0
+offset_bottom = 72.0
+texture_normal = ExtResource("9_7f7ne")
+
+[node name="MiniGameLayer" type="CanvasLayer" parent="."]
+layer = 0
+
+[connection signal="pressed" from="UILayer/DialogBox/NextButton" to="UILayer/DialogBox" method="_on_next_pressed"]

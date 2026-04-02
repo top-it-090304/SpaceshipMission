@@ -1,0 +1,173 @@
+[gd_scene load_steps=7 format=3 uid="uid://bk1stlpail2vg"]
+
+[ext_resource type="Script" uid="uid://c2ayhbj28onb4" path="res://minigame/FlaskPuzzel/flask_puzzel.gd" id="1_8ecy7"]
+[ext_resource type="Texture2D" uid="uid://gmvjliy0oteg" path="res://items/backbotl.png" id="1_vykvq"]
+[ext_resource type="Texture2D" uid="uid://b2vsfrhct2pls" path="res://items/Group 1.png" id="3_7yi23"]
+[ext_resource type="Texture2D" uid="uid://dddnekoaikhus" path="res://items/flask6.png" id="4_5mrnj"]
+[ext_resource type="Texture2D" uid="uid://du3v5duqghooc" path="res://items/flask_3099558.png" id="5_5lktb"]
+[ext_resource type="Texture2D" uid="uid://c13a6h4iv6bw4" path="res://items/left-arrow.png" id="9_07rta"]
+
+[node name="FlaskPuzzel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8ecy7")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1282.0
+offset_bottom = 720.0
+texture = ExtResource("1_vykvq")
+
+[node name="Board" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -7.0
+offset_top = -15.0
+offset_right = 1276.0
+offset_bottom = 703.0
+
+[node name="Flask1" type="Control" parent="Board"]
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 75.0
+offset_right = 452.0
+offset_bottom = 628.0
+
+[node name="Mask" type="Control" parent="Board/Flask1"]
+clip_children = 1
+anchors_preset = 0
+offset_left = 209.0
+offset_top = 138.0
+offset_right = 375.0
+offset_bottom = 481.0
+
+[node name="Water" type="ColorRect" parent="Board/Flask1/Mask"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2, 0.5, 1, 0.889)
+
+[node name="Outline" type="Sprite2D" parent="Board/Flask1"]
+position = Vector2(291, 281)
+scale = Vector2(1.14844, 1.02433)
+texture = ExtResource("3_7yi23")
+
+[node name="ClickArea" type="Button" parent="Board/Flask1"]
+layout_mode = 0
+offset_left = 195.0
+offset_top = 42.0
+offset_right = 379.0
+offset_bottom = 477.0
+flat = true
+
+[node name="Flask2" type="Control" parent="Board"]
+anchors_preset = 0
+offset_left = 498.0
+offset_top = 18.0
+offset_right = 765.0
+offset_bottom = 420.0
+
+[node name="Mask" type="Control" parent="Board/Flask2"]
+clip_children = 1
+anchors_preset = 0
+offset_left = 527.0
+offset_top = 218.0
+offset_right = 638.0
+offset_bottom = 532.0
+
+[node name="Water" type="ColorRect" parent="Board/Flask2/Mask"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_right = 2.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2, 0.5, 1, 0.889)
+
+[node name="Outline" type="Sprite2D" parent="Board/Flask2"]
+position = Vector2(585, 369.5)
+scale = Vector2(1.20313, 1.08789)
+texture = ExtResource("4_5mrnj")
+
+[node name="ClickArea" type="Button" parent="Board/Flask2"]
+layout_mode = 0
+offset_left = 540.0
+offset_top = 161.0
+offset_right = 637.0
+offset_bottom = 532.0
+flat = true
+
+[node name="Flask3" type="Control" parent="Board"]
+anchors_preset = 0
+offset_left = 696.0
+offset_top = 113.0
+offset_right = 1051.0
+offset_bottom = 597.0
+
+[node name="Mask" type="Control" parent="Board/Flask3"]
+clip_children = 1
+anchors_preset = 0
+offset_left = -69.0
+offset_top = 222.0
+offset_right = 12.0
+offset_bottom = 439.0
+
+[node name="Water" type="ColorRect" parent="Board/Flask3/Mask"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = 1.0
+offset_right = -5.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2, 0.5, 1, 0.889)
+
+[node name="Outline" type="Sprite2D" parent="Board/Flask3"]
+position = Vector2(-31, 319)
+scale = Vector2(0.775391, 0.730469)
+texture = ExtResource("5_5lktb")
+
+[node name="ClickArea" type="Button" parent="Board/Flask3"]
+layout_mode = 0
+offset_left = -81.0
+offset_top = 162.0
+offset_right = 23.0
+offset_bottom = 446.0
+flat = true
+
+[node name="ExitButton" type="Button" parent="Board"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 361.0
+offset_right = 64.0
+offset_bottom = 419.0
+icon = ExtResource("9_07rta")
+flat = true
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 565.0
+offset_top = 35.0
+offset_right = 717.0
+offset_bottom = 96.0
+text = "для прохождения 
+"
+
+[connection signal="pressed" from="Board/ExitButton" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

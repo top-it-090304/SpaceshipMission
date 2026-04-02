@@ -1,0 +1,113 @@
+[gd_scene load_steps=7 format=3 uid="uid://bq1xdunt137es"]
+
+[ext_resource type="Script" uid="uid://baywxa8qxcqpr" path="res://minigame/jumper/scenes/main.gd" id="1_jmain"]
+[ext_resource type="PackedScene" uid="uid://c7682rnfolln5" path="res://minigame/jumper/scenes/player.tscn" id="2_jmain"]
+[ext_resource type="Texture2D" uid="uid://bdo1rhatb8p2y" path="res://minigame/platformer/images/bg/layer1.png" id="3_jmain"]
+[ext_resource type="Texture2D" uid="uid://t4chqan5ojky" path="res://minigame/platformer/images/bg/layer_ground.png" id="4_jmain"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jgnd"]
+size = Vector2(1280, 119)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jgo"]
+bg_color = Color(0.12, 0.12, 0.35, 0.88)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Main" type="Node"]
+script = ExtResource("1_jmain")
+
+[node name="BgSprite" type="Sprite2D" parent="."]
+scale = Vector2(1.00078, 1.00139)
+texture = ExtResource("3_jmain")
+centered = false
+
+[node name="Ground" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+top_level = true
+position = Vector2(640, 659.5)
+shape = SubResource("RectangleShape2D_jgnd")
+
+[node name="GroundSprite" type="Sprite2D" parent="Ground"]
+position = Vector2(0, 603)
+scale = Vector2(1.00234, 0.414286)
+texture = ExtResource("4_jmain")
+centered = false
+
+[node name="Player" parent="." instance=ExtResource("2_jmain")]
+position = Vector2(200, 560)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="ScoreLabel" type="Label" parent="HUD"]
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 300.0
+offset_bottom = 55.0
+theme_override_font_sizes/font_size = 40
+text = "СЧЕТ: 0"
+
+[node name="StartLabel" type="Label" parent="HUD"]
+offset_left = 310.0
+offset_top = 270.0
+offset_right = 970.0
+offset_bottom = 350.0
+theme_override_font_sizes/font_size = 42
+text = "КЛИКНИ ЧТОБЫ НАЧАТЬ"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CloseButton" type="Button" parent="HUD"]
+offset_left = 1218.0
+offset_top = 6.0
+offset_right = 1278.0
+offset_bottom = 52.0
+theme_override_font_sizes/font_size = 28
+text = "X"
+flat = true
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="BgPanel" type="Panel" parent="GameOver"]
+offset_left = 280.0
+offset_top = 210.0
+offset_right = 1000.0
+offset_bottom = 430.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_jgo")
+
+[node name="GameOverLabel" type="Label" parent="GameOver"]
+offset_left = 280.0
+offset_top = 230.0
+offset_right = 1000.0
+offset_bottom = 320.0
+theme_override_font_sizes/font_size = 55
+text = "ИГРА ОКОНЧЕНА"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RetryButton" type="Button" parent="GameOver"]
+offset_left = 390.0
+offset_top = 330.0
+offset_right = 890.0
+offset_bottom = 410.0
+theme_override_font_sizes/font_size = 36
+text = "ПОПРОБОВАТЬ СНОВА"
+
+[node name="Win" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="WinLabel" type="Label" parent="Win"]
+offset_left = 280.0
+offset_top = 260.0
+offset_right = 1000.0
+offset_bottom = 400.0
+theme_override_font_sizes/font_size = 70
+text = "ПОБЕДА!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="HUD/CloseButton" to="." method="_on_close"]
+[connection signal="pressed" from="GameOver/RetryButton" to="." method="_restart_game"]

@@ -1,0 +1,78 @@
+[gd_scene load_steps=9 format=3 uid="uid://y7603qu0ubty"]
+
+[ext_resource type="Texture2D" uid="uid://dbb40vjffroc5" path="res://ImagesBackground/result_Room2.png" id="1_iw126"]
+[ext_resource type="Script" uid="uid://dks4irfrf7csn" path="res://scenes/room_2.gd" id="1_uq8dp"]
+[ext_resource type="Texture2D" uid="uid://ch4kncjxv2o5" path="res://items/right-arrow.png" id="3_lx35x"]
+[ext_resource type="Texture2D" uid="uid://c13a6h4iv6bw4" path="res://items/left-arrow.png" id="4_yltfi"]
+[ext_resource type="PackedScene" uid="uid://cn1y03h5it8rh" path="res://scenes/Item.tscn" id="5_4tgmk"]
+[ext_resource type="Texture2D" uid="uid://drok0fqnbkhsd" path="res://items/battery.png" id="6_5ujgq"]
+[ext_resource type="Texture2D" uid="uid://bu0bu13pukdil" path="res://items/screwdriver.png" id="7_5ujgq"]
+[ext_resource type="Texture2D" uid="uid://cgrla6fl5loow" path="res://items/paint-brush.png" id="8_sqj6n"]
+
+[node name="Room2" type="Node2D"]
+script = ExtResource("1_uq8dp")
+
+[node name="RoomBackground" type="TextureRect" parent="."]
+offset_right = 1278.0
+offset_bottom = 721.0
+texture = ExtResource("1_iw126")
+
+[node name="RightArrow" type="Button" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 1222.0
+offset_top = 331.5
+offset_right = 1280.0
+offset_bottom = 389.5
+grow_horizontal = 0
+grow_vertical = 2
+icon = ExtResource("3_lx35x")
+flat = true
+
+[node name="LeftArrow" type="Button" parent="."]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 331.5
+offset_right = 58.0
+offset_bottom = 389.5
+grow_vertical = 2
+icon = ExtResource("4_yltfi")
+flat = true
+
+[node name="LinkButtonBox1" type="LinkButton" parent="."]
+offset_left = 398.0
+offset_top = 441.0
+offset_right = 607.0
+offset_bottom = 592.0
+
+[node name="battery" parent="." instance=ExtResource("5_4tgmk")]
+position = Vector2(671, 362)
+item_id = "battery"
+texture = ExtResource("6_5ujgq")
+
+[node name="screwdriver" parent="." instance=ExtResource("5_4tgmk")]
+position = Vector2(528, 368)
+rotation = 0.71733
+item_id = "screwdriver"
+texture = ExtResource("7_5ujgq")
+
+[node name="LinkButtonBox2" type="LinkButton" parent="."]
+offset_left = 653.0
+offset_top = 446.0
+offset_right = 855.0
+offset_bottom = 584.0
+
+[node name="brush" parent="." instance=ExtResource("5_4tgmk")]
+position = Vector2(439, 247)
+rotation = 0.359538
+item_id = "brush"
+texture = ExtResource("8_sqj6n")
+
+[connection signal="pressed" from="RightArrow" to="." method="_on_right_pressed"]
+[connection signal="pressed" from="LeftArrow" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="LinkButtonBox1" to="." method="_on_box1_pressed"]
+[connection signal="pressed" from="LinkButtonBox2" to="." method="_on_box2_pressed"]

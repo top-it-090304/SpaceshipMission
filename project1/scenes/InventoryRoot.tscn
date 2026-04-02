@@ -1,0 +1,91 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8le3fmn8kbgs"]
+
+[ext_resource type="Script" uid="uid://diwejurmuu4wl" path="res://scenes/inventory_root (4).gd" id="1_8thu0"]
+[ext_resource type="Texture2D" uid="uid://cowsqc4tplsm7" path="res://ImagesBackground/InventorySlots.png" id="2_8thu0"]
+[ext_resource type="Texture2D" uid="uid://d14j1ypfneb3c" path="res://items/down-arrow .png" id="3_ptwqu"]
+
+[node name="InventoryRoot" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_8thu0")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 311.0
+offset_right = 961.0
+offset_bottom = 130.0
+grow_horizontal = 2
+texture = ExtResource("2_8thu0")
+
+[node name="Slots" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Slot1" type="TextureRect" parent="Slots"]
+layout_mode = 0
+offset_left = 344.0
+offset_top = 37.0
+offset_right = 412.0
+offset_bottom = 94.0
+mouse_filter = 0
+
+[node name="Slot2" type="TextureRect" parent="Slots"]
+layout_mode = 0
+offset_left = 430.0
+offset_top = 40.0
+offset_right = 498.0
+offset_bottom = 96.0
+mouse_filter = 0
+
+[node name="Slot3" type="TextureRect" parent="Slots"]
+layout_mode = 0
+offset_left = 518.0
+offset_top = 36.0
+offset_right = 583.0
+offset_bottom = 98.0
+mouse_filter = 0
+
+[node name="Slot4" type="TextureRect" parent="Slots"]
+layout_mode = 0
+offset_left = 604.0
+offset_top = 39.0
+offset_right = 671.0
+offset_bottom = 95.0
+mouse_filter = 0
+
+[node name="Slot5" type="TextureRect" parent="Slots"]
+layout_mode = 0
+offset_left = 689.0
+offset_top = 41.0
+offset_right = 759.0
+offset_bottom = 89.0
+mouse_filter = 0
+
+[node name="Slot6" type="TextureRect" parent="Slots"]
+layout_mode = 0
+offset_left = 775.0
+offset_top = 39.0
+offset_right = 846.0
+offset_bottom = 98.0
+mouse_filter = 0
+
+[node name="Slot7" type="TextureRect" parent="Slots"]
+layout_mode = 0
+offset_left = 861.0
+offset_top = 36.0
+offset_right = 932.0
+offset_bottom = 94.0
+mouse_filter = 0
+
+[node name="ToggleButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 612.0
+offset_top = 140.0
+offset_right = 662.0
+offset_bottom = 190.0
+texture_normal = ExtResource("3_ptwqu")
+
+[connection signal="pressed" from="ToggleButton" to="." method="_on_toggle_button_pressed"]

@@ -1,0 +1,89 @@
+[gd_scene load_steps=9 format=3 uid="uid://dutw422wybcdt"]
+
+[ext_resource type="Script" uid="uid://dgano5u56k0y8" path="res://scenes/start_menu.gd" id="1_fb70i"]
+[ext_resource type="Texture2D" uid="uid://iysdncnu6lfv" path="res://ImagesBackground/start background.png" id="2_fgoeh"]
+[ext_resource type="Texture2D" uid="uid://5w6bt5u0iijm" path="res://items/button start.png" id="3_kcs48"]
+[ext_resource type="FontFile" uid="uid://b7dduljs7hlra" path="res://Iceberg-Regular.ttf" id="4_aso40"]
+[ext_resource type="Script" uid="uid://caai4vakasfqh" path="res://scenes/button.gd" id="4_kcs48"]
+
+[sub_resource type="Animation" id="Animation_cuvp2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background/Button:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.166667, 0.5, 0.966667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(600, 322), Vector2(612, 310), Vector2(612, 310)]
+}
+
+[sub_resource type="Animation" id="Animation_aso40"]
+resource_name = "shake "
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background/Button:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667, 0.166667, 0.266667, 0.366667, 0.466667, 0.566667, 0.666667, 0.766667, 0.866667, 0.966667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(611, 322), Vector2(614, 320), Vector2(617, 318), Vector2(615, 319), Vector2(612, 317), Vector2(614, 315), Vector2(612, 317), Vector2(612, 318), Vector2(615, 321), Vector2(614, 318)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_frkif"]
+_data = {
+&"RESET": SubResource("Animation_cuvp2"),
+&"shake ": SubResource("Animation_aso40")
+}
+
+[node name="StartMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_fb70i")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1278.0
+offset_bottom = 718.0
+texture = ExtResource("2_fgoeh")
+
+[node name="Button" type="Button" parent="Background"]
+clip_contents = true
+layout_mode = 0
+offset_left = 600.0
+offset_top = 322.0
+offset_right = 658.0
+offset_bottom = 380.0
+icon = ExtResource("3_kcs48")
+script = ExtResource("4_kcs48")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = 1282.0
+offset_bottom = 123.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("4_aso40")
+theme_override_font_sizes/bold_italics_font_size = 120
+theme_override_font_sizes/italics_font_size = 120
+theme_override_font_sizes/mono_font_size = 120
+theme_override_font_sizes/normal_font_size = 120
+theme_override_font_sizes/bold_font_size = 120
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_frkif")
+}
+autoplay = "shake "
+speed_scale = 0.904
+
+[connection signal="pressed" from="Background/Button" to="." method="_on_start_button_pressed"]
