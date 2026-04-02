@@ -10,3 +10,4 @@ var ball_cleaned: bool = false
 var robot_powered: bool = false
 var panel_solved: bool = false
 var panel_game_won: bool = false
+var ship_panel_opened: bool = false

@@ -26,9 +26,6 @@ var messages_already_unlocked: Array[String] = [
 var messages_no_access: Array[String] = [
 	"🚫 Нет доступа. Сначала подтвердите личность на панели управления.",
 ]
-var messages_no_starmap: Array[String] = [
-	"🌌 Система навигации повреждена. Для корректировки маршрута и прокладки курса через аномальную зону необходима звёздная карта. Найдите её.",
-]
 
 var active_dialog: Panel = null
 var active_label: RichTextLabel = null
@@ -85,19 +82,16 @@ func _on_stars_pressed() -> void:
 	var main_game := get_tree().get_first_node_in_group("MainGame")
 	if main_game == null:
 		return
-	var inventory = main_game.get_node("UILayer/InventoryRoot")
 
-	if not main_game.screen_unlocked:
+	# Открываем Panel только если личность подтверждена
+	if main_game.screen_unlocked:
+		main_game.open_panel()
+	else:
 		_open_dialog(stars_dialog, stars_label, stars_next, messages_no_access)
-		return
+	
 
-	if inventory.get_selected_item_id() == "starmap":
-		inventory.remove_item("starmap")
-		inventory.clear_selection()
-		# main_game.open_starmap_minigame()
-		return
 
-	_open_dialog(stars_dialog, stars_label, stars_next, messages_no_starmap)
+
 
 func _open_dialog(dialog: Panel, label: RichTextLabel, next_btn: TextureButton, messages: Array[String]) -> void:
 	active_dialog = dialog

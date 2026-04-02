@@ -311,3 +311,19 @@ func close_ball() -> void:
 	var inv = $UILayer/InventoryRoot
 	if inv.is_open:
 		inv._on_toggle_button_pressed()
+# -------- ship panel (Room1) --------
+var panel_scene := preload("res://logicitems/shipManage/Panel.tscn")
+var panel_instance: Node = null
+
+func open_panel() -> void:
+	if panel_instance != null:
+		return
+	panel_instance = panel_scene.instantiate()
+	$MiniGameLayer.add_child(panel_instance)
+
+func close_panel() -> void:
+	if panel_instance:
+		panel_instance.queue_free()
+		panel_instance = null
+	room_index = 1
+	_load_room(room_index)
