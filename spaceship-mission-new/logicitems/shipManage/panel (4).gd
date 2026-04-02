@@ -1,5 +1,19 @@
 extends Node2D
 
+@onready var dialog_box: Panel = $DialogBox
+@onready var dialog_label: RichTextLabel = $DialogBox/DialogLabel
+@onready var next_button: TextureButton = $DialogBox/NextButton
+
+const TYPE_SPEED: float = 0.035
+var dialog_messages: Array[String] = [
+	"Навигация корабля сбита",
+	"Придеться откалибровать полет вручную...",
+]
+var dialog_index: int = 0
+var is_typing: bool = false
+var full_text: String = ""
+
+
 # --- Константы первой мини-игры (экраны) ---
 const CORRECT_LEFT: int = 160
 const CORRECT_RIGHT: int = 70
@@ -79,6 +93,22 @@ func _ready() -> void:
 	joy_left.button_up.connect(func(): if joy_input.x < 0: joy_input.x = 0)
 	joy_right.button_down.connect(func(): joy_input.x = 1)
 	joy_right.button_up.connect(func(): if joy_input.x > 0: joy_input.x = 0)
+	
+	if GameState.ship_fully_solved:
+		left_screen.visible = true
+		right_screen.visible = true
+		left_screen.color = Color(0.0, 0.8, 0.2, 0.6)
+		right_screen.color = Color(0.0, 0.8, 0.2, 0.6)
+		screen_bg.visible = true
+		screen_bg.color = Color(0.0, 1.0, 0.1, 0.3)
+		game_won = true
+		dialog_box.visible = false
+		return  # ← диалог не показываем, игра не запускается заново
+	next_button.pressed.connect(_on_dialog_next)
+	next_button.visible = false
+	dialog_label.text = ""
+	dialog_box.visible = true
+	_show_dialog_message(0)
 
 func _process(delta: float) -> void:
 	if not joystick_active or game_won:
@@ -194,6 +224,7 @@ func _on_game_won() -> void:
 	screen_bg.visible = true
 	screen_bg.color = Color(0.0, 1.0, 0.1, 0.3)
 	GameState.panel_game_won = true
+	GameState.ship_fully_solved = true
 
 func _random_far_pos(from: Vector2) -> Vector2:
 	var pos: Vector2
@@ -210,3 +241,32 @@ func _on_back_pressed() -> void:
 	var main_game := get_tree().get_first_node_in_group("MainGame")
 	if main_game:
 		main_game.close_panel()
+		
+		
+func _show_dialog_message(index: int) -> void:
+	full_text = dialog_messages[index]
+	dialog_label.text = ""
+	next_button.visible = false
+	is_typing = true
+	_type_next_char(0)
+
+func _type_next_char(char_idx: int) -> void:
+	if char_idx > full_text.length():
+		is_typing = false
+		next_button.visible = true
+		return
+	dialog_label.text = full_text.substr(0, char_idx)
+	await get_tree().create_timer(TYPE_SPEED).timeout
+	_type_next_char(char_idx + 1)
+
+func _on_dialog_next() -> void:
+	if is_typing:
+		is_typing = false
+		dialog_label.text = full_text
+		next_button.visible = true
+		return
+	dialog_index += 1
+	if dialog_index >= dialog_messages.size():
+		dialog_box.visible = false
+		return
+	_show_dialog_message(dialog_index)
