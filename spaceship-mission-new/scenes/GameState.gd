@@ -8,3 +8,4 @@ var ball_cleaned: bool = false
 
 # Room4 — робот
 var robot_powered: bool = false
+var panel_solved: bool = false

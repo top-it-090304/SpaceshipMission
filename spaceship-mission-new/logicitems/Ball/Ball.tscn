@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b1fy3rvcpy4tq"]
 
 [ext_resource type="Texture2D" uid="uid://b5pnce45knoss" path="res://ImagesBackground/ballbackground.png" id="1_3pv5o"]
-[ext_resource type="Script" path="res://logicitems/Ball/ball (2).gd" id="1_f40br"]
+[ext_resource type="Script" uid="uid://crx7oqhybh6wy" path="res://logicitems/Ball/ball (2).gd" id="1_f40br"]
 [ext_resource type="Texture2D" uid="uid://ch4kncjxv2o5" path="res://items/right-arrow.png" id="2_atptk"]
 [ext_resource type="Texture2D" uid="uid://dtssbgpdfm7wv" path="res://items/Rerson.png" id="3_atptk"]
 
