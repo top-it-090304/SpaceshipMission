@@ -124,6 +124,15 @@ func _on_slot_gui_input(idx: int, event: InputEvent) -> void:
 				var card_viewer = main_game.get_node_or_null("UILayer/CardViewer")
 				if card_viewer:
 					card_viewer.show_card()
+	if selected_index >= 0 and items[selected_index] == "starmap":
+		var main_game := get_tree().get_first_node_in_group("MainGame")
+		if main_game:
+			var card_viewer2 = main_game.get_node_or_null("UILayer/CardViewer2")
+			if card_viewer2:
+				card_viewer2.show_card()
+
+
+	
 
 func _update_slots() -> void:
 	for i in range(slots.size()):

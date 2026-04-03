@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://lqwo3aoiphos"]
+[gd_scene load_steps=13 format=3 uid="uid://lqwo3aoiphos"]
 
 [ext_resource type="Script" uid="uid://5neu0xnxqb4x" path="res://scenes/main_game (9).gd" id="1_7f7ne"]
 [ext_resource type="PackedScene" uid="uid://b8le3fmn8kbgs" path="res://scenes/InventoryRoot.tscn" id="2_xej52"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://b4q8vctdwf4vl" path="res://items/card1box.png" id="8_7f7ne"]
 [ext_resource type="Texture2D" uid="uid://jejls1h06xkx" path="res://items/setting.png" id="9_7f7ne"]
 [ext_resource type="Texture2D" uid="uid://c4dlqwql8ioaj" path="res://items/paperbig.png" id="10_rtryj"]
+[ext_resource type="Script" uid="uid://r75voyoo8lgi" path="res://scenes/card_viewer_2.gd" id="10_vs82q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xej52"]
 bg_color = Color(0.310617, 0.310617, 0.310617, 1)
@@ -122,7 +123,7 @@ anchors_preset = 0
 offset_left = -1.0
 offset_right = 39.0
 offset_bottom = 40.0
-script = ExtResource("7_1hpqh")
+script = ExtResource("10_vs82q")
 
 [node name="CardImage" type="TextureRect" parent="UILayer/CardViewer2"]
 layout_mode = 0
