@@ -18,6 +18,11 @@ var platformer_scene := preload("res://minigame/platformer/scenes/main.tscn")
 var platformer_instance: Node = null
 var platformer_solved: bool = false
 
+# jumper
+var jumper_scene := preload("res://minigame/jumper/scenes/main.tscn")
+var jumper_instance: Node = null
+var jumper_solved: bool = false
+
 # 15puzzle
 var board_scene := preload("res://minigame/15puzzle/Board.tscn")
 var board_instance: Node = null
@@ -162,6 +167,11 @@ func _load_room(index: int) -> void:
 		var banner_plat := current_room.get_node_or_null("SolvedBannerPlatformer")
 		if banner_plat:
 			banner_plat.visible = true
+
+	if index == 3 and jumper_solved and current_room:
+		var banner_jumper := current_room.get_node_or_null("SolvedBannerJumper")
+		if banner_jumper:
+			banner_jumper.visible = true
 
 func _on_room_go_left() -> void:
 	var next := room_index - 1
@@ -327,3 +337,25 @@ func close_panel() -> void:
 		panel_instance = null
 	room_index = 1
 	_load_room(room_index)
+
+# -------- jumper --------
+func open_jumper() -> void:
+	if jumper_instance != null:
+		return
+	jumper_instance = jumper_scene.instantiate()
+	jumper_instance.connect("game_won", Callable(self, "on_jumper_solved"))
+	$MiniGameLayer.add_child(jumper_instance)
+	$UILayer.visible = false
+
+func close_jumper() -> void:
+	if jumper_instance:
+		jumper_instance.queue_free()
+		jumper_instance = null
+	get_tree().paused = false
+	$UILayer.visible = true
+	room_index = 3
+	_load_room(room_index)
+
+func on_jumper_solved() -> void:
+	jumper_solved = true
+	close_jumper()

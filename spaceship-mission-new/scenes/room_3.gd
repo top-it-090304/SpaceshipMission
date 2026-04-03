@@ -36,3 +36,11 @@ func _on_platformer_button_pressed() -> void:
 	if main_game.platformer_solved:
 		return
 	main_game.open_platformer()
+
+func _on_jumper_button_pressed() -> void:
+	var main_game := get_tree().get_first_node_in_group("MainGame")
+	if main_game == null:
+		return
+	if main_game.jumper_solved:
+		return
+	main_game.open_jumper()
