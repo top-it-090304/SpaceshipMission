@@ -1,6 +1,6 @@
 extends Control
 
-const CARD_TEXTURE: Texture2D = preload("res://items/card1box.png")
+const CARD_TEXTURE: Texture2D = preload("res://items/paperbig.png")
 const CLOSE_ARROW: Texture2D  = preload("res://items/right-arrow.png")
 
 @onready var card_image: TextureRect   = $CardImage

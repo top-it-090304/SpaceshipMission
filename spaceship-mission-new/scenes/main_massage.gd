@@ -4,9 +4,10 @@ extends Control
 @onready var story_label: RichTextLabel = $TextStart
 
 var full_text: String = "СТАТУС КОРАБЛЯ: КРИТИЧЕСКИЙ
-Ядро — отказ ❌
-Питание — отключено ❌
-Дверь блока — заблокирована ❌
+Ядро - отказ ❌
+Питание - отключено ❌
+Дверь блока - заблокирована ❌
+Навигация - сбита ❌
 Последняя запись бортового дневника была сохранена в памяти робота ARIA ✅"
 var char_index: int = 0
 var type_speed: float = 0.02

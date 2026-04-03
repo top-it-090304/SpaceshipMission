@@ -23,7 +23,7 @@ var item_textures := {
 	"key": preload("res://items/key_1.png"),
 	"card": preload("res://items/result_card1box.png"),
 	"keycard": preload("res://items/cardnotnumber.png"),
-	"starmap": preload("res://items/starmap.png")
+	"starmap": preload("res://items/papersmall.png")
 }
 
 @onready var slots := [
