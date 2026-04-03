@@ -2,7 +2,7 @@ extends Node
 
 signal game_won
 
-const WIN_SCORE: int = 100
+const WIN_SCORE: int = 500
 const BASE_SPEED: float = 300.0
 const MAX_SPEED: float = 600.0
 const SPAWN_MIN: float = 0.8

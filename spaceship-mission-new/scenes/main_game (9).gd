@@ -14,7 +14,7 @@ var room_index: int = 1
 const FADE_DURATION: float = 0.4
 
 # platformer
-var platformer_scene := preload("res://minigame/platformer/scenes/main.tscn")
+var platformer_scene := preload("res://minigame/jumper/scenes/main.tscn")
 var platformer_instance: Node = null
 var platformer_solved: bool = false
 
