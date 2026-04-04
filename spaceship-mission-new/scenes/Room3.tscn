@@ -115,9 +115,25 @@ offset_right = 671.0
 offset_bottom = 433.0
 color = Color(0.447059, 0.658824, 0.223529, 0.65098)
 
+[node name="ButtonPipeGame" type="Button" parent="."]
+offset_left = 813.0
+offset_top = 235.0
+offset_right = 865.0
+offset_bottom = 416.0
+flat = true
+
+[node name="SolvedBannerPipeGame" type="ColorRect" parent="."]
+visible = false
+offset_left = 821.0
+offset_top = 243.0
+offset_right = 856.0
+offset_bottom = 283.0
+color = Color(0.447059, 0.658824, 0.223529, 0.65098)
+
 [connection signal="pressed" from="LeftArrow" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="RightArrow" to="." method="_on_right_pressed"]
 [connection signal="pressed" from="Minigame/15Puzzels" to="." method="_on_puzzle_button_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_flask_button_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_platformer_button_pressed"]
 [connection signal="pressed" from="ButtonJumper" to="." method="_on_jumper_button_pressed"]
+[connection signal="pressed" from="ButtonPipeGame" to="." method="_on_pipe_game_button_pressed"]

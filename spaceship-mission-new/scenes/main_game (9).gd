@@ -23,6 +23,11 @@ var jumper_scene := preload("res://minigame/jumper/scenes/main.tscn")
 var jumper_instance: Node = null
 var jumper_solved: bool = false
 
+# PipeGame
+var pipe_game_scene := preload("res://minigame/PipeGame/PipeGame.tscn")
+var pipe_game_instance: Node = null
+var pipe_game_solved: bool = false
+
 # 15puzzle
 var board_scene := preload("res://minigame/15puzzle/Board.tscn")
 var board_instance: Node = null
@@ -172,6 +177,11 @@ func _load_room(index: int) -> void:
 		var banner_jumper := current_room.get_node_or_null("SolvedBannerJumper")
 		if banner_jumper:
 			banner_jumper.visible = true
+
+	if index == 3 and pipe_game_solved and current_room:
+		var banner_pipe := current_room.get_node_or_null("SolvedBannerPipeGame")
+		if banner_pipe:
+			banner_pipe.visible = true
 
 func _on_room_go_left() -> void:
 	var next := room_index - 1
@@ -338,12 +348,36 @@ func close_panel() -> void:
 	room_index = 1
 	_load_room(room_index)
 
+# -------- PipeGame --------
+func open_pipe_game() -> void:
+	if pipe_game_instance != null:
+		return
+	pipe_game_instance = pipe_game_scene.instantiate()
+	pipe_game_instance.connect("puzzle_solved", Callable(self, "on_pipe_game_solved"))
+	pipe_game_instance.connect("puzzle_exit", Callable(self, "close_pipe_game"))
+	$MiniGameLayer.add_child(pipe_game_instance)
+	$UILayer.visible = false
+
+func close_pipe_game() -> void:
+	if pipe_game_instance:
+		pipe_game_instance.queue_free()
+		pipe_game_instance = null
+	get_tree().paused = false
+	$UILayer.visible = true
+	room_index = 3
+	_load_room(room_index)
+
+func on_pipe_game_solved() -> void:
+	pipe_game_solved = true
+	close_pipe_game()
+
 # -------- jumper --------
 func open_jumper() -> void:
 	if jumper_instance != null:
 		return
 	jumper_instance = jumper_scene.instantiate()
 	jumper_instance.connect("game_won", Callable(self, "on_jumper_solved"))
+	jumper_instance.connect("game_exit", Callable(self, "close_jumper"))
 	$MiniGameLayer.add_child(jumper_instance)
 	$UILayer.visible = false
 

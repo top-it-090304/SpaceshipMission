@@ -32,16 +32,8 @@ offset_bottom = 385.0
 texture_normal = ExtResource("3_7f7ed")
 
 [node name="GridContainer" type="GridContainer" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 379.0
-offset_top = 103.0
-offset_right = 1122.0
-offset_bottom = 809.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 3
+offset_left = 380.0
+offset_top = 100.0
+offset_right = 900.0
+offset_bottom = 620.0
 columns = 4

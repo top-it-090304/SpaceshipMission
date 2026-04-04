@@ -1,9 +1,10 @@
 extends Node2D
 
 signal puzzle_solved
+signal puzzle_exit
 
 const GRID_SIZE := 4
-const TILE_SIZE := 96
+const TILE_SIZE := 130
 
 # ── Pipe type IDs ──────────────────────────────────────────────────────────────
 const STRAIGHT := 0  # pipe_straight.png — LEFT | RIGHT          at rot 0
@@ -36,6 +37,8 @@ const BASE_MASKS := {
 }
 
 # ── State ──────────────────────────────────────────────────────────────────────
+var _won: bool = false
+
 var _grid_types:    Array = []   # STRAIGHT / BEND / TEE / CROSS / EMPTY per cell
 var _grid_rots:     Array = []   # current player rotation steps (0–3)
 var _solution_rots: Array = []   # correct rotation steps for each pipe tile
@@ -51,13 +54,21 @@ var _exit_dir:  int
 
 @onready var _grid_container: GridContainer = $GridContainer
 @onready var _win_label:      Label         = $WinLabel
+@onready var _exit_button:    TextureButton = $TextureButton
 
 
 # ── Life-cycle ─────────────────────────────────────────────────────────────────
 func _ready() -> void:
+	_exit_button.pressed.connect(_on_exit_pressed)
 	_load_textures()
 	_generate_puzzle()
 	_build_grid()
+
+
+func _on_exit_pressed() -> void:
+	if _won:
+		return
+	puzzle_exit.emit()
 
 
 # ── Textures ───────────────────────────────────────────────────────────────────
@@ -250,7 +261,11 @@ func _on_cell_input(event: InputEvent, idx: int) -> void:
 		_grid_rots[idx]                  = (_grid_rots[idx] + 1) % 4
 		_tex_rects[idx].rotation_degrees = _grid_rots[idx] * 90.0
 		if _check_win_by_flow():
+			if _won:
+				return
+			_won = true
 			_win_label.show()
+			await get_tree().create_timer(2.0).timeout
 			puzzle_solved.emit()
 
 

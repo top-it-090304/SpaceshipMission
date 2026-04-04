@@ -1,6 +1,7 @@
 extends Node
 
 signal game_won
+signal game_exit
 
 const WIN_SCORE: int = 500
 const BASE_SPEED: float = 300.0
@@ -177,8 +178,4 @@ func _on_close() -> void:
 		
 func _exit_button_pressed() -> void:
 	game_running = false
-	var main_game := get_tree().get_first_node_in_group("MainGame")
-	if main_game:
-		main_game.close_jumper()
-	else:
-		get_tree().change_scene_to_file("res://scenes/Room3.tscn")
+	emit_signal("game_exit")
