@@ -1,9 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://dwhrn3uncfeqq"]
+[gd_scene load_steps=4 format=3 uid="uid://dwhrn3uncfeqq"]
 
 [ext_resource type="Script" uid="uid://c2tavi04k8aqv" path="res://minigame/PipeGame/PipeGame.gd" id="1_pipegm"]
+[ext_resource type="Texture2D" uid="uid://bs166owg0q5gj" path="res://minigame/PipeGame/images/pipes_background.png" id="2_w0irs"]
+[ext_resource type="Texture2D" uid="uid://c13a6h4iv6bw4" path="res://items/left-arrow.png" id="3_7f7ed"]
 
 [node name="PipeGame" type="Node2D"]
 script = ExtResource("1_pipegm")
+
+[node name="WinLabel" type="Label" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 120
+text = "ПОБЕДА!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1274.0
+offset_bottom = 724.0
+texture = ExtResource("2_w0irs")
 
 [node name="GridContainer" type="GridContainer" parent="."]
 anchors_preset = 8
@@ -11,19 +30,18 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 323.0
-offset_top = 57.0
-offset_right = 971.0
-offset_bottom = 646.0
+offset_left = 379.0
+offset_top = 103.0
+offset_right = 1122.0
+offset_bottom = 809.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_vertical = 3
 columns = 4
 
-[node name="WinLabel" type="Label" parent="."]
-visible = false
-offset_left = 50.0
-offset_top = 454.0
-offset_right = 434.0
-offset_bottom = 510.0
-text = "Puzzle Solved!"
-horizontal_alignment = 1
+[node name="TextureButton" type="TextureButton" parent="."]
+offset_left = 105.0
+offset_top = 327.0
+offset_right = 155.0
+offset_bottom = 385.0
+texture_normal = ExtResource("3_7f7ed")

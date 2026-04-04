@@ -6,38 +6,48 @@ const GRID_SIZE := 4
 const TILE_SIZE := 96
 
 # ── Pipe type IDs ──────────────────────────────────────────────────────────────
-const STRAIGHT := 0  # pipe_straight.png – horizontal line at rot 0
-const BEND     := 1  # pipe_bend.png     – L-corner (BOTTOM+LEFT) at rot 0
-const TEE      := 2  # pipe_tee.png      – T-shape (LEFT+RIGHT+BOTTOM) at rot 0
-const CROSS    := 3  # pipe_cross.png    – plus (all 4)
+const STRAIGHT := 0  # pipe_straight.png — LEFT | RIGHT          at rot 0
+const BEND     := 1  # pipe_bend.png     — TOP  | RIGHT          at rot 0
+const TEE      := 2  # pipe_tee.png      — RIGHT | BOTTOM | LEFT at rot 0
+const CROSS    := 3  # pipe_cross.png    — all four directions
+const EMPTY    := 4  # empty.png         — no connections, never rotates
 
 const PIPE_FILES := {
 	STRAIGHT: "pipe_straight.png",
 	BEND:     "pipe_bend.png",
 	TEE:      "pipe_tee.png",
 	CROSS:    "pipe_cross.png",
+	EMPTY:    "empty.png",
 }
 
-# ── Bitmask directions: TOP=1, RIGHT=2, BOTTOM=4, LEFT=8 ──────────────────────
+# ── Direction bitmasks ─────────────────────────────────────────────────────────
 const TOP    := 1
 const RIGHT  := 2
 const BOTTOM := 4
 const LEFT   := 8
 
-# Base masks at rotation-step 0.
-# Rotating 1 step CW shifts bits left by 1 (with wrap): TOP→RIGHT→BOTTOM→LEFT→TOP
+# ── Base connection masks at rotation step 0 ──────────────────────────────────
 const BASE_MASKS := {
 	STRAIGHT: 10,  # RIGHT(2) + LEFT(8)
-	BEND:     12,  # BOTTOM(4) + LEFT(8)
+	BEND:      3,  # TOP(1)   + RIGHT(2)
 	TEE:      14,  # RIGHT(2) + BOTTOM(4) + LEFT(8)
-	CROSS:    15,  # all
+	CROSS:    15,  # all four
+	EMPTY:     0,
 }
 
 # ── State ──────────────────────────────────────────────────────────────────────
-var _grid_types: Array = []   # pipe type per cell
-var _grid_rots:  Array = []   # current rotation steps (0-3) per cell
-var _tex_rects:  Array = []   # inner TextureRect per cell (the rotating part)
-var _textures:   Dictionary = {}
+var _grid_types:    Array = []   # STRAIGHT / BEND / TEE / CROSS / EMPTY per cell
+var _grid_rots:     Array = []   # current player rotation steps (0–3)
+var _solution_rots: Array = []   # correct rotation steps for each pipe tile
+var _tex_rects:     Array = []   # TextureRect nodes (the rotating parts)
+var _textures:      Dictionary = {}
+
+# Entry and exit: border cells where the pipeline begins and ends.
+# Each has a pos (Vector2i) and an outward direction bit (toward the grid edge).
+var _entry_pos: Vector2i
+var _entry_dir: int
+var _exit_pos:  Vector2i
+var _exit_dir:  int
 
 @onready var _grid_container: GridContainer = $GridContainer
 @onready var _win_label:      Label         = $WinLabel
@@ -53,13 +63,12 @@ func _ready() -> void:
 # ── Textures ───────────────────────────────────────────────────────────────────
 func _load_textures() -> void:
 	var base := "res://minigame/PipeGame/"
-	for t in [STRAIGHT, BEND, TEE, CROSS]:
+	for t in [STRAIGHT, BEND, TEE, CROSS, EMPTY]:
 		_textures[t] = load(base + PIPE_FILES[t])
 
 
 # ── Bitmask helpers ────────────────────────────────────────────────────────────
-
-# Rotate mask 90° clockwise once: TOP→RIGHT→BOTTOM→LEFT→TOP
+# Rotate mask 90° clockwise: TOP→RIGHT→BOTTOM→LEFT→TOP
 func _rot_cw(mask: int) -> int:
 	return ((mask << 1) | (mask >> 3)) & 0xF
 
@@ -72,130 +81,112 @@ func _get_mask(pipe_type: int, steps: int) -> int:
 	return m
 
 
-# ── Position rules ─────────────────────────────────────────────────────────────
-#
-#   Corners (both axes on boundary)  → must be BEND
-#   Edges   (one axis on boundary)   → must be STRAIGHT
-#   Interior (1 ≤ x ≤ 2, 1 ≤ y ≤ 2) → any type
-#
-# Returns BEND, STRAIGHT, or -1 (interior, no constraint).
-func _forced_type_for(cell: Vector2i) -> int:
-	var on_col_edge := (cell.x == 0 or cell.x == GRID_SIZE - 1)
-	var on_row_edge := (cell.y == 0 or cell.y == GRID_SIZE - 1)
-	if on_col_edge and on_row_edge: return BEND      # corner
-	if on_col_edge or on_row_edge:  return STRAIGHT  # non-corner edge
-	return -1                                         # interior
+# Direction bit from `from` toward the adjacent cell `to`.
+func _dir_toward(from: Vector2i, to: Vector2i) -> int:
+	var d := to - from
+	if d == Vector2i(0, -1): return TOP
+	if d == Vector2i(1,  0): return RIGHT
+	if d == Vector2i(0,  1): return BOTTOM
+	return LEFT  # d == Vector2i(-1, 0)
 
 
-# Return the first rotation step (0-3) where pipe_type's mask is a
-# superset of req_mask (i.e. all required bits are present).
-# Returns 0 as fallback — callers guarantee valid inputs.
-func _find_rotation_for(pipe_type: int, req_mask: int) -> int:
-	for r in 4:
-		if (_get_mask(pipe_type, r) & req_mask) == req_mask:
-			return r
-	return 0
+# Outward border direction for a border cell (points away from the grid).
+func _border_dir(pos: Vector2i) -> int:
+	if pos.x == 0:             return LEFT
+	if pos.x == GRID_SIZE - 1: return RIGHT
+	if pos.y == 0:             return TOP
+	return BOTTOM
 
 
-# True if every forced cell on the path can satisfy its required connections.
-# A forced cell is valid when at least one rotation of its forced type
-# produces a mask that is a superset of the bits required by its path neighbours.
-func _path_valid_for_constraints(path: Array) -> bool:
-	for i in path.size():
-		var cell: Vector2i = path[i]
-		var ftype := _forced_type_for(cell)
-		if ftype == -1:
-			continue  # interior cells are unconstrained
-
-		var req := 0
-		if i > 0:
-			req |= _dir_bit(cell, path[i - 1])
-		if i < path.size() - 1:
-			req |= _dir_bit(cell, path[i + 1])
-
-		var ok := false
-		for r in 4:
-			if (_get_mask(ftype, r) & req) == req:
-				ok = true
-				break
-		if not ok:
-			return false
-	return true
+# Convert a connection bitmask to [pipe_type, rotation] by trying every
+# combination until the rotated base mask matches exactly.
+func _mask_to_pipe(mask: int) -> Array:
+	for ptype in [STRAIGHT, BEND, TEE, CROSS]:
+		for rot in 4:
+			if _get_mask(ptype, rot) == mask:
+				return [ptype, rot]
+	return [STRAIGHT, 0]  # should never be reached for valid 2-bit masks
 
 
 # ── Puzzle generation ──────────────────────────────────────────────────────────
+#
+# Algorithm:
+#  1. Fill the entire grid with EMPTY.
+#  2. Pick a random border cell as entry and another as exit.
+#  3. Find a random non-self-crossing path between them via randomised DFS.
+#  4. For each path cell, build the connection bitmask from its path neighbours
+#     (plus the outward border direction at the two endpoints).
+#  5. Convert each bitmask to the correct pipe type and rotation.
+#  6. Scramble every pipe tile (non-empty) by adding 1–3 rotation steps so that
+#     no tile starts in the solved position.
 func _generate_puzzle() -> void:
 	var total := GRID_SIZE * GRID_SIZE
 	_grid_types.resize(total)
+	_solution_rots.resize(total)
 	_grid_rots.resize(total)
 
-	# ── Step 1: find a path that respects type constraints ─────────────────────
-	# The DFS is randomised; most edge-hugging paths are valid. Re-roll up to
-	# 100 times. If none passes validation, use a guaranteed fallback L-path.
-	var path: Array = []
-	for _try in 100:
-		var candidate: Array = []
-		var visited: Dictionary = {}
-		_dfs(Vector2i(0, 0), Vector2i(GRID_SIZE - 1, GRID_SIZE - 1), visited, candidate)
-		if _path_valid_for_constraints(candidate):
-			path = candidate
-			break
+	# ── 1. Start with a fully empty grid ──────────────────────────────────────
+	for i in total:
+		_grid_types[i]    = EMPTY
+		_solution_rots[i] = 0
+		_grid_rots[i]     = 0
 
-	if path.is_empty():
-		# Guaranteed-valid fallbacks: two L-shapes around the grid border.
-		# Both respect the edge/corner rules (straight edges, bent corners).
-		if randi() % 2 == 0:
-			# right along top edge, then down the right edge
-			path = [Vector2i(0,0), Vector2i(1,0), Vector2i(2,0), Vector2i(3,0),
-					Vector2i(3,1), Vector2i(3,2), Vector2i(3,3)]
-		else:
-			# down the left edge, then right along the bottom edge
-			path = [Vector2i(0,0), Vector2i(0,1), Vector2i(0,2), Vector2i(0,3),
-					Vector2i(1,3), Vector2i(2,3), Vector2i(3,3)]
-
-	# ── Step 2: stamp correct types + solution rotations on path cells ─────────
-	var path_set: Dictionary = {}
-	for i in path.size():
-		var cell: Vector2i = path[i]
-		path_set[cell] = true
-
-		# Build required connection bitmask from path neighbours.
-		var req := 0
-		if i > 0:
-			req |= _dir_bit(cell, path[i - 1])
-		if i < path.size() - 1:
-			req |= _dir_bit(cell, path[i + 1])
-
-		# Override type based on position, then find the rotation that satisfies req.
-		var ftype := _forced_type_for(cell)
-		var pipe_type: int = ftype if ftype != -1 else (randi() % 4)
-		var correct_rot := _find_rotation_for(pipe_type, req)
-
-		var idx := cell.y * GRID_SIZE + cell.x
-		_grid_types[idx] = pipe_type
-		_grid_rots[idx]  = correct_rot  # store SOLUTION rotation; scrambled below
-
-	# ── Step 3: fill every non-path cell ──────────────────────────────────────
-	# Corners and edges are still forced to their required type; interiors are random.
+	# ── 2. Pick entry and exit on the border ──────────────────────────────────
+	var border_cells: Array = []
 	for ry in GRID_SIZE:
 		for cx in GRID_SIZE:
-			var cell := Vector2i(cx, ry)
-			if path_set.has(cell):
-				continue
-			var idx := ry * GRID_SIZE + cx
-			var ftype := _forced_type_for(cell)
-			_grid_types[idx] = ftype if ftype != -1 else (randi() % 4)
-			_grid_rots[idx]  = randi() % 4
+			if cx == 0 or cx == GRID_SIZE - 1 or ry == 0 or ry == GRID_SIZE - 1:
+				border_cells.append(Vector2i(cx, ry))
+	border_cells.shuffle()
 
-	# ── Step 4: scramble every cell by a non-zero offset ──────────────────────
-	# Adding 1-3 guarantees no cell starts at its solution orientation.
+	_entry_pos = border_cells[0]
+	_entry_dir = _border_dir(_entry_pos)
+
+	# Exit: any other border cell (prefer opposite side for a longer path)
+	_exit_pos = border_cells[border_cells.size() - 1]
+	if _exit_pos == _entry_pos:
+		_exit_pos = border_cells[1]
+	_exit_dir = _border_dir(_exit_pos)
+
+	# ── 3. Random walk from entry to exit ─────────────────────────────────────
+	var path:    Array      = []
+	var visited: Dictionary = {_entry_pos: true}
+	_dfs_path(_entry_pos, _exit_pos, visited, path)
+
+	# ── 4 & 5. Assign pipe types and solution rotations along the path ────────
+	for i in path.size():
+		var cell: Vector2i = path[i]
+		var mask := 0
+
+		if i == 0:
+			# Entry cell: outward opening toward grid edge + opening to next cell.
+			mask |= _entry_dir
+			mask |= _dir_toward(cell, path[i + 1])
+		elif i == path.size() - 1:
+			# Exit cell: outward opening toward grid edge + opening to prev cell.
+			mask |= _exit_dir
+			mask |= _dir_toward(cell, path[i - 1])
+		else:
+			# Middle cell: connects previous and next path cells.
+			mask |= _dir_toward(cell, path[i - 1])
+			mask |= _dir_toward(cell, path[i + 1])
+
+		var result := _mask_to_pipe(mask)
+		var idx    := cell.y * GRID_SIZE + cell.x
+		_grid_types[idx]    = result[0]
+		_solution_rots[idx] = result[1]
+
+	# ── 6. Scramble: non-empty cells get a random non-zero rotation offset ────
 	for i in total:
-		_grid_rots[i] = (_grid_rots[i] + 1 + randi() % 3) % 4
+		if _grid_types[i] == EMPTY:
+			_grid_rots[i] = 0
+		else:
+			_grid_rots[i] = (_solution_rots[i] + 1 + randi() % 3) % 4
 
 
-# ── DFS path-finder with backtracking (unchanged) ─────────────────────────────
-func _dfs(cur: Vector2i, goal: Vector2i, visited: Dictionary, path: Array) -> bool:
-	visited[cur] = true
+# ── Randomised DFS path-finder with backtracking ──────────────────────────────
+func _dfs_path(cur: Vector2i, goal: Vector2i,
+			   visited: Dictionary, path: Array) -> bool:
 	path.append(cur)
 	if cur == goal:
 		return true
@@ -209,24 +200,16 @@ func _dfs(cur: Vector2i, goal: Vector2i, visited: Dictionary, path: Array) -> bo
 			continue
 		if visited.has(nxt):
 			continue
-		if _dfs(nxt, goal, visited, path):
+		visited[nxt] = true
+		if _dfs_path(nxt, goal, visited, path):
 			return true
+		visited.erase(nxt)
 
-	visited.erase(cur)
 	path.pop_back()
 	return false
 
 
-# Bitmask bit for the direction from `from` toward `to`.
-func _dir_bit(from: Vector2i, to: Vector2i) -> int:
-	var d: Vector2i = to - from
-	if d == Vector2i(0, -1): return TOP
-	if d == Vector2i(1,  0): return RIGHT
-	if d == Vector2i(0,  1): return BOTTOM
-	return LEFT
-
-
-# ── Grid construction (Control cell + inner TextureRect) ───────────────────────
+# ── Grid construction ──────────────────────────────────────────────────────────
 func _build_grid() -> void:
 	_grid_container.columns = GRID_SIZE
 
@@ -234,7 +217,6 @@ func _build_grid() -> void:
 		for c in GRID_SIZE:
 			var idx := r * GRID_SIZE + c
 
-			# Outer cell: fixed 96×96 Control, never rotates, catches clicks.
 			var cell := Control.new()
 			cell.custom_minimum_size   = Vector2(TILE_SIZE, TILE_SIZE)
 			cell.size                  = Vector2(TILE_SIZE, TILE_SIZE)
@@ -242,8 +224,6 @@ func _build_grid() -> void:
 			cell.size_flags_vertical   = Control.SIZE_SHRINK_CENTER
 			cell.clip_contents         = true
 
-			# Inner TextureRect: the ONLY node that rotates.
-			# Pivot at its own centre → image stays inside the cell at any angle.
 			var tex := TextureRect.new()
 			tex.texture          = _textures[_grid_types[idx]]
 			tex.expand_mode      = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
@@ -266,23 +246,38 @@ func _on_cell_input(event: InputEvent, idx: int) -> void:
 	if event is InputEventMouseButton \
 			and event.button_index == MOUSE_BUTTON_LEFT \
 			and event.pressed:
-		_grid_rots[idx]               = (_grid_rots[idx] + 1) % 4
+		if _grid_types[idx] == EMPTY:
+			return  # empty tiles cannot be rotated
+		_grid_rots[idx]                  = (_grid_rots[idx] + 1) % 4
 		_tex_rects[idx].rotation_degrees = _grid_rots[idx] * 90.0
 		if _check_win_by_flow():
 			_win_label.show()
 			puzzle_solved.emit()
 
 
-# ── Win check: flood-fill via bitmask ─────────────────────────────────────────
-# Enters a neighbour only when current mask opens toward it AND neighbour opens back.
+# ── Win check: flood-fill from the entry cell ─────────────────────────────────
+#
+# A step from cell A to neighbour B is valid only when BOTH are true:
+#   • A's current rotated mask opens in the direction toward B.
+#   • B's current rotated mask opens back in the direction toward A.
+#
+# Two conditions must both pass:
+#   1. The flood fill reaches _exit_pos (the exit border cell).
+#   2. visited.size() == total number of non-empty tiles on the grid —
+#      guarantees no disconnected pipe segment exists anywhere.
 func _check_win_by_flow() -> bool:
-	var goal  := Vector2i(GRID_SIZE - 1, GRID_SIZE - 1)
-	var start := Vector2i(0, 0)
-	var visited: Dictionary = {start: true}
-	var queue: Array        = [start]
+	# Count every pipe tile (non-empty) on the actual generated grid.
+	var pipe_count := 0
+	for i in _grid_types.size():
+		if _grid_types[i] != EMPTY:
+			pipe_count += 1
 
-	# [grid offset, bit I must open, bit neighbour must open back]
-	var conns := [
+	# Flood-fill from the exact entry cell set during puzzle generation.
+	var visited: Dictionary = {}
+	visited[_entry_pos] = true
+	var queue: Array = [_entry_pos]
+
+	var steps := [
 		[Vector2i(0, -1), TOP,    BOTTOM],
 		[Vector2i(1,  0), RIGHT,  LEFT  ],
 		[Vector2i(0,  1), BOTTOM, TOP   ],
@@ -291,24 +286,55 @@ func _check_win_by_flow() -> bool:
 
 	while not queue.is_empty():
 		var cur: Vector2i = queue.pop_front()
-		if cur == goal:
-			return true
+		var cur_idx  := cur.y * GRID_SIZE + cur.x
+		# Always read _grid_rots (current player rotation), never _solution_rots.
+		var cur_mask := _get_mask(_grid_types[cur_idx], _grid_rots[cur_idx])
 
-		var idx     := cur.y * GRID_SIZE + cur.x
-		var my_mask := _get_mask(_grid_types[idx], _grid_rots[idx])
-
-		for conn in conns:
-			if not (my_mask & conn[1]):
+		for step in steps:
+			# A must open toward B.
+			if not (cur_mask & step[1]):
 				continue
-			var nxt: Vector2i = cur + conn[0]
+			var nxt: Vector2i = cur + step[0]
+			# Stay inside the grid.
 			if nxt.x < 0 or nxt.x >= GRID_SIZE or nxt.y < 0 or nxt.y >= GRID_SIZE:
 				continue
 			if visited.has(nxt):
 				continue
-			var nidx   := nxt.y * GRID_SIZE + nxt.x
-			var n_mask := _get_mask(_grid_types[nidx], _grid_rots[nidx])
-			if n_mask & conn[2]:
-				visited[nxt] = true
-				queue.append(nxt)
+			var nxt_idx := nxt.y * GRID_SIZE + nxt.x
+			# Empty tiles are never part of the pipeline.
+			if _grid_types[nxt_idx] == EMPTY:
+				continue
+			# B must open back toward A.
+			var nxt_mask := _get_mask(_grid_types[nxt_idx], _grid_rots[nxt_idx])
+			if not (nxt_mask & step[2]):
+				continue
+			visited[nxt] = true
+			queue.append(nxt)
 
-	return false
+	# ── DEBUG ─────────────────────────────────────────────────────────────────
+	print("=== WIN CHECK ===")
+	print("Entry: ", _entry_pos, " dir: ", _entry_dir,
+		  "  Exit: ", _exit_pos,  " dir: ", _exit_dir)
+	print("Total non-empty cells: ", pipe_count)
+	print("Visited cells count:   ", visited.size())
+	print("Exit reached:          ", visited.has(_exit_pos))
+	for ry in GRID_SIZE:
+		for cx in GRID_SIZE:
+			var dbg_idx  := ry * GRID_SIZE + cx
+			var dbg_mask := _get_mask(_grid_types[dbg_idx], _grid_rots[dbg_idx])
+			print("Cell [", ry, ",", cx, "]",
+				  "  type=",    _grid_types[dbg_idx],
+				  "  cur_rot=", _grid_rots[dbg_idx],
+				  "  sol_rot=", _solution_rots[dbg_idx],
+				  "  mask=",    dbg_mask)
+	# ── END DEBUG ──────────────────────────────────────────────────────────────
+
+	# Condition 1: the exit border cell must be reachable from the entry.
+	if not visited.has(_exit_pos):
+		return false
+
+	# Condition 2: every pipe tile must have been reached — no floating segments.
+	if visited.size() != pipe_count:
+		return false
+
+	return true

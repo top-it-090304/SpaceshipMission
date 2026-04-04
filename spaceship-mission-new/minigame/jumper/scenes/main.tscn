@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bq1xdunt137es"]
+[gd_scene load_steps=8 format=3 uid="uid://bq1xdunt137es"]
 
 [ext_resource type="Script" uid="uid://baywxa8qxcqpr" path="res://minigame/jumper/scenes/main.gd" id="1_jmain"]
 [ext_resource type="PackedScene" uid="uid://c7682rnfolln5" path="res://minigame/jumper/scenes/player.tscn" id="2_jmain"]
+[ext_resource type="Texture2D" uid="uid://c13a6h4iv6bw4" path="res://items/left-arrow.png" id="3_scwe8"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4dhqc"]
 load_path = "res://.godot/imported/layer1.png-8aefb0a5985dbab0a45e2e982cfe6f41.ctex"
@@ -104,4 +105,12 @@ text = "ПОБЕДА!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Exit" type="TextureButton" parent="."]
+offset_left = 18.0
+offset_top = 317.0
+offset_right = 68.0
+offset_bottom = 367.0
+texture_normal = ExtResource("3_scwe8")
+
 [connection signal="pressed" from="GameOver/RetryButton" to="." method="_restart_game"]
+[connection signal="pressed" from="Exit" to="." method="_exit_button_pressed"]

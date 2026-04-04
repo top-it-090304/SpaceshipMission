@@ -15,6 +15,8 @@ var game_running: bool = false
 var spawn_timer: float = 0.0
 var next_spawn: float = 1.5
 var obstacles: Array = []
+var _flag_spawned: bool = false
+var _flag_node: Node = null
 
 @onready var player := $Player
 @onready var score_label := $HUD/ScoreLabel
@@ -34,6 +36,10 @@ func new_game() -> void:
 	game_running = false
 	spawn_timer = 0.0
 	next_spawn = 1.5
+	_flag_spawned = false
+	if is_instance_valid(_flag_node):
+		_flag_node.queue_free()
+	_flag_node = null
 	for obs in obstacles:
 		if is_instance_valid(obs):
 			if obs.body_entered.is_connected(_on_obstacle_hit):
@@ -55,15 +61,18 @@ func _get_current_speed() -> float:
 func _process(delta: float) -> void:
 	if not game_running:
 		return
-	score_float += delta * 10.0
-	score = int(score_float)
-	_update_score()
-	if score >= WIN_SCORE:
-		_win()
-		return
+	if not _flag_spawned:
+		score_float += delta * 10.0
+		score = int(score_float)
+		_update_score()
+	if not _flag_spawned and score >= WIN_SCORE:
+		_spawn_flag()
 	spawn_timer += delta
 	if spawn_timer >= next_spawn:
-		_spawn_obstacle()
+		if randi() % 2 == 0:
+			_spawn_obstacle_group()
+		else:
+			_spawn_obstacle()
 		spawn_timer = 0.0
 		next_spawn = randf_range(SPAWN_MIN, SPAWN_MAX)
 	var spd := _get_current_speed()
@@ -73,6 +82,8 @@ func _process(delta: float) -> void:
 			if obs.position.x < -150:
 				obs.queue_free()
 				obstacles.erase(obs)
+	if is_instance_valid(_flag_node):
+		_flag_node.position.x -= spd * delta
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
@@ -102,6 +113,15 @@ func _spawn_obstacle() -> void:
 	add_child(obs)
 	obstacles.append(obs)
 
+func _spawn_obstacle_group() -> void:
+	var count := randi_range(1, 3)
+	for i in count:
+		var obs = obstacle_scene.instantiate()
+		obs.position = Vector2(1400 + i * 45.0, 585)
+		obs.body_entered.connect(_on_obstacle_hit)
+		add_child(obs)
+		obstacles.append(obs)
+
 func _on_obstacle_hit(body: Node) -> void:
 	if body == player:
 		_game_over()
@@ -109,6 +129,38 @@ func _on_obstacle_hit(body: Node) -> void:
 func _game_over() -> void:
 	game_running = false
 	game_over_node.show()
+
+func _spawn_flag() -> void:
+	_flag_spawned = true
+	var flag := Area2D.new()
+
+	var sprite := Sprite2D.new()
+	sprite.texture = load("res://minigame/jumper/images/flag.png")
+	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	sprite.scale = Vector2(0.22, 0.22)
+	# anchor bottom of sprite to ground (y=600); sprite is centered so offset up by half its scaled height
+	sprite.position = Vector2(0, -sprite.texture.get_height() * 0.22 / 2.0)
+	flag.add_child(sprite)
+
+	var shape := CollisionShape2D.new()
+	var rect := RectangleShape2D.new()
+	rect.size = Vector2(30, 55)
+	shape.shape = rect
+	shape.position = Vector2(0, -27.5)
+	flag.add_child(shape)
+
+	flag.position = Vector2(1400, 612)
+	flag.body_entered.connect(_on_flag_reached)
+	add_child(flag)
+	_flag_node = flag
+
+func _on_flag_reached(body: Node) -> void:
+	if body != player:
+		return
+	game_running = false
+	win_node.show()
+	await get_tree().create_timer(2.5).timeout
+	emit_signal("game_won")
 
 func _win() -> void:
 	game_running = false
@@ -122,3 +174,11 @@ func _on_close() -> void:
 	var main_game := get_tree().get_first_node_in_group("MainGame")
 	if main_game:
 		main_game.close_jumper()
+		
+func _exit_button_pressed() -> void:
+	game_running = false
+	var main_game := get_tree().get_first_node_in_group("MainGame")
+	if main_game:
+		main_game.close_jumper()
+	else:
+		get_tree().change_scene_to_file("res://scenes/Room3.tscn")
