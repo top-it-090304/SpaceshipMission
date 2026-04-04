@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dc0v3crn672oh"
-path="res://.godot/imported/pipe_straight.png-a13c4cdcdefda1c4c7dec044e688b5dd.ctex"
+uid="uid://12u5idapltga"
+path="res://.godot/imported/pipe_bend.png-22bd27429acc803a43fa637c50b82b34.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://minigame/PipeGame/pipe_straight.png"
-dest_files=["res://.godot/imported/pipe_straight.png-a13c4cdcdefda1c4c7dec044e688b5dd.ctex"]
+source_file="res://minigame/PipeGame/images/pipe_bend.png"
+dest_files=["res://.godot/imported/pipe_bend.png-22bd27429acc803a43fa637c50b82b34.ctex"]
 
 [params]
 

@@ -24,6 +24,13 @@ offset_right = 1274.0
 offset_bottom = 724.0
 texture = ExtResource("2_w0irs")
 
+[node name="TextureButton" type="TextureButton" parent="."]
+offset_left = 105.0
+offset_top = 327.0
+offset_right = 155.0
+offset_bottom = 385.0
+texture_normal = ExtResource("3_7f7ed")
+
 [node name="GridContainer" type="GridContainer" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
@@ -38,10 +45,3 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
 columns = 4
-
-[node name="TextureButton" type="TextureButton" parent="."]
-offset_left = 105.0
-offset_top = 327.0
-offset_right = 155.0
-offset_bottom = 385.0
-texture_normal = ExtResource("3_7f7ed")

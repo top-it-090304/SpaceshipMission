@@ -13,11 +13,11 @@ const CROSS    := 3  # pipe_cross.png    — all four directions
 const EMPTY    := 4  # empty.png         — no connections, never rotates
 
 const PIPE_FILES := {
-	STRAIGHT: "pipe_straight.png",
-	BEND:     "pipe_bend.png",
-	TEE:      "pipe_tee.png",
-	CROSS:    "pipe_cross.png",
-	EMPTY:    "empty.png",
+	STRAIGHT: "res://minigame/PipeGame/images/pipe_straight.png",
+	BEND:     "res://minigame/PipeGame/images/pipe_bend.png",
+	TEE:      "res://minigame/PipeGame/images/pipe_tee.png",
+	CROSS:    "res://minigame/PipeGame/images/pipe_cross.png",
+	EMPTY:    "res://minigame/PipeGame/images/empty.png",
 }
 
 # ── Direction bitmasks ─────────────────────────────────────────────────────────
@@ -62,9 +62,8 @@ func _ready() -> void:
 
 # ── Textures ───────────────────────────────────────────────────────────────────
 func _load_textures() -> void:
-	var base := "res://minigame/PipeGame/"
 	for t in [STRAIGHT, BEND, TEE, CROSS, EMPTY]:
-		_textures[t] = load(base + PIPE_FILES[t])
+		_textures[t] = load(PIPE_FILES[t])
 
 
 # ── Bitmask helpers ────────────────────────────────────────────────────────────

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1eassyhd4ju"
-path="res://.godot/imported/empty.png-55ede29c74a7c4dd1e7061fc823664d6.ctex"
+uid="uid://dly4iymsoq0wa"
+path="res://.godot/imported/pipe_tee.png-d9316b32754b73324b9e411cfe0dbc35.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://minigame/PipeGame/empty.png"
-dest_files=["res://.godot/imported/empty.png-55ede29c74a7c4dd1e7061fc823664d6.ctex"]
+source_file="res://minigame/PipeGame/images/pipe_tee.png"
+dest_files=["res://.godot/imported/pipe_tee.png-d9316b32754b73324b9e411cfe0dbc35.ctex"]
 
 [params]
 
