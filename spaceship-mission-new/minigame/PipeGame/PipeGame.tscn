@@ -37,3 +37,10 @@ offset_top = 100.0
 offset_right = 900.0
 offset_bottom = 620.0
 columns = 4
+
+[node name="CheckButton" type="Button" parent="."]
+offset_left = 930.0
+offset_top = 332.0
+offset_right = 986.0
+offset_bottom = 388.0
+text = "✓"

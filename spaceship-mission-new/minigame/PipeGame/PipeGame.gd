@@ -36,33 +36,73 @@ const BASE_MASKS := {
 	EMPTY:     0,
 }
 
+# ── Hardcoded puzzle layout ────────────────────────────────────────────────────
+# Format per cell: [pipe_type, correct_rotation, start_rotation]
+# Empty cells use [4, 0, 0]. start_rotation must differ from correct_rotation
+# for every non-empty tile so the puzzle is not pre-solved.
+#
+# Pipeline path by (col, row):
+#   Entry (0,1) — left border, outward direction = LEFT
+#   (0,1)→(0,2)→(1,2)→(1,3)→(2,3)→(3,3)→(3,2)
+#   Exit  (3,2) — right border, outward direction = RIGHT
+#
+# Mask verification (BEND base=3=TOP|RIGHT, rot CW each step):
+#   rot0=3  TOP|RIGHT
+#   rot1=6  RIGHT|BOTTOM
+#   rot2=12 BOTTOM|LEFT
+#   rot3=9  TOP|LEFT
+#
+#   (0,1) BEND rot2=12 BOTTOM|LEFT  → LEFT(border)+DOWN to (0,2)         ✓
+#   (0,2) BEND rot0= 3 TOP|RIGHT    → UP to (0,1)+RIGHT to (1,2)         ✓
+#   (1,2) BEND rot2=12 BOTTOM|LEFT  → LEFT to (0,2)+DOWN to (1,3)        ✓
+#   (1,3) BEND rot0= 3 TOP|RIGHT    → UP to (1,2)+RIGHT to (2,3)         ✓
+#   (2,3) STRAIGHT rot0=10 LEFT|RIGHT → LEFT to (1,3)+RIGHT to (3,3)     ✓
+#   (3,3) BEND rot3= 9 TOP|LEFT     → LEFT to (2,3)+UP to (3,2)          ✓
+#   (3,2) BEND rot1= 6 RIGHT|BOTTOM → RIGHT(border)+DOWN to (3,3)        ✓
+#
+# All 7 non-empty cells reachable by flood fill from entry, exit reached.  ✓
+const PUZZLE_LAYOUT := [
+	# row 0: all empty
+	[[4, 0, 0], [4, 0, 0], [4, 0, 0], [4, 0, 0]],
+	# row 1: entry cell at col 0 (BEND correct=2 start=0), rest empty
+	[[1, 2, 0], [4, 0, 0], [4, 0, 0], [4, 0, 0]],
+	# row 2: BEND c=0 s=2 | BEND c=2 s=1 | empty | BEND c=1 s=3 (exit)
+	[[1, 0, 2], [1, 2, 1], [4, 0, 0], [1, 1, 3]],
+	# row 3: empty | BEND c=0 s=3 | STRAIGHT c=0 s=1 | BEND c=3 s=1
+	[[4, 0, 0], [1, 0, 3], [0, 0, 1], [1, 3, 1]],
+]
+
+# Entry: col=0, row=1 — opens LEFT toward the left border.
+# Exit:  col=3, row=2 — opens RIGHT toward the right border.
+const ENTRY_POS := Vector2i(0, 1)
+const EXIT_POS  := Vector2i(3, 2)
+
 # ── State ──────────────────────────────────────────────────────────────────────
 var _won: bool = false
 
-var _grid_types:    Array = []   # STRAIGHT / BEND / TEE / CROSS / EMPTY per cell
-var _grid_rots:     Array = []   # current player rotation steps (0–3)
-var _solution_rots: Array = []   # correct rotation steps for each pipe tile
-var _tex_rects:     Array = []   # TextureRect nodes (the rotating parts)
-var _textures:      Dictionary = {}
-
-# Entry and exit: border cells where the pipeline begins and ends.
-# Each has a pos (Vector2i) and an outward direction bit (toward the grid edge).
-var _entry_pos: Vector2i
-var _entry_dir: int
-var _exit_pos:  Vector2i
-var _exit_dir:  int
+var _grid_types: Array = []
+var _grid_rots:  Array = []
+var _tex_rects:  Array = []
+var _textures:   Dictionary = {}
 
 @onready var _grid_container: GridContainer = $GridContainer
 @onready var _win_label:      Label         = $WinLabel
 @onready var _exit_button:    TextureButton = $TextureButton
+@onready var _check_button:   Button        = $CheckButton
+
+# Created in code so it always has a correct viewport-sized rect and sits on top.
+var _red_flash: ColorRect
 
 
 # ── Life-cycle ─────────────────────────────────────────────────────────────────
 func _ready() -> void:
 	_exit_button.pressed.connect(_on_exit_pressed)
+	_check_button.pressed.connect(_on_check_pressed)
+	_style_check_button()
 	_load_textures()
-	_generate_puzzle()
+	_setup_puzzle()
 	_build_grid()
+	_create_red_flash()
 
 
 func _on_exit_pressed() -> void:
@@ -91,132 +131,18 @@ func _get_mask(pipe_type: int, steps: int) -> int:
 	return m
 
 
-# Direction bit from `from` toward the adjacent cell `to`.
-func _dir_toward(from: Vector2i, to: Vector2i) -> int:
-	var d := to - from
-	if d == Vector2i(0, -1): return TOP
-	if d == Vector2i(1,  0): return RIGHT
-	if d == Vector2i(0,  1): return BOTTOM
-	return LEFT  # d == Vector2i(-1, 0)
-
-
-# Outward border direction for a border cell (points away from the grid).
-func _border_dir(pos: Vector2i) -> int:
-	if pos.x == 0:             return LEFT
-	if pos.x == GRID_SIZE - 1: return RIGHT
-	if pos.y == 0:             return TOP
-	return BOTTOM
-
-
-# Convert a connection bitmask to [pipe_type, rotation] by trying every
-# combination until the rotated base mask matches exactly.
-func _mask_to_pipe(mask: int) -> Array:
-	for ptype in [STRAIGHT, BEND, TEE, CROSS]:
-		for rot in 4:
-			if _get_mask(ptype, rot) == mask:
-				return [ptype, rot]
-	return [STRAIGHT, 0]  # should never be reached for valid 2-bit masks
-
-
-# ── Puzzle generation ──────────────────────────────────────────────────────────
-#
-# Algorithm:
-#  1. Fill the entire grid with EMPTY.
-#  2. Pick a random border cell as entry and another as exit.
-#  3. Find a random non-self-crossing path between them via randomised DFS.
-#  4. For each path cell, build the connection bitmask from its path neighbours
-#     (plus the outward border direction at the two endpoints).
-#  5. Convert each bitmask to the correct pipe type and rotation.
-#  6. Scramble every pipe tile (non-empty) by adding 1–3 rotation steps so that
-#     no tile starts in the solved position.
-func _generate_puzzle() -> void:
+# ── Puzzle setup ───────────────────────────────────────────────────────────────
+func _setup_puzzle() -> void:
 	var total := GRID_SIZE * GRID_SIZE
 	_grid_types.resize(total)
-	_solution_rots.resize(total)
 	_grid_rots.resize(total)
 
-	# ── 1. Start with a fully empty grid ──────────────────────────────────────
-	for i in total:
-		_grid_types[i]    = EMPTY
-		_solution_rots[i] = 0
-		_grid_rots[i]     = 0
-
-	# ── 2. Pick entry and exit on the border ──────────────────────────────────
-	var border_cells: Array = []
-	for ry in GRID_SIZE:
-		for cx in GRID_SIZE:
-			if cx == 0 or cx == GRID_SIZE - 1 or ry == 0 or ry == GRID_SIZE - 1:
-				border_cells.append(Vector2i(cx, ry))
-	border_cells.shuffle()
-
-	_entry_pos = border_cells[0]
-	_entry_dir = _border_dir(_entry_pos)
-
-	# Exit: any other border cell (prefer opposite side for a longer path)
-	_exit_pos = border_cells[border_cells.size() - 1]
-	if _exit_pos == _entry_pos:
-		_exit_pos = border_cells[1]
-	_exit_dir = _border_dir(_exit_pos)
-
-	# ── 3. Random walk from entry to exit ─────────────────────────────────────
-	var path:    Array      = []
-	var visited: Dictionary = {_entry_pos: true}
-	_dfs_path(_entry_pos, _exit_pos, visited, path)
-
-	# ── 4 & 5. Assign pipe types and solution rotations along the path ────────
-	for i in path.size():
-		var cell: Vector2i = path[i]
-		var mask := 0
-
-		if i == 0:
-			# Entry cell: outward opening toward grid edge + opening to next cell.
-			mask |= _entry_dir
-			mask |= _dir_toward(cell, path[i + 1])
-		elif i == path.size() - 1:
-			# Exit cell: outward opening toward grid edge + opening to prev cell.
-			mask |= _exit_dir
-			mask |= _dir_toward(cell, path[i - 1])
-		else:
-			# Middle cell: connects previous and next path cells.
-			mask |= _dir_toward(cell, path[i - 1])
-			mask |= _dir_toward(cell, path[i + 1])
-
-		var result := _mask_to_pipe(mask)
-		var idx    := cell.y * GRID_SIZE + cell.x
-		_grid_types[idx]    = result[0]
-		_solution_rots[idx] = result[1]
-
-	# ── 6. Scramble: non-empty cells get a random non-zero rotation offset ────
-	for i in total:
-		if _grid_types[i] == EMPTY:
-			_grid_rots[i] = 0
-		else:
-			_grid_rots[i] = (_solution_rots[i] + 1 + randi() % 3) % 4
-
-
-# ── Randomised DFS path-finder with backtracking ──────────────────────────────
-func _dfs_path(cur: Vector2i, goal: Vector2i,
-			   visited: Dictionary, path: Array) -> bool:
-	path.append(cur)
-	if cur == goal:
-		return true
-
-	var dirs := [Vector2i(0, -1), Vector2i(1, 0), Vector2i(0, 1), Vector2i(-1, 0)]
-	dirs.shuffle()
-
-	for d in dirs:
-		var nxt: Vector2i = cur + d
-		if nxt.x < 0 or nxt.x >= GRID_SIZE or nxt.y < 0 or nxt.y >= GRID_SIZE:
-			continue
-		if visited.has(nxt):
-			continue
-		visited[nxt] = true
-		if _dfs_path(nxt, goal, visited, path):
-			return true
-		visited.erase(nxt)
-
-	path.pop_back()
-	return false
+	for r in GRID_SIZE:
+		for c in GRID_SIZE:
+			var idx  := r * GRID_SIZE + c
+			var cell: Array = PUZZLE_LAYOUT[r][c]
+			_grid_types[idx] = cell[0]  # pipe type
+			_grid_rots[idx]  = cell[2]  # start rotation (scrambled)
 
 
 # ── Grid construction ──────────────────────────────────────────────────────────
@@ -251,6 +177,39 @@ func _build_grid() -> void:
 			cell.gui_input.connect(_on_cell_input.bind(idx))
 
 
+# ── Red flash overlay (created in code, always last child = topmost) ──────────
+func _create_red_flash() -> void:
+	_red_flash = ColorRect.new()
+	_red_flash.color = Color(1, 0, 0, 0.45)
+	_red_flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_red_flash.visible = false
+	add_child(_red_flash)
+	# Must be called AFTER add_child so the node has a parent/viewport to anchor to.
+	_red_flash.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+
+
+# ── Check button circular style ────────────────────────────────────────────────
+func _style_check_button() -> void:
+	var sn := StyleBoxFlat.new()
+	sn.bg_color              = Color(0.18, 0.55, 0.20)
+	sn.corner_radius_top_left     = 28
+	sn.corner_radius_top_right    = 28
+	sn.corner_radius_bottom_left  = 28
+	sn.corner_radius_bottom_right = 28
+	_check_button.add_theme_stylebox_override("normal", sn)
+
+	var sh: StyleBoxFlat = sn.duplicate()
+	sh.bg_color = Color(0.25, 0.68, 0.28)
+	_check_button.add_theme_stylebox_override("hover", sh)
+
+	var sp: StyleBoxFlat = sn.duplicate()
+	sp.bg_color = Color(0.10, 0.40, 0.14)
+	_check_button.add_theme_stylebox_override("pressed", sp)
+
+	_check_button.add_theme_color_override("font_color", Color(1, 1, 1))
+	_check_button.add_theme_font_size_override("font_size", 28)
+
+
 # ── Input ──────────────────────────────────────────────────────────────────────
 func _on_cell_input(event: InputEvent, idx: int) -> void:
 	if event is InputEventMouseButton \
@@ -260,13 +219,21 @@ func _on_cell_input(event: InputEvent, idx: int) -> void:
 			return  # empty tiles cannot be rotated
 		_grid_rots[idx]                  = (_grid_rots[idx] + 1) % 4
 		_tex_rects[idx].rotation_degrees = _grid_rots[idx] * 90.0
-		if _check_win_by_flow():
-			if _won:
-				return
-			_won = true
-			_win_label.show()
-			await get_tree().create_timer(2.0).timeout
-			puzzle_solved.emit()
+
+
+# ── Check button: manual win trigger ──────────────────────────────────────────
+func _on_check_pressed() -> void:
+	if _won:
+		return
+	if _check_win_by_flow():
+		_won = true
+		_win_label.show()
+		await get_tree().create_timer(2.0).timeout
+		puzzle_solved.emit()
+	else:
+		_red_flash.show()
+		await get_tree().create_timer(1.0).timeout
+		_red_flash.hide()
 
 
 # ── Win check: flood-fill from the entry cell ─────────────────────────────────
@@ -276,20 +243,20 @@ func _on_cell_input(event: InputEvent, idx: int) -> void:
 #   • B's current rotated mask opens back in the direction toward A.
 #
 # Two conditions must both pass:
-#   1. The flood fill reaches _exit_pos (the exit border cell).
+#   1. The flood fill reaches EXIT_POS (the exit border cell).
 #   2. visited.size() == total number of non-empty tiles on the grid —
 #      guarantees no disconnected pipe segment exists anywhere.
 func _check_win_by_flow() -> bool:
-	# Count every pipe tile (non-empty) on the actual generated grid.
+	# Count every pipe tile (non-empty) on the grid.
 	var pipe_count := 0
 	for i in _grid_types.size():
 		if _grid_types[i] != EMPTY:
 			pipe_count += 1
 
-	# Flood-fill from the exact entry cell set during puzzle generation.
+	# Flood-fill from the entry cell.
 	var visited: Dictionary = {}
-	visited[_entry_pos] = true
-	var queue: Array = [_entry_pos]
+	visited[ENTRY_POS] = true
+	var queue: Array = [ENTRY_POS]
 
 	var steps := [
 		[Vector2i(0, -1), TOP,    BOTTOM],
@@ -301,7 +268,7 @@ func _check_win_by_flow() -> bool:
 	while not queue.is_empty():
 		var cur: Vector2i = queue.pop_front()
 		var cur_idx  := cur.y * GRID_SIZE + cur.x
-		# Always read _grid_rots (current player rotation), never _solution_rots.
+		# Always read _grid_rots (current player rotation), never correct rotation.
 		var cur_mask := _get_mask(_grid_types[cur_idx], _grid_rots[cur_idx])
 
 		for step in steps:
@@ -325,26 +292,8 @@ func _check_win_by_flow() -> bool:
 			visited[nxt] = true
 			queue.append(nxt)
 
-	# ── DEBUG ─────────────────────────────────────────────────────────────────
-	print("=== WIN CHECK ===")
-	print("Entry: ", _entry_pos, " dir: ", _entry_dir,
-		  "  Exit: ", _exit_pos,  " dir: ", _exit_dir)
-	print("Total non-empty cells: ", pipe_count)
-	print("Visited cells count:   ", visited.size())
-	print("Exit reached:          ", visited.has(_exit_pos))
-	for ry in GRID_SIZE:
-		for cx in GRID_SIZE:
-			var dbg_idx  := ry * GRID_SIZE + cx
-			var dbg_mask := _get_mask(_grid_types[dbg_idx], _grid_rots[dbg_idx])
-			print("Cell [", ry, ",", cx, "]",
-				  "  type=",    _grid_types[dbg_idx],
-				  "  cur_rot=", _grid_rots[dbg_idx],
-				  "  sol_rot=", _solution_rots[dbg_idx],
-				  "  mask=",    dbg_mask)
-	# ── END DEBUG ──────────────────────────────────────────────────────────────
-
 	# Condition 1: the exit border cell must be reachable from the entry.
-	if not visited.has(_exit_pos):
+	if not visited.has(EXIT_POS):
 		return false
 
 	# Condition 2: every pipe tile must have been reached — no floating segments.
