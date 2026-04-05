@@ -30,7 +30,7 @@ const LEFT   := 8
 # ── Base connection masks at rotation step 0 ──────────────────────────────────
 const BASE_MASKS := {
 	STRAIGHT: 10,  # RIGHT(2) + LEFT(8)
-	BEND:      3,  # TOP(1)   + RIGHT(2)
+	BEND:      6,  # RIGHT(2) + BOTTOM(4)  — pipe_bend.png opens RIGHT|BOTTOM at 0°
 	TEE:      14,  # RIGHT(2) + BOTTOM(4) + LEFT(8)
 	CROSS:    15,  # all four
 	EMPTY:     0,
@@ -46,30 +46,30 @@ const BASE_MASKS := {
 #   (0,1)→(0,2)→(1,2)→(1,3)→(2,3)→(3,3)→(3,2)
 #   Exit  (3,2) — right border, outward direction = RIGHT
 #
-# Mask verification (BEND base=3=TOP|RIGHT, rot CW each step):
-#   rot0=3  TOP|RIGHT
-#   rot1=6  RIGHT|BOTTOM
-#   rot2=12 BOTTOM|LEFT
-#   rot3=9  TOP|LEFT
+# Mask verification (BEND base=6=RIGHT|BOTTOM, rot CW each step):
+#   rot0=6  RIGHT|BOTTOM
+#   rot1=12 BOTTOM|LEFT
+#   rot2=9  TOP|LEFT
+#   rot3=3  TOP|RIGHT
 #
-#   (0,1) BEND rot2=12 BOTTOM|LEFT  → LEFT(border)+DOWN to (0,2)         ✓
-#   (0,2) BEND rot0= 3 TOP|RIGHT    → UP to (0,1)+RIGHT to (1,2)         ✓
-#   (1,2) BEND rot2=12 BOTTOM|LEFT  → LEFT to (0,2)+DOWN to (1,3)        ✓
-#   (1,3) BEND rot0= 3 TOP|RIGHT    → UP to (1,2)+RIGHT to (2,3)         ✓
+#   (0,1) BEND rot1=12 BOTTOM|LEFT  → LEFT(border)+DOWN to (0,2)         ✓
+#   (0,2) BEND rot3= 3 TOP|RIGHT    → UP to (0,1)+RIGHT to (1,2)         ✓
+#   (1,2) BEND rot1=12 BOTTOM|LEFT  → LEFT to (0,2)+DOWN to (1,3)        ✓
+#   (1,3) BEND rot3= 3 TOP|RIGHT    → UP to (1,2)+RIGHT to (2,3)         ✓
 #   (2,3) STRAIGHT rot0=10 LEFT|RIGHT → LEFT to (1,3)+RIGHT to (3,3)     ✓
-#   (3,3) BEND rot3= 9 TOP|LEFT     → LEFT to (2,3)+UP to (3,2)          ✓
-#   (3,2) BEND rot1= 6 RIGHT|BOTTOM → RIGHT(border)+DOWN to (3,3)        ✓
+#   (3,3) BEND rot2= 9 TOP|LEFT     → LEFT to (2,3)+UP to (3,2)          ✓
+#   (3,2) BEND rot0= 6 RIGHT|BOTTOM → RIGHT(border)+DOWN to (3,3)        ✓
 #
 # All 7 non-empty cells reachable by flood fill from entry, exit reached.  ✓
 const PUZZLE_LAYOUT := [
 	# row 0: all empty
 	[[4, 0, 0], [4, 0, 0], [4, 0, 0], [4, 0, 0]],
-	# row 1: entry cell at col 0 (BEND correct=2 start=0), rest empty
-	[[1, 2, 0], [4, 0, 0], [4, 0, 0], [4, 0, 0]],
-	# row 2: BEND c=0 s=2 | BEND c=2 s=1 | empty | BEND c=1 s=3 (exit)
-	[[1, 0, 2], [1, 2, 1], [4, 0, 0], [1, 1, 3]],
-	# row 3: empty | BEND c=0 s=3 | STRAIGHT c=0 s=1 | BEND c=3 s=1
-	[[4, 0, 0], [1, 0, 3], [0, 0, 1], [1, 3, 1]],
+	# row 1: entry cell at col 0 (BEND correct=1 start=3), rest empty
+	[[1, 1, 3], [4, 0, 0], [4, 0, 0], [4, 0, 0]],
+	# row 2: BEND c=3 s=1 | BEND c=1 s=0 | empty | BEND c=0 s=2 (exit)
+	[[1, 3, 1], [1, 1, 0], [4, 0, 0], [1, 0, 2]],
+	# row 3: empty | BEND c=3 s=2 | STRAIGHT c=0 s=1 | BEND c=2 s=0
+	[[4, 0, 0], [1, 3, 2], [0, 0, 1], [1, 2, 0]],
 ]
 
 # Entry: col=0, row=1 — opens LEFT toward the left border.
@@ -96,6 +96,7 @@ var _red_flash: ColorRect
 
 # ── Life-cycle ─────────────────────────────────────────────────────────────────
 func _ready() -> void:
+	_win_label.z_index = 10  # draw above TextureRect background
 	_exit_button.pressed.connect(_on_exit_pressed)
 	_check_button.pressed.connect(_on_check_pressed)
 	_style_check_button()
@@ -184,8 +185,11 @@ func _create_red_flash() -> void:
 	_red_flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_red_flash.visible = false
 	add_child(_red_flash)
-	# Must be called AFTER add_child so the node has a parent/viewport to anchor to.
-	_red_flash.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	# PRESET_FULL_RECT only works when the parent is a Control.
+	# PipeGame is Node2D, so set size explicitly from the viewport.
+	var vp_size := get_viewport().get_visible_rect().size
+	_red_flash.position = Vector2.ZERO
+	_red_flash.size = vp_size
 
 
 # ── Check button circular style ────────────────────────────────────────────────
@@ -234,6 +238,19 @@ func _on_check_pressed() -> void:
 		_red_flash.show()
 		await get_tree().create_timer(1.0).timeout
 		_red_flash.hide()
+
+
+# ── Win check: every non-empty tile must be at its correct rotation ───────────
+func _check_win_by_layout() -> bool:
+	for r in GRID_SIZE:
+		for c in GRID_SIZE:
+			var cell: Array = PUZZLE_LAYOUT[r][c]
+			if cell[0] == EMPTY:
+				continue
+			var idx := r * GRID_SIZE + c
+			if _get_mask(_grid_types[idx], _grid_rots[idx]) != _get_mask(cell[0], cell[1]):
+				return false
+	return true
 
 
 # ── Win check: flood-fill from the entry cell ─────────────────────────────────
