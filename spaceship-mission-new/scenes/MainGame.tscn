@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://lqwo3aoiphos"]
 
-[ext_resource type="Script" uid="uid://bh2w7tdyqtbb5" path="res://scenes/main_game (9).gd" id="1_7f7ne"]
+[ext_resource type="Script" uid="uid://5neu0xnxqb4x" path="res://scenes/main_game (9).gd" id="1_7f7ne"]
 [ext_resource type="PackedScene" uid="uid://b8le3fmn8kbgs" path="res://scenes/InventoryRoot.tscn" id="2_xej52"]
 [ext_resource type="Script" uid="uid://bqapxbqcmqmc3" path="res://scenes/dialog_box.gd" id="3_p73vr"]
 [ext_resource type="Texture2D" uid="uid://ch4kncjxv2o5" path="res://items/right-arrow.png" id="4_x628s"]
@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://b4q8vctdwf4vl" path="res://items/card1box.png" id="8_7f7ne"]
 [ext_resource type="Texture2D" uid="uid://jejls1h06xkx" path="res://items/setting.png" id="9_7f7ne"]
 [ext_resource type="Texture2D" uid="uid://c4dlqwql8ioaj" path="res://items/paperbig.png" id="10_rtryj"]
-[ext_resource type="Script" uid="uid://dbe8iar4q56l0" path="res://scenes/card_viewer_2.gd" id="10_vs82q"]
+[ext_resource type="Script" uid="uid://r75voyoo8lgi" path="res://scenes/card_viewer_2.gd" id="10_vs82q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xej52"]
 bg_color = Color(0.310617, 0.310617, 0.310617, 1)
@@ -76,11 +76,11 @@ theme_override_fonts/mono_font = ExtResource("5_7fyak")
 theme_override_fonts/italics_font = ExtResource("5_7fyak")
 theme_override_fonts/bold_italics_font = ExtResource("5_7fyak")
 theme_override_fonts/bold_font = ExtResource("5_7fyak")
-theme_override_font_sizes/bold_italics_font_size = 50
-theme_override_font_sizes/italics_font_size = 50
-theme_override_font_sizes/mono_font_size = 50
-theme_override_font_sizes/normal_font_size = 50
-theme_override_font_sizes/bold_font_size = 50
+theme_override_font_sizes/bold_italics_font_size = 45
+theme_override_font_sizes/italics_font_size = 45
+theme_override_font_sizes/mono_font_size = 45
+theme_override_font_sizes/normal_font_size = 45
+theme_override_font_sizes/bold_font_size = 45
 
 [node name="Person" type="Sprite2D" parent="UILayer/DialogBox"]
 position = Vector2(118, 100)
