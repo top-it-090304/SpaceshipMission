@@ -24,7 +24,8 @@ var item_textures := {
 	"card": preload("res://items/result_card1box.png"),
 	"keycard": preload("res://items/cardnotnumber.png"),
 	"starmap": preload("res://items/papersmall.png"),
-	"tool":preload("res://items/toolcolor.png")
+	"tool":preload("res://items/toolcolor.png"),
+	"reactor":preload("res://items/result_reacterwithcolormini.png")
 }
 
 @onready var slots := [
