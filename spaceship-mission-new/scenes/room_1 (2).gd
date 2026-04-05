@@ -1,4 +1,3 @@
-
 extends Node2D
  
 signal go_left
@@ -12,14 +11,16 @@ var current_messages: Array[String] = []
 const TYPE_SPEED: float = 0.03
  
 # --- Текстуры фона ---
-# Замени BG_ALTERNATE на нужную тебе картинку!
 const BG_DEFAULT   := preload("res://ImagesBackground/result_Room1.png")
 const BG_ALTERNATE := preload("res://ImagesBackground/result_newfirstroomopenwad.png")
  
-var bg_toggled: bool = false
+# --- Текстуры реактора ---
+const REACTOR_DEFAULT := preload("res://items/cardnotnumber.png")  # замени на исходную текстуру Reactor если нужно
+const REACTOR_COLORED := preload("res://ImagesBackground/reacterwithcolor (1).png")
  
-# --- Флаг: скрытый предмет уже взят ---
+var bg_toggled: bool = false
 var hidden_item_taken: bool = false
+var reactor_colored: bool = false  # реактор уже покрашен?
  
 # --- Сообщения для ScreenButton ---
 var messages_no_card: Array[String] = [
@@ -37,6 +38,14 @@ var messages_no_access: Array[String] = [
 	"🚫 Нет доступа. Сначала подтвердите личность на панели управления.",
 ]
  
+# --- Сообщения для Reactor ---
+var messages_reactor_no_tool: Array[String] = [
+	"Реактор повреждён. Нужен подходящий инструмент.",
+]
+var messages_reactor_done: Array[String] = [
+	"✅ Готово! Реактор восстановлен.",
+]
+ 
 var active_dialog: Panel = null
 var active_label: RichTextLabel = null
 var active_next: TextureButton = null
@@ -51,7 +60,9 @@ var active_next: TextureButton = null
 @onready var stars_label: RichTextLabel      = $StarsDialog/DialogLabel
 @onready var stars_next: TextureButton       = $StarsDialog/NextButton
 @onready var bg_toggle_button: TextureButton = $BgToggleButton
-@onready var hidden_button: TextureButton    = $HiddenButton   # появляется только после смены фона
+@onready var hidden_button: TextureButton    = $HiddenButton
+@onready var reactor: Sprite2D               = $Reactor
+@onready var reactor_button: TextureButton   = $ReactorButton
  
 func _ready() -> void:
 	$LeftArrow.pressed.connect(_on_left_pressed)
@@ -69,9 +80,13 @@ func _ready() -> void:
  
 	bg_toggle_button.pressed.connect(_on_bg_toggle_pressed)
  
-	# HiddenButton скрыта по умолчанию
 	hidden_button.visible = false
 	hidden_button.pressed.connect(_on_hidden_button_pressed)
+ 
+	# Reactor — слушаем клик через input_event
+	reactor_button.pressed.connect(_on_reactor_pressed)
+ 
+# -------------------------------------------------------
  
 func _on_left_pressed() -> void:
 	emit_signal("go_left")
@@ -82,38 +97,51 @@ func _on_right_pressed() -> void:
 # --- Переключение фона ---
 func _on_bg_toggle_pressed() -> void:
 	bg_toggled = not bg_toggled
- 
 	if bg_toggled:
 		room_background.texture = BG_ALTERNATE
-		# Показываем скрытую кнопку, только если предмет ещё не взят
 		if not hidden_item_taken:
 			hidden_button.visible = true
 	else:
 		room_background.texture = BG_DEFAULT
-		# Фон вернулся — прячем кнопку (предмет взять уже нельзя в любом случае)
 		hidden_button.visible = false
  
-# --- Скрытая кнопка: открыть инвентарь и добавить предмет (один раз) ---
+# --- Скрытая кнопка: инвентарь + предмет (один раз) ---
 func _on_hidden_button_pressed() -> void:
 	if hidden_item_taken:
 		return
  
 	hidden_item_taken = true
-	hidden_button.visible = false  # больше никогда не появится
+	hidden_button.visible = false
  
 	var main_game := get_tree().get_first_node_in_group("MainGame")
 	if main_game == null:
 		return
  
 	var inventory = main_game.get_node("UILayer/InventoryRoot")
- 
-	# Открываем инвентарь если он закрыт
 	if not inventory.is_open:
 		inventory._on_toggle_button_pressed()
- 
-	# Добавляем предмет — замени "starmap" на нужный тебе ID предмета
-	# Доступные ID: "battery", "screwdriver", "brush", "key", "card", "keycard", "starmap"
 	inventory.add_item("tool")
+ 
+# --- Клик по реактору ---
+func _on_reactor_pressed() -> void:
+	if reactor_colored:
+		return
+	var main_game := get_tree().get_first_node_in_group("MainGame")
+	if main_game == null:
+		return
+	var inventory = main_game.get_node("UILayer/InventoryRoot")
+	if inventory.get_selected_item_id() == "tool":
+		reactor_colored = true
+		reactor.texture = REACTOR_COLORED
+		inventory.remove_item("tool")
+		inventory.clear_selection()
+		_open_screen_dialog(messages_reactor_done)
+	else:
+		_open_screen_dialog(messages_reactor_no_tool)
+ 
+# --- Вспомогательный диалог через ScreenDialog ---
+func _open_screen_dialog(messages: Array[String]) -> void:
+	_open_dialog(screen_dialog, screen_label, screen_next, messages)
  
 # -------------------------------------------------------
  

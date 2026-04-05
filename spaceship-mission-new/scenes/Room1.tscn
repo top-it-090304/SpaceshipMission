@@ -83,7 +83,7 @@ flat = true
 position = Vector2(542, 354)
 texture = ExtResource("6_bj4ne")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Reactor" type="Sprite2D" parent="."]
 position = Vector2(1056.13, 685)
 scale = Vector2(0.275269, 0.21875)
 texture = ExtResource("7_bju5w")
@@ -182,6 +182,12 @@ offset_left = 475.0
 offset_top = 547.0
 offset_right = 737.0
 offset_bottom = 613.0
+
+[node name="ReactorButton" type="TextureButton" parent="."]
+offset_left = 934.0
+offset_top = 630.0
+offset_right = 1176.0
+offset_bottom = 738.0
 
 [connection signal="pressed" from="RightArrow" to="." method="_on_right_pressed"]
 [connection signal="pressed" from="LeftArrow" to="." method="_on_left_pressed"]
