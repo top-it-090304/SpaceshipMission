@@ -21,6 +21,8 @@ config/icon="uid://n8aoi0b2b0f4"
 
 GameState="*res://scenes/GameState.gd"
 AudioManager="*res://scenes/AudioManager.tscn"
+PycoLog="*res://addons/pycolytics/pyco_log.gd"
+AppFocus="*res://scenes/app_focus.gd"
 
 [display]
 

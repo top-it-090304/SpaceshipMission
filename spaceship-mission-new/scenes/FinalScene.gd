@@ -7,6 +7,7 @@ extends Node2D
 const FLY_DURATION := 7.0
 
 func _ready() -> void:
+	PycoLog.log_event_by_type("quest_complete", {})
 	await get_tree().create_timer(0.6).timeout
 	_fly_away()
 

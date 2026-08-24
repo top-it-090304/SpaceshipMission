@@ -20,11 +20,13 @@ func _on_resume_pressed() -> void:
 	queue_free()
 
 func _on_reset_pressed() -> void:
+	PycoLog.log_event_by_type("quest_reset", {})
 	GameState.reset()
 	get_tree().change_scene_to_file("res://scenes/StartMenu.tscn")
 
 func _on_quit_pressed() -> void:
 	GameState.save()
+	await PycoLog.log_stop_playing()
 	get_tree().quit()
 
 func _input(event: InputEvent) -> void:

@@ -356,6 +356,7 @@ func _on_game_won() -> void:
 	lock_bar_fill.visible = false
 	GameState.panel_game_won = true
 	GameState.ship_fully_solved = true
+	PycoLog.log_event_by_type("minigame_solved", {"name": "ship_panel"})
 	_check_door_unlocked()
 
 	dialog_messages = ["Корабль откалиброван"]

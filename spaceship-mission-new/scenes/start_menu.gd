@@ -29,9 +29,11 @@ func _type_next_char() -> void:
 
 func _on_start_button_pressed() -> void:
 	GameState.load_save()  # загружаем сохранение (если есть)
+	PycoLog.log_event_by_type("game_start", {"room": GameState.current_room})
 	get_tree().change_scene_to_file("res://scenes/MainGame.tscn")
 
 
 func _on_quit_button_pressed() -> void:
+	await PycoLog.log_stop_playing()
 	get_tree().quit()
 	

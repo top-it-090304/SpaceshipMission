@@ -174,6 +174,7 @@ func is_item_collected(id: String) -> bool:
 func _go_to_room(index: int) -> void:
 	room_index = index
 	GameState.current_room = index
+	PycoLog.log_event_by_type("room_enter", {"room": index})
 	var tween := create_tween()
 	tween.tween_property(fade_rect, "modulate:a", 1.0, FADE_DURATION)
 	tween.tween_callback(_load_room.bind(room_index))
@@ -281,6 +282,7 @@ func close_board() -> void:
 func on_board_solved() -> void:
 	puzzle_solved_15 = true
 	GameState.puzzle_solved_15 = true
+	PycoLog.log_event_by_type("minigame_solved", {"name": "puzzle15"})
 	_check_power_solved()
 	if current_room and current_room.name == "Room3":
 		var banner := current_room.get_node_or_null("SolvedBanner15")
@@ -312,6 +314,7 @@ func close_flask() -> void:
 func on_flask_solved() -> void:
 	flask_solved = true
 	GameState.flask_solved = true
+	PycoLog.log_event_by_type("minigame_solved", {"name": "flask"})
 	_check_power_solved()
 	close_flask()
 
@@ -350,6 +353,7 @@ func close_chest1() -> void:
 func on_chest1_solved() -> void:
 	chest1_opened = true
 	GameState.chest1_opened = true
+	PycoLog.log_event_by_type("chest_opened", {"chest": 1})
 
 # -------- chest 2 --------
 func open_chest2() -> void:
@@ -370,6 +374,7 @@ func close_chest2() -> void:
 func on_chest2_solved() -> void:
 	chest2_opened = true
 	GameState.chest2_opened = true
+	PycoLog.log_event_by_type("chest_opened", {"chest": 2})
 
 # -------- platformer --------
 func open_platformer() -> void:
@@ -397,6 +402,7 @@ func close_platformer() -> void:
 func on_platformer_solved() -> void:
 	platformer_solved = true
 	GameState.platformer_solved = true
+	PycoLog.log_event_by_type("minigame_solved", {"name": "platformer"})
 	_check_power_solved()
 	close_platformer()
 
@@ -491,6 +497,7 @@ func close_pipe_game() -> void:
 func on_pipe_game_solved() -> void:
 	pipe_game_solved = true
 	GameState.pipe_game_solved = true
+	PycoLog.log_event_by_type("minigame_solved", {"name": "pipe"})
 	_check_power_solved()
 	close_pipe_game()
 
@@ -520,6 +527,7 @@ func close_jumper() -> void:
 func on_jumper_solved() -> void:
 	jumper_solved = true
 	GameState.jumper_solved = true
+	PycoLog.log_event_by_type("minigame_solved", {"name": "jumper"})
 	_check_power_solved()
 	close_jumper()
 
@@ -549,6 +557,7 @@ func close_laser_mirror() -> void:
 func on_laser_mirror_solved() -> void:
 	laser_mirror_solved = true
 	GameState.laser_mirror_solved = true
+	PycoLog.log_event_by_type("minigame_solved", {"name": "laser_mirror"})
 	_check_power_solved()
 	close_laser_mirror()
 
@@ -584,6 +593,7 @@ func on_shell_game_completed(success: bool, _difficulty: int) -> void:
 	if success:
 		shell_game_solved = true
 		GameState.shell_game_solved = true
+		PycoLog.log_event_by_type("minigame_solved", {"name": "shell"})
 
 # -------- FlowConnect --------
 var flow_connect_instance: Node = null
@@ -616,6 +626,7 @@ func close_flow_connect() -> void:
 func on_flow_connect_solved() -> void:
 	flow_connect_solved = true
 	GameState.flow_connect_solved = true
+	PycoLog.log_event_by_type("minigame_solved", {"name": "flow_connect"})
 	close_flow_connect()
 	if current_room:
 		var banner := current_room.get_node_or_null("SolvedBannerFlowConnect")
